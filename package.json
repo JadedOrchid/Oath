@@ -1,0 +1,22 @@
+{
+  "name": "thesis",
+  "version": "1.0.0",
+  "description": "> Pithy project description",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JadedOrchid/thesis.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JadedOrchid/thesis/issues"
+  },
+  "homepage": "https://github.com/JadedOrchid/thesis",
+  "dependencies": {
+    "express": "^4.12.3"
+  }
+}
