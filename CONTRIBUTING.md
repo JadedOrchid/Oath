@@ -10,14 +10,13 @@
     1. [Make commits to your branch](#make-commits-to-your-branch)
     1. [Commit Message Guidelines](#commit-message-guidelines)
     1. [Rebase upstream changes into your branch](#rebase-upstream-changes-into-your-branch)
-    1. [Get your feature implemented into the development branch](#get-your-feature-implemented-into-the-development-branch)
     1. [Make a pull request](#make-a-pull-request)
     1. [Guidelines](#guidelines)
 1. [Workflow Summary](#workflow-summary)
 1. [Checklist](#checklist)
 
 
-Note:  Our project uses the many-branched git-workflow, it is recommended you add you current git-branch to your command-line.
+Note: This project uses the many-branched git-workflow, it is recommended to add current git-branch to your command-line.
   If you use bash look [here](http://code-worrier.com/blog/git-branch-in-bash-prompt/).
   Command line examples will include the faux bash command line: (Current_Branch)$
 
@@ -46,7 +45,7 @@ Note:  Our project uses the many-branched git-workflow, it is recommended you ad
    reviews is to help keep the codebase clean and of high quality and, equally
    as important, to help you grow as a programmer. If your code reviewer
    requests you make a change you don't understand, ask them why.
-1. Fix any issues raised by your code reviwer, and push your fixes as a single
+1. Fix any issues raised by your code reviewer, and push your fixes as a single
    new commit.
 1. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
 
@@ -54,7 +53,7 @@ Note:  Our project uses the many-branched git-workflow, it is recommended you ad
 
 ### Fork the repo
 
-Use github’s interface to make a fork of the repo, then add that repo as an upstream remote:
+Use github’s interface to make a personal fork of the Jaded Orchid repo. Clone your fork locally, this will be your working repo. Add the Jaded Orchid repo as an upstream remote of the local clone:
 
 ```
 git remote add upstream https://github.com/<SOURCE_OF_REPO>/<NAME_OF_REPO>.git
@@ -62,12 +61,11 @@ git remote add upstream https://github.com/<SOURCE_OF_REPO>/<NAME_OF_REPO>.git
 
 ### Be aware of your branch
 
-We are using the Git Workflow seen [here](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) and [here](http://nvie.com/posts/a-successful-git-branching-model/).  In summary:
+For more information on the Git Workflow look [here](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) and [here](http://nvie.com/posts/a-successful-git-branching-model/).  In summary:
 
-  - Branch master is always in a deployable state.
-  - Branch develop is where most work is done.
-    - Most work will be done off of the develop branch, this is where you will create most of your branches.
-      (i.e., feature branches, bugfix branches, test branches, etc...)
+  - Jaded Orchid master is always in a deployable state.
+  - Jaded Orchid develop branch is where most work will be merged into.
+    - The work will be done off of the Jaded Orchid repo, on your local clone. 
 
 ### Cut a namespaced branch from develop
 
@@ -137,7 +135,7 @@ before doing this. If there are no conflicts, this should just roll all
 of your changes back on top of the changes from upstream, leading to a
 nice, clean, linear commit history.
 
-If there are conflicting changes, git will start yelling at you part way
+If there are conflicting changes, git will notify you part way
 through the rebasing process. Git will pause rebasing to allow you to sort
 out the conflicts. You do this the same way you solve merge conflicts,
 by checking all of the files git says have been changed in both histories
@@ -161,35 +159,6 @@ make sure they work also.
 
 If rebasing broke anything, fix it, then repeat the above process until
 you get here again and nothing is broken and all the tests pass.
-
-### Get your feature implemented into the development branch
-[(Ensure that you rebased your code onto upstream before doing this!)](#rebase-upstream-changes-into-your-branch)
-
-Rebase your branch onto development.  This creates a cleaner commit history than using a merge.
-
-```bash
-#Syntax
-(FROM HERE)$ git rebase (TO HERE)
-
-#e.g.,
-(your feature branch)$ git rebase develop
-#This will attach your feature to the develop branch, and implement it
-```
-Like upstream rebasing, you may need to ```git rebase --continue``` through merge conflicts.
-After rebasing, confirm that your code has not broken anything.
-
-Next, we want to use a merge --no-ff to logically separate your commit, while
-maintaining a clean, linear commit history.
-
-```bash
-#Syntax:
-(Parent Branch)$ git merge --no-ff (Rebased branch)
-
-#e.g.,
-(develop)$ git merge --no-ff feat/docView
-```
-
-Now, push to your repo and make a pull request to the upstream repo:
 
 ### Make a pull request
 
