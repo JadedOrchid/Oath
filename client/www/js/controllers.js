@@ -1,5 +1,6 @@
 angular.module('starter.controllers', [])
 
+
 .controller('DashCtrl', function($scope) {})
 
 // .controller('ChatsCtrl', function($scope, Chats) {
@@ -9,8 +10,8 @@ angular.module('starter.controllers', [])
 //   }
 // })
 
-.controller('GoalCtrl', function($scope, $stateParams) {
-  $scope.user = {};
+.controller('GoalCtrl', function($scope, $stateParams, $state) {
+  $scope.user = {};  
   $scope.goalTypes = [
     "Step Goal",
     "Sleep Goal",
@@ -24,7 +25,13 @@ angular.module('starter.controllers', [])
   $scope.goalClick = function(goal){
     var user = $scope.user;
     user.goalType = goal;
-  }
+    $state.go('goaldetails');
+    // console.log('this is user: ', user)
+  };
+
+  $scope.showScope = function(){
+    console.log("This is the scope", $scope);
+  };
 });
 
 

@@ -79,6 +79,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       controller: 'GoalCtrl'
     })
 
+    .state('goaldetails', {
+      url: '/goaldetails',
+      templateUrl: 'templates/goaldetails.html',
+      controller: 'GoalCtrl'
+    })
+
   .state('tab.account', {
     url: '/account',
     views: {
