@@ -1,7 +1,9 @@
 <ion-view view-title="What kind of goal?">
   <ion-content class="padding">
-    
-    <ion-item>
+    <ion-item collection-repeat="goal in goalTypes" ng-click="goalClick(goal)">
+    {{goal}}
+  </ion-item>
+<!--     <ion-item>
       Step Goal
     </ion-item>
 
@@ -27,7 +29,7 @@
 
     <ion-item>
       Focus Goal
-    </ion-item>
+    </ion-item> -->
 
   </ion-content>
 </ion-view>
