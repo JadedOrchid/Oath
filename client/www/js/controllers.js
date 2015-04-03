@@ -11,8 +11,10 @@ angular.module('starter.controllers', [])
 // })
 
 .controller('GoalCtrl', function($scope, $stateParams, $state) {
-  $scope.user = {};  
-  $scope.goalTypes = [
+  $scope.user = {
+    goalType: 'hi'
+  };
+    $scope.goalTypes = [
     "Step Goal",
     "Sleep Goal",
     "Cycling Distance Goal",
@@ -23,9 +25,12 @@ angular.module('starter.controllers', [])
   ];
 
   $scope.goalClick = function(goal){
-    var user = $scope.user;
-    user.goalType = goal;
+    console.log("This is the goal", goal);
+    // var user = $scope.user;
+    console.log("scope dot user", $scope.user);
+    $scope.user.goalType = goal;
     $state.go('goaldetails');
+    console.log("This is the user obj", user);
     // console.log('this is user: ', user)
   };
 
