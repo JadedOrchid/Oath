@@ -3,24 +3,45 @@ angular.module('starter.services', [])
 
 .service('User', function($state) {
 
-  this.user = {};
+  this.goal = {};
 
   this.returnGoals = function(){
     var goalTypes = [
-      "Step Goal",
-      "Sleep Goal",
-      "Cycling Distance Goal",
-      "Cycling Climbing Goal",
-      "Tech Usage Goal",
-      "Running Distance Goal",
-      "Focus Goal"
+      {
+        title: "Step Goal",
+        unit: "steps"
+      },
+      {
+        title: "Sleep Goal",
+        unit: "hours"
+      },
+      {
+        title: "Cycling Distance Goal",
+        unit: "miles"
+      },
+      {
+        title: "Cycling Climbing Goal",
+        unit: "feet"
+      },
+      {
+        title: "Tech Usage Goal",
+        unit: "minutes"
+      },
+      {
+        title: "Running Distance Goal",
+        unit: "miles"
+      },
+      {
+        title: "Focus Goal",
+        unit: "minutes"
+      }
     ];
 
     return goalTypes;
   };
   
   this.goalClick = function(goal){
-    this.user.goalType = goal;
+    this.goal.goalType = goal;
     $state.go('goaldetails');
   }.bind(this);
 });

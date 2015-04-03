@@ -1,7 +1,33 @@
 <ion-view view-title="What kind of goal?">
   <ion-content class="padding">
 
-  <h1 ng-click="showScope()">{{goalType}} Details</h1>
+  <h1>{{goalType.title}} Details</h1>
+  
+  <!-- set goal  -->
+  <div class="list">
+  <label class="item item-input item-floating-label">
+    <span class="input-label">My goal is to reach ___ {{goalType.unit}}</span>
+    <input ng-model="goalInput" type="text" placeholder="My goal is to reach ___ {{goalType.unit}}">
+  </label>
+
+  <!-- dropdown -->
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Deadline
+    </div>
+    <select ng-model="deadlineInput">
+      <option>One Day</option>
+      <option selected>One Week</option>
+      <option>One Month</option>
+      <option>One Year</option>
+    </select>
+  </label>
+
+  <!-- Submit button -->
+  <button class="button button-block button-positive">submit</button>
+</div>
 
   </ion-content>
 </ion-view>
+
+<!-- Note: forms will need to be validated at some point -->
