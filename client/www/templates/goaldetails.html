@@ -9,7 +9,6 @@
       <input ng-model="unitInput" type="text" placeholder="My goal is to reach ____________ {{goalType.unit}}">
     </label>
 
-    this is the unit input {{unitInput}}
     <!-- dropdown -->
     <label class="item item-input item-select">
       <div class="input-label">
@@ -20,10 +19,8 @@
       </select>
     </label>
 
-    This is timeframe {{timeframe}}
-
     <!-- Submit button -->
-    <button class="button button-block button-positive" ng-click="clicked(timeframe, unitInput)">submit</button>
+    <button class="button button-block button-positive" ng-click="updateGoal(timeframe, unitInput)">submit</button>
     </div>
   </ion-content>
 </ion-view>

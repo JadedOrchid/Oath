@@ -14,11 +14,9 @@ angular.module('starter.controllers', [])
     "One Month",
     "One Year"
   ];
-  $scope.clicked = function(timeframe, unitInput){
+  $scope.updateGoal = function(timeframe, unitInput){
     User.goal.timeframe = this.timeframe;
     User.goal.unitInput = this.unitInput;
-    console.log("This is User.goal", User.goal);
-    console.log("This is this: ", this);
   }
 
 })
