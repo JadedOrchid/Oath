@@ -2,23 +2,23 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('GoalDetailCtrl', function($scope, User, $stateParams, $state){
+.controller('GoalDetailCtrl', function($scope, GoalBuilder, $stateParams, $state){
 
-  $scope.goalType = User.goal.goalType;
-  $scope.times = [
-    "One Day",
-    "One Week",
-    "One Month",
-    "One Year"
-  ];
-  $scope.updateGoal = function(){
-    User.goal.timeframe = this.timeframe;
-    User.goal.unitInput = this.unitInput;
+  $scope.goalType = GoalBuilder.goal.goalType;
+  $scope.times = GoalBuilder.returnTimes();
+
+  $scope.updateDeets = function(){
+    GoalBuilder.goal.timeframe = this.timeframe;
+    GoalBuilder.goal.unitInput = this.unitInput;
+    $state.go('goalsuccess');
   }
-
 })
 
-.controller('GoalCtrl', function($scope, User, $stateParams, $state) {
-  $scope.goalTypes = User.returnGoals();
-  $scope.goalClick = User.goalClick;
+.controller('GoalCtrl', function($scope, GoalBuilder, $stateParams, $state) {
+  $scope.goalTypes = GoalBuilder.returnGoals();
+  $scope.goalClick = GoalBuilder.goalClick;
+})
+
+.controller('GoalSuccessCtrl', function($scope, GoalBuilder, $stateParams, $state) {
+  $scope.successes = GoalBuilder.returnSucesses();
 });
