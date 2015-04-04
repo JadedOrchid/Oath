@@ -3,10 +3,7 @@ angular.module('starter.controllers', [])
 .controller('DashCtrl', function($scope) {})
 
 .controller('GoalDetailCtrl', function($scope, User, $stateParams, $state){
-  User.goal.timeframe = null;
-  User.goal.unitInput = null;
 
-  // $scope.unitInput;
   $scope.goalType = User.goal.goalType;
   $scope.times = [
     "One Day",
@@ -14,7 +11,7 @@ angular.module('starter.controllers', [])
     "One Month",
     "One Year"
   ];
-  $scope.updateGoal = function(timeframe, unitInput){
+  $scope.updateGoal = function(){
     User.goal.timeframe = this.timeframe;
     User.goal.unitInput = this.unitInput;
   }
@@ -23,5 +20,5 @@ angular.module('starter.controllers', [])
 
 .controller('GoalCtrl', function($scope, User, $stateParams, $state) {
   $scope.goalTypes = User.returnGoals();
-  $scope.goalClick = User.goalClick;  
+  $scope.goalClick = User.goalClick;
 });
