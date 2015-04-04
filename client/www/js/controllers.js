@@ -2,26 +2,29 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('GoalDetailCtrl', function($scope, User, $stateParams, $state){
-  User.goal.timeframe = null;
-  User.goal.unitInput = null;
+.controller('GoalDetailCtrl', function($scope, GoalBuilder, $stateParams, $state){
 
-  // $scope.unitInput;
-  $scope.goalType = User.goal.goalType;
-  $scope.times = [
-    "One Day",
-    "One Week",
-    "One Month",
-    "One Year"
-  ];
-  $scope.updateGoal = function(timeframe, unitInput){
-    User.goal.timeframe = this.timeframe;
-    User.goal.unitInput = this.unitInput;
+  $scope.goalType = GoalBuilder.goal.goalType;
+  $scope.times = GoalBuilder.returnTimes();
+
+  $scope.updateDeets = function(){
+    GoalBuilder.goal.timeframe = this.timeframe;
+    GoalBuilder.goal.unitInput = this.unitInput;
+    $state.go('goalsuccess');
   }
-
 })
 
-.controller('GoalCtrl', function($scope, User, $stateParams, $state) {
-  $scope.goalTypes = User.returnGoals();
-  $scope.goalClick = User.goalClick;  
+.controller('GoalCtrl', function($scope, GoalBuilder, $stateParams, $state) {
+  $scope.goalTypes = GoalBuilder.returnGoals();
+  $scope.goalClick = GoalBuilder.goalClick;
+})
+
+.controller('GoalSuccessCtrl', function($scope, GoalBuilder, $stateParams, $state) {
+  $scope.successes = GoalBuilder.returnSucesses();
+  $scope.successClick = GoalBuilder.successClick;
+})
+
+.controller('GoalFailureCtrl', function($scope, GoalBuilder, $stateParams, $state) {
+  $scope.failures = GoalBuilder.returnFailures();
+  $scope.failClick = GoalBuilder.failClick;
 });
