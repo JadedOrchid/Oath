@@ -3,10 +3,9 @@ angular.module('starter.controllers', [])
 .controller('DashCtrl', function($scope) {})
 
 .controller('GoalDetailCtrl', function($scope, User, $stateParams, $state){
-  $scope.details = {
-    selectedItem: null,
-    unitInput: null
-  };
+  User.goal.timeframe = null;
+  User.goal.unitInput = null;
+
   // $scope.unitInput;
   $scope.goalType = User.goal.goalType;
   $scope.times = [
@@ -15,10 +14,10 @@ angular.module('starter.controllers', [])
     "One Month",
     "One Year"
   ];
-  $scope.clicked = function(selectedItem, unitInput){
-    $scope.details.selectedItem = this.selectedItem;
-    $scope.details.unitInput = this.unitInput;
-    console.log("This is scope in the function", $scope);
+  $scope.clicked = function(timeframe, unitInput){
+    User.goal.timeframe = this.timeframe;
+    User.goal.unitInput = this.unitInput;
+    console.log("This is User.goal", User.goal);
     console.log("This is this: ", this);
   }
 

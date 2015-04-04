@@ -15,15 +15,15 @@
       <div class="input-label">
         Deadline
       </div>
-      <select ng-model="selectedItem">
+      <select ng-model="timeframe">
         <option ng-repeat="time in times">{{time}}</option>
       </select>
     </label>
 
-    This is selectedItem {{selectedItem}}
+    This is timeframe {{timeframe}}
 
     <!-- Submit button -->
-    <button class="button button-block button-positive" ng-click="clicked(selectedItem, unitInput)">submit</button>
+    <button class="button button-block button-positive" ng-click="clicked(timeframe, unitInput)">submit</button>
     </div>
   </ion-content>
 </ion-view>
