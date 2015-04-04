@@ -105,10 +105,28 @@
         </div>
     </div>
 
-    <div class="text-center">
-        <p>A demo by <a href="http://scotch.io">Scotch</a>.</p>
-        <p>Visit the <a href="http://scotch.io/tutorials/javascript/easy-node-authentication-setup-and-local">tutorial</a>.</p>
-    </div>
+            <!-- JAWBONE INFORMATION -->
+        <div class="col-sm-6">
+            <div class="well">
+                <h3 class="text-danger"><span class="fa fa-jawbone"></span> Jawbone UP</h3>
+
+                <!-- check if the user has this token (is the user authenticated with this social account) -->
+                <% if (user.jawbone.token) { %>
+                    <p>
+                        <strong>id</strong>: <%= user.jawbone.id %><br>
+                        <strong>token</strong>: <%= user.jawbone.token %><br>
+                        <strong>name</strong>: <%= user.jawbone.name %>
+                    </p>
+
+                    <a href="/unlink/jawbone" class="btn btn-danger">Unlink</a>
+    
+                <% } else { %>
+                    <a href="/connect/jawbone" class="btn btn-danger">Connect Jawbone UP</a>
+                <% } %>
+
+            </div>
+        </div>
+
 
 </div>
 </body>

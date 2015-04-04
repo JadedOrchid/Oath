@@ -1,3 +1,5 @@
+var configAuth = require('./config/auth.js');
+
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
@@ -88,6 +90,18 @@ module.exports = function(app, passport) {
                 failureRedirect : '/'
             }));
 
+    
+    // jawbone
+    // route for jawbone authentication and login
+    app.get('/auth/jawbone', passport.authenticate('jawbone', { scope : ['basic_read','extended_read','friends_read','move_read','sleep_read','meal_read','mood_write'] }));
+
+    // handle the callback after jawbone has authenticated the user
+    app.get('/auth/jawbone/callback',
+        passport.authenticate('jawbone', {
+            successRedirect : '/profile',
+            failureRedirect : '/auth'
+        }));
+
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
 // =============================================================================
@@ -138,6 +152,17 @@ module.exports = function(app, passport) {
                 successRedirect : '/profile',
                 failureRedirect : '/'
             }));
+    // jawbone -------------------------------
+
+        // send to jawbone to do the authentication
+        app.get('/connect/jawbone', passport.authorize('jawbone', { scope : ['basic_read','extended_read','friends_read','move_read','sleep_read','meal_read','mood_read'] }));
+
+        // handle the callback after facebook has authorized the user
+        app.get('/connect/jawbone/callback',
+            passport.authorize('jawbone', {
+                successRedirect : '/profile',
+                failureRedirect : '/auth'
+            }));
 
 // =============================================================================
 // UNLINK ACCOUNTS =============================================================
@@ -183,6 +208,30 @@ module.exports = function(app, passport) {
         });
     });
 
+    // jawbone ---------------------------------
+    app.get('/unlink/jawbone', function(req, res) {
+        var user          = req.user;
+        user.jawbone.token = undefined;
+        user.save(function(err) {
+            res.redirect('/profile');
+        });
+    });
+
+
+    app.get('/dashboard', isLoggedIn, function(req, res) {
+             
+        var options = {
+        'client_id' : configAuth.jawboneAuth.clientID,
+        'client_secret' : configAuth.jawboneAuth.clientSecret,
+        'access_token' : req.user.jawbone.token 
+        };
+        console.log(options);
+        up = require('jawbone-up')(options);
+
+        up.me.get({}, function(err, body) {
+            res.send(body);
+        });       
+});
 
 };
 
