@@ -67,9 +67,9 @@ angular.module('starter.services', [])
     return successTypes;
   }
 
-
   this.successClick = function(success){
     this.goal.success = success;
+    $state.go('goalfailure');
   }.bind(this);
 
   this.returnTimes = function(){
@@ -81,4 +81,25 @@ angular.module('starter.services', [])
     ];
     return times;
   }
+
+  this.returnFailures = function(){
+    var failTypes = [
+      {
+        orgName: 'Tip the developers',
+        description: "We're broke",
+        img: 'imgurl'
+      },
+      {
+        orgName: 'Cupcake of condesention',
+        description: 'Sweets',
+        img: 'imgurl'
+      }
+    ];
+    return failTypes;
+  }
+
+  this.failClick = function(fail){
+    this.goal.fail = fail;
+    console.log(this.goal);
+  }.bind(this);
 });

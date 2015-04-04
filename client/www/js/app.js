@@ -88,6 +88,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/goalsuccess',
       templateUrl: 'templates/goalsuccess.html',
       controller: 'GoalSuccessCtrl'
+    })
+
+    .state('goalfailure', {
+      url: '/goalfailure',
+      templateUrl: 'templates/goalfailure.html',
+      controller: 'GoalFailureCtrl'
     });
 
   // if none of the above states are matched, use this as the fallback

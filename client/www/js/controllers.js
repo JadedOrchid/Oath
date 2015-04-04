@@ -21,4 +21,10 @@ angular.module('starter.controllers', [])
 
 .controller('GoalSuccessCtrl', function($scope, GoalBuilder, $stateParams, $state) {
   $scope.successes = GoalBuilder.returnSucesses();
+  $scope.successClick = GoalBuilder.successClick;
+})
+
+.controller('GoalFailureCtrl', function($scope, GoalBuilder, $stateParams, $state) {
+  $scope.failures = GoalBuilder.returnFailures();
+  $scope.failClick = GoalBuilder.failClick;
 });
