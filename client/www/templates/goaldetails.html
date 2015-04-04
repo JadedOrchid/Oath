@@ -1,32 +1,30 @@
-<ion-view view-title="What kind of goal?">
+<ion-view view-title="What kind of goal?" ng-model="GoalStuff">
   <ion-content class="padding">
+    <h1>{{goalType.title}} Details</h1>
+    
+    <!-- set goal  -->
+    <div class="list">
+    <label class="item item-input item-floating-label">
+      <span class="input-label">My goal is to reach ____________ {{goalType.unit}}</span>
+      <input ng-model="unitInput" type="text" placeholder="My goal is to reach ____________ {{goalType.unit}}">
+    </label>
 
-  <h1>{{goalType.title}} Details</h1>
-  
-  <!-- set goal  -->
-  <div class="list">
-  <label class="item item-input item-floating-label">
-    <span class="input-label">My goal is to reach ___ {{goalType.unit}}</span>
-    <input ng-model="goalInput" type="text" placeholder="My goal is to reach ___ {{goalType.unit}}">
-  </label>
+    this is the unit input {{unitInput}}
+    <!-- dropdown -->
+    <label class="item item-input item-select">
+      <div class="input-label">
+        Deadline
+      </div>
+      <select ng-model="selectedItem">
+        <option ng-repeat="time in times">{{time}}</option>
+      </select>
+    </label>
 
-  <!-- dropdown -->
-  <label class="item item-input item-select">
-    <div class="input-label">
-      Deadline
+    This is selectedItem {{selectedItem}}
+
+    <!-- Submit button -->
+    <button class="button button-block button-positive" ng-click="clicked(selectedItem, unitInput)">submit</button>
     </div>
-    <select ng-model="deadlineInput">
-      <option>One Day</option>
-      <option selected>One Week</option>
-      <option>One Month</option>
-      <option>One Year</option>
-    </select>
-  </label>
-
-  <!-- Submit button -->
-  <button class="button button-block button-positive">submit</button>
-</div>
-
   </ion-content>
 </ion-view>
 
