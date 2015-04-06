@@ -23,9 +23,9 @@ module.exports = function(config) {
       '../bower_components/angular-touch/angular-touch.min.js',
       '../bower_components/angular-ui-router/release/angular-ui-router.js',
       '../bower_components/ionic/js/ionic.js',
-      './**/*.tests.js',
+      '../bower_components/ionic/js/ionic-angular.min.js',
       '../client/www/js/*.js',
-      '../bower_components/ionic/js/ionic-angular.min.js'
+      './**/*.tests.js'
     ],
 
 

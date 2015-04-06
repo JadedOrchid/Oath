@@ -10,19 +10,19 @@ describe("Unit Testing Examples", function () {
     $controller = _$controller_;
   }));
 
-  describe('scopegrade', function() {
-    it('HOPEFULLY THIS WORKS', function() {
-      var $scope = {};
-      var controller = $controller('GoalCtrl', { $scope: $scope });
-    });
+  it('HOPEFULLY THIS WORKS', function() {
+    var $scope = {};
+    // var controller = $controller('GoalCtrl', { $scope: $scope });
+    var controller = $controller('TestCtrl', { $scope: $scope });
+    expect($scope.test).toBeDefined();
   });
 
-  it("should be true", function() {
-    expect(true).toBe(true);
-  });
+  // it("should be true", function() {
+  //   expect(true).toBe(true);
+  // });
 
   it("should have a $scope variable", function() {
-    console.log($scope.Go)
+    console.log($controller)
     expect($scope).toBeDefined();
   });
 });
