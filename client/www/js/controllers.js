@@ -3,10 +3,8 @@ angular.module('starter.controllers', [])
 .controller('DashCtrl', function($scope) {})
 
 .controller('GoalDetailCtrl', function($scope, GoalBuilder, $stateParams, $state){
-
   $scope.goalType = GoalBuilder.goal.goalType;
   $scope.times = GoalBuilder.returnTimes();
-
   $scope.updateDeets = function(){
     GoalBuilder.goal.timeframe = this.timeframe;
     GoalBuilder.goal.unitInput = this.unitInput;

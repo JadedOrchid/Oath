@@ -15,15 +15,15 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '../bower_components/angular/angular.js',
-      '../bower_components/angular-animate/angular-animate.js',
-      '../bower_components/angular-cookies/angular-cookies.js',
-      '../bower_components/angular-mocks/angular-mocks.js',
-      '../bower_components/angular-sanitize/angular-sanitize.min.js',
-      '../bower_components/angular-touch/angular-touch.min.js',
-      '../bower_components/angular-ui-router/release/angular-ui-router.js',
-      '../bower_components/ionic/js/ionic.js',
-      '../bower_components/ionic/js/ionic-angular.min.js',
+      '../client/bower_components/angular/angular.js',
+      '../client/bower_components/angular-animate/angular-animate.js',
+      '../client/bower_components/angular-cookies/angular-cookies.js',
+      '../client/bower_components/angular-mocks/angular-mocks.js',
+      '../client/bower_components/angular-sanitize/angular-sanitize.min.js',
+      '../client/bower_components/angular-touch/angular-touch.min.js',
+      '../client/bower_components/angular-ui-router/release/angular-ui-router.js',
+      '../client/bower_components/ionic/js/ionic.js',
+      '../client/bower_components/ionic/js/ionic-angular.min.js',
       '../client/www/js/*.js',
       './**/*.tests.js'
     ],
@@ -43,7 +43,11 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['nyan'],
+
+    nyanReporter: {
+      suppressErrorReport: false
+    },
 
 
     // web server port
@@ -56,7 +60,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_DEBUG,
+    logLevel: config.LOG_ERROR,
 
 
     // enable / disable watching file and executing tests whenever any file changes
