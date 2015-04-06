@@ -1,4 +1,4 @@
-angular.module('starter.services', [])
+angular.module('starter.factories', [])
 
 
 .factory('GoalBuilder', function($state) {
@@ -49,7 +49,7 @@ angular.module('starter.services', [])
     var successTypes = [
       {
         orgName: 'Arbor Day Foundation',
-        description: 'Plant a trees!',
+        description: 'Plant a tree!',
         price: '$5',
         img: 'imgurl'
       },

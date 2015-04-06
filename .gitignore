@@ -1,8 +1,11 @@
+server/node_modules/
 node_modules/
-bower_components/
+client/bower_components/
 *.log
 
 build/
 dist/
 
 auth.js
+
+*.DS_Store
