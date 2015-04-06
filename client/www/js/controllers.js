@@ -11,7 +11,7 @@ angular.module('starter.controllers', [])
     GoalBuilder.goal.timeframe = this.timeframe;
     GoalBuilder.goal.unitInput = this.unitInput;
     $state.go('goalsuccess');
-  }
+  };
 })
 
 .controller('GoalCtrl', function($scope, GoalBuilder, $stateParams, $state) {
@@ -27,4 +27,11 @@ angular.module('starter.controllers', [])
 .controller('GoalFailureCtrl', function($scope, GoalBuilder, $stateParams, $state) {
   $scope.failures = GoalBuilder.returnFailures();
   $scope.failClick = GoalBuilder.failClick;
+})
+
+.controller('TestCtrl', function($scope, GoalBuilder, $stateParams, $state){
+  $scope.test = 'Testing';
+  $scope.testFunc = function(){
+    return true;
+  };
 });

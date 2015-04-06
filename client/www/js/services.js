@@ -1,9 +1,11 @@
 angular.module('starter.services', [])
 
 
-.service('GoalBuilder', function($state) {
-  this.goal = {};
-  this.returnGoals = function(){
+.factory('GoalBuilder', function($state) {
+  var goalBuilder = {};
+
+  goalBuilder.goal = {};
+  goalBuilder.returnGoals = function(){
     var goalTypes = [
       {
         title: "Step Goal",
@@ -38,12 +40,12 @@ angular.module('starter.services', [])
     return goalTypes;
   };
 
-  this.goalClick = function(goal){
-    this.goal.goalType = goal;
+  goalBuilder.goalClick = function(goal){
+    goalBuilder.goal.goalType = goal;
     $state.go('goaldetails');
-  }.bind(this);
+  };
 
-  this.returnSucesses = function(){
+  goalBuilder.returnSucesses = function(){
     var successTypes = [
       {
         orgName: 'Arbor Day Foundation',
@@ -67,12 +69,12 @@ angular.module('starter.services', [])
     return successTypes;
   }
 
-  this.successClick = function(success){
-    this.goal.success = success;
+  goalBuilder.successClick = function(success){
+    goalBuilder.goal.success = success;
     $state.go('goalfailure');
-  }.bind(this);
+  };
 
-  this.returnTimes = function(){
+  goalBuilder.returnTimes = function(){
     var times = [
       "One Day",
       "One Week",
@@ -82,7 +84,7 @@ angular.module('starter.services', [])
     return times;
   }
 
-  this.returnFailures = function(){
+  goalBuilder.returnFailures = function(){
     var failTypes = [
       {
         orgName: 'Tip the developers',
@@ -98,8 +100,10 @@ angular.module('starter.services', [])
     return failTypes;
   }
 
-  this.failClick = function(fail){
-    this.goal.fail = fail;
-    console.log(this.goal);
-  }.bind(this);
+  goalBuilder.failClick = function(fail){
+    goalBuilder.goal.fail = fail;
+    console.log(goalBuilder.goal);
+  };
+
+  return goalBuilder;
 });
