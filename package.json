@@ -6,6 +6,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-util": "^3.0.4",
     "karma": "^0.12.31",
+    "karma-coverage": "^0.2.7",
     "karma-jasmine": "^0.2.2",
     "karma-nyan-reporter": "0.0.60",
     "karma-phantomjs-launcher": "^0.1.4",
