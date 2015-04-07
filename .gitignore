@@ -10,6 +10,9 @@ client/app/plugins/
 # Server Dependencies
 node_modules/
 
+# Test Coverage
+coverage/
+
 # Secrets
 auth.js
 
