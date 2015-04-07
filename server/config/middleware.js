@@ -22,7 +22,7 @@ module.exports = function(app,express) {
   app.use(passport.initialize());
   app.use(passport.session()); // persistent login sessions
 
-  app.use(express.static(__dirname + '/../../client/app/www'));
+  app.use(express.static(__dirname + '/../../client/www'));
 
   app.use('/auth', authRouter);
 
