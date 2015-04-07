@@ -1,6 +1,18 @@
-node_modules/
-bower_components/
-*.log
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
 
-build/
-dist/
+# Client Dependencies
+client/app/node_modules/
+client/app/bower_components/
+client/app/platforms/
+client/app/plugins/
+
+# Server Dependencies
+node_modules/
+
+# Secrets
+auth.js
+
+# Misc
+*.DS_Store
+*.log
