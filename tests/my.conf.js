@@ -15,16 +15,16 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '../client/bower_components/angular/angular.js',
-      '../client/bower_components/angular-animate/angular-animate.js',
-      '../client/bower_components/angular-cookies/angular-cookies.js',
-      '../client/bower_components/angular-mocks/angular-mocks.js',
-      '../client/bower_components/angular-sanitize/angular-sanitize.min.js',
-      '../client/bower_components/angular-touch/angular-touch.min.js',
-      '../client/bower_components/angular-ui-router/release/angular-ui-router.js',
-      '../client/bower_components/ionic/js/ionic.js',
-      '../client/bower_components/ionic/js/ionic-angular.min.js',
-      '../client/www/js/*.js',
+      '../client/app/www/lib/angular/angular.js',
+      '../client/app/www/lib/angular-animate/angular-animate.js',
+      // '../client/app/www/lib/angular-cookies/angular-cookies.js',
+      '../client/app/www/lib/angular-mocks/angular-mocks.js',
+      '../client/app/www/lib/angular-sanitize/angular-sanitize.min.js',
+      '../client/app/www/lib/angular-touch/angular-touch.min.js',
+      '../client/app/www/lib/angular-ui-router/release/angular-ui-router.js',
+      '../client/app/www/lib/ionic/js/ionic.js',
+      '../client/app/www/lib/ionic/js/ionic-angular.min.js',
+      '../client/app/www/js/*.js',
       './**/*.tests.js'
     ],
 
@@ -60,7 +60,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_ERROR,
+    logLevel: config.LOG_DEBUG,
 
 
     // enable / disable watching file and executing tests whenever any file changes
