@@ -1,41 +1,30 @@
-describe('login', function() {
+describe('Routes', function() {
+  //Login
+  describe('login', function() {
+    var $state;
 
-  var $rootScope; 
-  var $state; 
-  var $injector;
-  var myServiceMock;
-  var state = 'login';
-
-  beforeEach(function() {
-
-    module('starter', function($provide) {
-      $provide.value('GoalBuilder', myServiceMock = {});
+    beforeEach(function() {
+      module('starter');
+      inject(function(_$rootScope_, _$state_, _$injector_, $templateCache) {
+        $state = _$state_;
+      });
     });
 
-    inject(function(_$rootScope_, _$state_, _$injector_, $templateCache) {
-      $rootScope = _$rootScope_;
-      $state = _$state_;
-      $injector = _$injector_;
-
-      // We need add the template entry into the templateCache if we ever
-      // specify a templateUrl
-      $templateCache.put('login.html', '');
-    })
+    it('should respond to login', function() {
+      expect($state.href('login')).toEqual('#/login');
+    });
+    it('should respond to goaltype', function() {
+      expect($state.href('goaltype')).toEqual('#/goaltype');
+    });
+    it('should respond to goaldetails', function() {
+      expect($state.href('goaldetails')).toEqual('#/goaldetails');
+    });
+    it('should respond to goalsuccess', function() {
+      expect($state.href('goalsuccess')).toEqual('#/goalsuccess');
+    });
+    it('should respond to goalfailure', function() {
+      expect($state.href('goalfailure')).toEqual('#/goalfailure');
+    });
   });
 
-  it('should respond to URL', function() {
-    expect($state.href(state)).toEqual('#/login');
-  });
-
-  // it('should resolve data', function() {
-  //   var spy = jasmine.createSpy('findAll');
-  //   myServiceMock.findAll = spy.and.returnValue('findAll');
-
-  //   $state.go(state);
-  //   $rootScope.$digest();
-  //   expect($state.current.name).toBe(state);
-
-  //   // Call invoke to inject dependencies and run function
-  //   expect($injector.invoke($state.current.resolve.data)).toBe('findAll');
-  // });
 });
