@@ -19,7 +19,5 @@
     "org.apache.cordova.console",
     "com.ionic.keyboard"
   ],
-  "cordovaPlatforms": [
-    "ios"
-  ]
+  "cordovaPlatforms": []
 }
