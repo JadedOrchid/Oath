@@ -1,0 +1,7 @@
+<ion-view view-title="Who would you like to donate to?">
+  <ion-content class="padding">
+    <ion-item collection-repeat="fail in failures" ng-click="failClick(fail)">
+     {{fail.description}} with the {{fail.orgName}}
+    </ion-item>
+  </ion-content>
+</ion-view>
