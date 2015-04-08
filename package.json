@@ -10,6 +10,7 @@
     "karma-jasmine": "^0.2.2",
     "karma-nyan-reporter": "0.0.60",
     "karma-phantomjs-launcher": "^0.1.4",
+    "karma-unicorn-reporter": "^0.1.4",
     "phantomjs": "^1.9.16",
     "shelljs": "^0.4.0"
   },

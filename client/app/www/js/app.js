@@ -90,7 +90,39 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     url: '/goalfailure',
     templateUrl: 'templates/goalfailure.html',
     controller: 'GoalFailureCtrl'
+  })
+
+  .state('payment', {
+    url: '/payment',
+    templateUrl: 'templates/payment.html',
+    controller: ''
+  })
+
+  .state('progress', {
+    url: '/progress',
+    templateUrl: 'templates/progress.html',
+    controller: 'ProgressCtrl'
+  })
+
+  .state('successreport', {
+    url: '/successreport',
+    templateUrl: 'templates/successreport.html',
+    controller: 'SuccessReportCtrl'
+  })
+
+  .state('failurereport', {
+    url: '/failurereport',
+    templateUrl: 'templates/failurereport.html',
+    controller: 'FailureReportCtrl'
+  })
+
+  .state('settings', {
+    url: '/settings',
+    templateUrl: 'templates/settings.html',
+    controller: 'SettingsCtrl'
   });
+
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
