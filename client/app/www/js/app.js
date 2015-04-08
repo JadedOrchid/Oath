@@ -30,23 +30,23 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
   $stateProvider
 
   // setup an abstract state for the tabs directive
-  // .state('tab', {
-  //   url: "/tab",
-  //   abstract: true,
-  //   templateUrl: "templates/tabs.html"
-  // })
+  .state('tab', {
+    url: "/tab",
+    abstract: true,
+    templateUrl: "templates/tabs.html"
+  })
 
   // Each tab has its own nav history stack:
 
-  // .state('tab.dash', {
-  //   url: '/dash',
-  //   views: {
-  //     'tab-dash': {
-  //       templateUrl: 'templates/tab-dash.html',
-  //       // controller: 'DashCtrl'
-  //     }
-  //   }
-  // })
+  .state('tab.dash', {
+    url: '/dash',
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/progress.html',
+        // controller: 'DashCtrl'
+      }
+    }
+  })
 
   .state('login', {
     url: '/login',
@@ -108,7 +108,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
   .state('payment', {
     url: '/payment',
     templateUrl: 'templates/payment.html',
-    controller: ''
+    controller: 'PaymentCtrl'
   })
 
   .state('progress', {
@@ -138,6 +138,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
 
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('login');
 
 });
