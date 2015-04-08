@@ -310,7 +310,6 @@ module.exports = function(passport) {
 
     }));
 
-
 };
 
 
