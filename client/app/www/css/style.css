@@ -25,3 +25,19 @@ h2, h4 {
 .mid {
   text-align: center;
 }
+
+
+a:visited, a:link{
+  color: #387ef5;
+}
+a:hover{
+  color: #11c1f3;
+}
+a:focus{
+  color: #ffc900;
+}
+a:active{
+  color: #886aea;
+}
+
+
