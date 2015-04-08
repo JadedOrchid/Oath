@@ -1,5 +1,4 @@
 angular.module('starter.factories', [])
-
 .factory('User', ['$http', '$state', function($http, $state) {
   var user = {};
   user.loggedIn = {
@@ -170,7 +169,6 @@ angular.module('starter.factories', [])
   //CLICK THROUGH GOAL SETUP
   goalBuilder.goalClick = function(goal){
     goalBuilder.goal.goalType = goal;
-
     if (User.checkJawbone()){
       $state.go('goaldetails');
     } else {
