@@ -26,7 +26,9 @@ h2, h4 {
   text-align: center;
 }
 
-
+a {
+  text-decoration: none;
+}
 a:visited, a:link{
   color: #387ef5;
 }
@@ -39,5 +41,43 @@ a:focus{
 a:active{
   color: #886aea;
 }
+
+.soft {
+  margin-top: -10px;
+  color: #CCCCCC;
+  font-size: .8em;
+  font-style: italic;
+}
+
+.horizontal-separator .separator-text {
+  display: inline-block;
+  padding: 0 .5em;
+  position: relative;
+  top: -0.7em;
+}
+
+.horizontal-separator {
+  border-top: 1px solid #ccc;
+  display: inline-block;
+  height: 1px;
+  margin: 2em auto;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.separator-text {
+  font-family: 'Proxima Nova',sans-serif;
+  color: #444;
+  font-size: 16px;
+  background: white;
+  display: inline-block;
+  letter-spacing: 2px;
+  padding: .7em;
+  position: relative;
+  text-transform: uppercase;
+}
+
+
 
 
