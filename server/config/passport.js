@@ -11,6 +11,13 @@ var configAuth = require('./auth');
 
 module.exports = function(passport) {
 
+    passport.isLoggedIn = function(req, res, next) {
+        if (req.isAuthenticated()){
+            next();
+        }
+        res.status(401).send('not logged in');
+    };
+
     // =========================================================================
     // passport session setup ==================================================
     // =========================================================================
@@ -302,4 +309,8 @@ module.exports = function(passport) {
         });
 
     }));
+
+
 };
+
+

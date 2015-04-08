@@ -1,10 +1,25 @@
 angular.module('starter.factories', [])
-.factory('User', function() {
+.factory('User', ['$http', '$state', function($http, $state) {
   var user = {};
   user.loggedIn = {};
-
+  
+  //fix later to only save most pertinent data
+    //also to standardize the 'username' concern b/c they're different based on
+    //how they logged in
+  user.getUser = function(){
+    return $http.get('/api/user')
+      .then(function(userData){
+        console.log(userData);
+        user.data = userData.data;
+        if (userData.data.goals === undefined || userData.data.goals.length === 0){
+          $state.go('goaltype');
+        } else {
+          $state.go('progress');
+        }
+      });
+  };
   return user;
-})
+}])
 
 .factory('AuthFactory', ['$state', '$http', '$q', function($state, $http, $q){
   //post to different endpoints

@@ -3,10 +3,11 @@
 module.exports = function(app, passport) {
   //authenticate with facebook
   app.get('/facebook', passport.authenticate('facebook', { scope : 'email' }));
-  app.get('/facebook/callback', passport.authenticate('facebook'), 
-    function(req,res){
-        res.json(req.user);
-      });
+  app.get('/facebook/callback', passport.authenticate('facebook', {
+    successRedirect : '/#/purgatory', 
+    failureRedirect : '/#/login'
+  }));
+
   //authenticate with local strategy
   app.post('/login', passport.authenticate('local-login'), function(req,res){
         res.json(req.user);
@@ -20,3 +21,10 @@ module.exports = function(app, passport) {
   app.get('/jawbone/callback', passport.authorize('jawbone'));
 
 };
+
+// function hasGoal (req, res) {
+//   var user = req.userData;
+//   if (user.goals.length) 
+//     goalHandler(req, res);
+//   makeGoalHandler(req, res);
+// }

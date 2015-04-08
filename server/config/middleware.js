@@ -8,6 +8,7 @@ var session      = require('express-session');
 module.exports = function(app,express) {
 
   var authRouter = express.Router();
+  var apiRouter = express.Router();
 
   require('../config/passport')(passport); // pass passport for configuration
 
@@ -35,6 +36,8 @@ module.exports = function(app,express) {
   // });
 
   app.use('/auth', authRouter);
+  app.use('/api', apiRouter);
 
   require('../auth/authRouter.js')(authRouter, passport);
+  require('../api/apiRouter.js')(apiRouter, passport);
 }
