@@ -8,6 +8,7 @@ var session      = require('express-session');
 module.exports = function(app,express) {
 
   var authRouter = express.Router();
+  var apiRouter = express.Router();
 
   require('../config/passport')(passport); // pass passport for configuration
 
@@ -24,7 +25,19 @@ module.exports = function(app,express) {
 
   app.use(express.static(__dirname + '/../../client/app/www'));
 
+  //CORS headers
+  // app.all('*', function(req, res, next) {
+  //   res.header("Access-Control-Allow-Origin", "*");
+  //   res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
+  //   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  //   res.header("Access-Control-Allow-Credentials", "true");
+
+  //   next();
+  // });
+
   app.use('/auth', authRouter);
+  app.use('/api', apiRouter);
 
   require('../auth/authRouter.js')(authRouter, passport);
+  require('../api/apiRouter.js')(apiRouter, passport);
 }

@@ -11,6 +11,13 @@ var configAuth = require('./auth');
 
 module.exports = function(passport) {
 
+    passport.isLoggedIn = function(req, res, next) {
+        if (req.isAuthenticated()){
+            next();
+        }
+        res.status(401).send('not logged in');
+    };
+
     // =========================================================================
     // passport session setup ==================================================
     // =========================================================================
@@ -49,10 +56,10 @@ module.exports = function(passport) {
 
                 // if no user is found, return the message
                 if (!user)
-                    return done(null, false, req.flash('loginMessage', 'No user found.'));
+                    return done(null, false); // no user found
 
                 if (!user.validPassword(password))
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                    return done(null, false); // wrong password
 
                 // all is well, return user
                 else
@@ -86,7 +93,7 @@ module.exports = function(passport) {
 
                 // check to see if there's already a user with that email
                 if (existingUser) 
-                    return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                    return done(null, false); // email already taken
 
                 //  If we're logged in, we're connecting a new local account.
                 if(req.user) {
@@ -211,7 +218,6 @@ module.exports = function(passport) {
     // jawbone will send back the token and profile
     function(req, token, refreshToken, profile, done) {
 
-
         // asynchronous
         process.nextTick(function() {
 
@@ -226,12 +232,13 @@ module.exports = function(passport) {
         // get jawbone profile info
         up.me.get({}, function(err, body) {
           console.log('Body: ' + body);
+          console.log(req.user)
           up_me = JSON.parse(body);
           global.userName = up_me.data.first + ' ' + up_me.data.last;
     
 
             // check if the user is already logged in
-            if (!req.user) {
+            if (!req.user) { // if not logged in...
                 // find the user in the database based on their jawbone id
                 
 
@@ -262,7 +269,6 @@ module.exports = function(passport) {
                         return done(null, user); // user found, return that user
                     } else {
                         
-                        //console.log('jawbone user not found');
                         
                         // if there is no user found with that jawbone id, create them
                         var newUser            = new User();
@@ -296,11 +302,15 @@ module.exports = function(passport) {
                 // save the user
                 user.save(function (err, user) {
                   if (err) return console.error(err);
-                  return done(null, user, console.log('Welcome '+user.local.email+', from UP to funmotivation.com!'));
+                  return done(null, user);
                 });;
             }
             });
         });
 
     }));
+
+
 };
+
+

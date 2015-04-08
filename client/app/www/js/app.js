@@ -30,32 +30,60 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
   $stateProvider
 
   // setup an abstract state for the tabs directive
-  // .state('tab', {
-  //   url: "/tab",
-  //   abstract: true,
-  //   templateUrl: "templates/tabs.html"
-  // })
+  .state('tab', {
+    url: "/tab",
+    abstract: true,
+    templateUrl: "templates/tabs.html"
+  })
 
   // Each tab has its own nav history stack:
 
-  // .state('tab.dash', {
-  //   url: '/dash',
-  //   views: {
-  //     'tab-dash': {
-  //       templateUrl: 'templates/tab-dash.html',
-  //       // controller: 'DashCtrl'
-  //     }
-  //   }
-  // })
+  .state('tab.dash', {
+    url: '/dash',
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/progress.html',
+        // controller: 'DashCtrl'
+      }
+    }
+  })
 
   .state('login', {
     url: '/login',
-    templateUrl: 'templates/login.html'
+    templateUrl: 'templates/login.html',
+    controller: 'AuthCtrl'
+  })
+
+  .state('localLogin', {
+    url: '/locallogin',
+    templateUrl: 'templates/localLogin.html'
+  })
+
+  .state('localSigup', {
+    url: '/localsignup',
+    templateUrl: 'templates/localSignup.html'
+  })
+
+  .state('purgatory', {
+    url: '/purgatory',
+    templateUrl: 'templates/purgatory.html',
+    controller: 'PurgController'
   })
 
   .state('goaltype', {
     url: '/goaltype',
     templateUrl: 'templates/goaltype.html',
+    controller: 'GoalCtrl',
+  })
+
+    .state('signup', {
+    url: '/signup',
+    templateUrl: 'templates/signup.html'
+  })
+
+  .state('deviceAuth', {
+    url: '/deviceauth',
+    templateUrl: 'templates/deviceAuth.html',
     controller: 'GoalCtrl'
   })
 
@@ -75,9 +103,41 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     url: '/goalfailure',
     templateUrl: 'templates/goalfailure.html',
     controller: 'GoalFailureCtrl'
+  })
+
+  .state('payment', {
+    url: '/payment',
+    templateUrl: 'templates/payment.html',
+    controller: 'PaymentCtrl'
+  })
+
+  .state('progress', {
+    url: '/progress',
+    templateUrl: 'templates/progress.html',
+    controller: 'ProgressCtrl'
+  })
+
+  .state('successreport', {
+    url: '/successreport',
+    templateUrl: 'templates/successreport.html',
+    controller: 'SuccessReportCtrl'
+  })
+
+  .state('failurereport', {
+    url: '/failurereport',
+    templateUrl: 'templates/failurereport.html',
+    controller: 'FailureReportCtrl'
+  })
+
+  .state('settings', {
+    url: '/settings',
+    templateUrl: 'templates/settings.html',
+    controller: 'SettingsCtrl'
   });
 
+
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('login');
 
 });

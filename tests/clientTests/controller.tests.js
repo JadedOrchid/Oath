@@ -107,6 +107,17 @@ describe("Unit Testing Controllers", function () {
     });
   })
 
+  describe('PAYMENT WITH STRIPE INTEGRATION', function(){
+    xit('Should POST payment information to server', function() {
+    });
+
+    xit('Should verify payment information with the user', function() {
+    });
+
+    xit('Should route to progress page', function() {
+    });
+  })
+
 
 });
 

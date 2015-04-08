@@ -25,6 +25,21 @@ describe('Routes', function() {
     it('should respond to goalfailure', function() {
       expect($state.href('goalfailure')).toEqual('#/goalfailure');
     });
+    xit('should respond to payment', function(){
+      expect($state.href('payment').toEqual('#/payment'));
+    });
+    xit('should respond to progress', function(){
+      expect($state.href('progress').toEqual('#/progress'));
+    });
+    xit('should respond to successreport', function(){
+      expect($state.href('successreport').toEqual('#/successreport'));
+    });
+    xit('should respond to failurereport', function(){
+      expect($state.href('failurereport').toEqual('#/failurereport'));
+    });
+    xit('should respond to settings', function(){
+      expect($state.href('settings').toEqual('#/settings'));
+    });
   });
 
 });
