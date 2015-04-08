@@ -18,6 +18,16 @@ angular.module('starter.factories', [])
         }
       });
   };
+
+  user.checkJawbone = function(){
+    if (user.data.jawbone === undefined){
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+
   return user;
 }])
 
@@ -82,7 +92,13 @@ angular.module('starter.factories', [])
 
   goalBuilder.goalClick = function(goal){
     goalBuilder.goal.goalType = goal;
-    $state.go('goaldetails');
+
+    if (User.checkJawbone()){
+      $state.go('goaldetails');
+    } else {
+      $state.go('deviceAuth');
+    }
+
   };
 
   goalBuilder.returnSucesses = function(){

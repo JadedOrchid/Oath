@@ -81,6 +81,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     templateUrl: 'templates/signup.html'
   })
 
+  .state('deviceAuth', {
+    url: '/deviceauth',
+    templateUrl: 'templates/deviceAuth.html',
+    controller: 'GoalCtrl'
+  })
+
   .state('goaldetails', {
     url: '/goaldetails',
     templateUrl: 'templates/goaldetails.html',

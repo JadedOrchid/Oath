@@ -24,9 +24,6 @@ angular.module('starter.controllers', [])
 
 .controller('PurgController', function($scope, User, $stateParams, $state) {
   User.getUser();
-
-  if (User.)
-
 })
 
 .controller('GoalFailureCtrl', function($scope, GoalBuilder, $stateParams, $state) {
