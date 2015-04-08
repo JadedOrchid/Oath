@@ -251,4 +251,3 @@ angular.module('starter.factories', [])
 
   return goalBuilder;
 }]);
-
