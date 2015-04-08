@@ -1,1 +1,27 @@
 /* Empty. Add your own CSS if you like */
+    .center {
+    top: 50%;
+    /*-webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    position: relative !important;
+    margin:0 auto;*/
+    width:100%;
+}
+
+h2, h4 {
+    text-align: center;
+}
+
+.ion-social-facebook {
+  padding-right: 15px;
+}
+.login{
+  border-radius: 25px;
+}
+
+.mid {
+  text-align: center;
+}

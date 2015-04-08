@@ -6,6 +6,8 @@ client/app/node_modules/
 client/app/bower_components/
 client/app/platforms/
 client/app/plugins/
+resources/
+client/plugins/
 
 # Server Dependencies
 node_modules/
