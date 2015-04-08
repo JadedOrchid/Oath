@@ -22,6 +22,10 @@ angular.module('starter.controllers', [])
   $scope.successClick = GoalBuilder.successClick;
 })
 
+.controller('PurgController', function($scope, User, $stateParams, $state) {
+  User.getUser();
+})
+
 .controller('GoalFailureCtrl', function($scope, GoalBuilder, $stateParams, $state) {
   $scope.failures = GoalBuilder.returnFailures();
   $scope.failClick = GoalBuilder.failClick;

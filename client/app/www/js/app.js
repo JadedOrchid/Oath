@@ -64,15 +64,27 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     templateUrl: 'templates/localSignup.html'
   })
 
+  .state('purgatory', {
+    url: '/purgatory',
+    templateUrl: 'templates/purgatory.html',
+    controller: 'PurgController'
+  })
+
   .state('goaltype', {
     url: '/goaltype',
     templateUrl: 'templates/goaltype.html',
-    controller: 'GoalCtrl'
+    controller: 'GoalCtrl',
   })
 
     .state('signup', {
     url: '/signup',
     templateUrl: 'templates/signup.html'
+  })
+
+  .state('deviceAuth', {
+    url: '/deviceauth',
+    templateUrl: 'templates/deviceAuth.html',
+    controller: 'GoalCtrl'
   })
 
   .state('goaldetails', {
