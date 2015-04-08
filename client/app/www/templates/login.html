@@ -1,6 +1,6 @@
 <ion-view view-title="Welcome to Synpact!">
   <ion-content class="padding">
-    <div class="list">
+    <div>
       <h2>Log in to Synpact with</h2>
       <form action="/auth/facebook" method="get">
          <button class="button login button-block button-positive"><i padding="10px" class="icon ion-social-facebook"></i>
@@ -26,7 +26,11 @@
            </button>
          </div>
        </form>
-      <h6>Need an account? Sign up <a href = "#/signup">here</a></h6>
+      
+      <h6 class="mid" >
+        <a href = "#/signup">Forgot password?</a> | 
+        <a href = "#/signup">Create a new account </a>
+      </h6>
 
     </div>
   </ion-content>
