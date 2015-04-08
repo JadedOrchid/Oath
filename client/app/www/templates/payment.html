@@ -2,7 +2,8 @@
   <ion-content class="padding">
     <h1>Payment Information</h1>
 
-    <form action="" method="POST" id="payment-form">
+    <!-- add post method to form -->
+    <!-- <form action=""  id="payment-form">
       <span class="payment-errors"></span>
 
       <div class="form-row">
@@ -26,10 +27,10 @@
         </label>
         <span> / </span>
         <input type="text" size="4" data-stripe="exp-year"/>
-      </div>
+      </div> -->
 
-      <button type="submit">Submit Payment</button>
-    </form>
+      <button type="submit" ng-click="pay()">Submit Payment</button>
+    <!-- </form> -->
 
   </ion-content>
 </ion-view>

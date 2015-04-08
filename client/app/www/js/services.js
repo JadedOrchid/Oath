@@ -1,7 +1,22 @@
 angular.module('starter.factories', [])
+
 .factory('User', function() {
   var user = {};
-  user.loggedIn = {};
+  user.loggedIn = {
+    currentGoals: [
+      {
+        goalType: {
+          title: 'step'
+      },
+        timeRemaining: '1second'
+      }
+    ]
+  };
+
+  //function that checks goalstatus - called as soon as userobj is received
+    //redirect to goal celeration or goal failure page
+    //else goaltype
+    //else progress
 
   return user;
 })
@@ -29,7 +44,12 @@ angular.module('starter.factories', [])
 .factory('GoalBuilder', function($state, User, $http) {
   var goalBuilder = {};
 
-  goalBuilder.goal = {};
+  //THE GOAL
+  goalBuilder.goal = {
+    progress: 0
+  };
+
+  //DATA
   goalBuilder.returnGoals = function(){
     var goalTypes = [
       {
@@ -65,11 +85,6 @@ angular.module('starter.factories', [])
     return goalTypes;
   };
 
-  goalBuilder.goalClick = function(goal){
-    goalBuilder.goal.goalType = goal;
-    $state.go('goaldetails');
-  };
-
   goalBuilder.returnSucesses = function(){
     var successTypes = [
       {
@@ -92,13 +107,8 @@ angular.module('starter.factories', [])
       }
     ];
     return successTypes;
-  }
-
-  goalBuilder.successClick = function(success){
-    goalBuilder.goal.success = success;
-    $state.go('goalfailure');
   };
-
+  
   goalBuilder.returnTimes = function(){
     var times = [
       "One Day",
@@ -107,8 +117,8 @@ angular.module('starter.factories', [])
       "One Year"
     ];
     return times;
-  }
-
+  };
+  
   goalBuilder.returnFailures = function(){
     var failTypes = [
       {
@@ -123,17 +133,28 @@ angular.module('starter.factories', [])
       }
     ];
     return failTypes;
-  }
+  };
 
-  goalBuilder.sendGoal = function(){
-    $http.post('/api/goal', goalBuilder.goal)
-      .success(function(data, status, headers, config) {
-        User.loggedIn.goals.push(goalBuilder.goal);
-      })
-      .error(function(data, status, headers, config) {
-        console.log('Your goal could not be added');
-      });
-  }
+  goalBuilder.convertTime = function(timeframe) {
+    var millis = {
+      'One Day': 86400000,
+      'One Week': 604800000,
+      'One Month': 2419200000,
+      'One Year': 3.15569e10
+    }
+    return millis[timeframe];
+  };
+  
+  //CLICK THROUGH GOAL SETUP
+  goalBuilder.goalClick = function(goal){
+    goalBuilder.goal.goalType = goal;
+    $state.go('goaldetails');
+  };
+
+  goalBuilder.successClick = function(success){
+    goalBuilder.goal.success = success;
+    $state.go('goalfailure');
+  };
 
   goalBuilder.failClick = function(fail){
     goalBuilder.goal.fail = fail;
@@ -147,9 +168,38 @@ angular.module('starter.factories', [])
     }
   };
 
+  //UTILS
+  goalBuilder.sendGoal = function(){
+    // $http.post('/api/goal', goalBuilder.goal)
+    //   .success(function(data, status, headers, config) {
+    //   })
+    //   .error(function(data, status, headers, config) {
+    //     console.log('Your goal could not be added');
+    //   });
+    User.loggedIn.currentGoals.push(goalBuilder.goal);
+  };
+
+  goalBuilder.calcRemaining = function(list) {
+    // var remaining;
+    // var now = Date.now();
+    // for(var i = 0; i < list.length; i++) {
+    //   goal = list[i];
+    //   remaining = goal.period.millis - (now - goal.startTime);
+    //   goal.timeRemaining = remaining;
+    // }
+    return list;
+  };
+
+
+  goalBuilder.updateDeets = function() {
+    goalBuilder.goal.period = {
+      human: this.timeframe,
+      millis: goalBuilder.convertTime(this.timeframe)
+    }
+    goalBuilder.goal.unitInput = this.unitInput;
+    $state.go('goalsuccess');
+  };
+
   return goalBuilder;
-<<<<<<< HEAD
 });
-=======
-}]);
->>>>>>> Add auth controllers
+
