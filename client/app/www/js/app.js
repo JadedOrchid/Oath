@@ -53,10 +53,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     templateUrl: 'templates/login.html'
   })
 
+  .state('localLogin', {
+    url: '/locallogin',
+    templateUrl: 'templates/localLogin.html'
+  })
+
+  .state('localSigup', {
+    url: '/localsignup',
+    templateUrl: 'templates/localSignup.html'
+  })
+
   .state('goaltype', {
     url: '/goaltype',
     templateUrl: 'templates/goaltype.html',
     controller: 'GoalCtrl'
+  })
+
+    .state('signup', {
+    url: '/signup',
+    templateUrl: 'templates/signup.html'
   })
 
   .state('goaldetails', {
