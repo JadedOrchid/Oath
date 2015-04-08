@@ -50,7 +50,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
 
   .state('login', {
     url: '/login',
-    templateUrl: 'templates/login.html'
+    templateUrl: 'templates/login.html',
+    controller: 'AuthCtrl'
   })
 
   .state('localLogin', {

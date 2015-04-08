@@ -1,11 +1,30 @@
 angular.module('starter.factories', [])
-
 .factory('User', function() {
   var user = {};
   user.loggedIn = {};
 
   return user;
 })
+
+.factory('AuthFactory', ['$state', '$http', '$q', function($state, $http, $q){
+  //post to different endpoints
+  var factory = {};
+
+  factory.facebook = function(){
+    console.log("You're calling factory.facebook");
+    return $http.get('/auth/facebook');
+      // .then(function(res){
+      //   if (!res.facebook) {
+      //           return $state.go('login');
+      //         } else {
+      //           console.log("Successful facebook login, moving on")
+      //           return $state.go('goaltype')
+      //         }
+      // })
+  };
+
+  return factory;
+}])
 
 .factory('GoalBuilder', function($state, User, $http) {
   var goalBuilder = {};
@@ -129,4 +148,8 @@ angular.module('starter.factories', [])
   };
 
   return goalBuilder;
+<<<<<<< HEAD
 });
+=======
+}]);
+>>>>>>> Add auth controllers
