@@ -80,7 +80,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
   .state('payment', {
     url: '/payment',
     templateUrl: 'templates/payment.html',
-    controller: 'PaymentCtrl'
+    controller: ''
   })
 
   .state('progress', {
