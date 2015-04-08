@@ -1,6 +1,6 @@
 angular.module('starter.factories', [])
 
-.factory('User', function() {
+.factory('User', ['$http', '$state', function($http, $state) {
   var user = {};
   user.loggedIn = {
     currentGoals: [
@@ -13,13 +13,37 @@ angular.module('starter.factories', [])
     ]
   };
 
+  //fix later to only save most pertinent data
+    //also to standardize the 'username' concern b/c they're different based on
+    //how they logged in
+  user.getUser = function(){
+    return $http.get('/api/user')
+      .then(function(userData){
+        console.log(userData);
+        user.data = userData.data;
+        if (userData.data.goals === undefined || userData.data.goals.length === 0){
+          $state.go('goaltype');
+        } else {
+          $state.go('progress');
+        }
+      });
+  };
+
+  user.checkJawbone = function(){
+    if (user.data.jawbone === undefined){
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   //function that checks goalstatus - called as soon as userobj is received
     //redirect to goal celeration or goal failure page
     //else goaltype
     //else progress
 
   return user;
-})
+}])
 
 .factory('AuthFactory', ['$state', '$http', '$q', function($state, $http, $q){
   //post to different endpoints
@@ -148,7 +172,12 @@ angular.module('starter.factories', [])
   //CLICK THROUGH GOAL SETUP
   goalBuilder.goalClick = function(goal){
     goalBuilder.goal.goalType = goal;
-    $state.go('goaldetails');
+
+    if (User.checkJawbone()){
+      $state.go('goaldetails');
+    } else {
+      $state.go('deviceAuth');
+    }
   };
 
   goalBuilder.successClick = function(success){
