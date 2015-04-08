@@ -1,7 +1,13 @@
 angular.module('starter.factories', [])
 
+.factory('User', function() {
+  var user = {};
+  user.loggedIn = {};
 
-.factory('GoalBuilder', function($state) {
+  return user;
+})
+
+.factory('GoalBuilder', function($state, User, $http) {
   var goalBuilder = {};
 
   goalBuilder.goal = {};
@@ -100,9 +106,26 @@ angular.module('starter.factories', [])
     return failTypes;
   }
 
+  goalBuilder.sendGoal = function(){
+    $http.post('/api/goal', goalBuilder.goal)
+      .success(function(data, status, headers, config) {
+        User.loggedIn.goals.push(goalBuilder.goal);
+      })
+      .error(function(data, status, headers, config) {
+        console.log('Your goal could not be added');
+      });
+  }
+
   goalBuilder.failClick = function(fail){
     goalBuilder.goal.fail = fail;
-    console.log(goalBuilder.goal);
+    goalBuilder.goal.startTime = Date.now();
+    goalBuilder.sendGoal();
+
+    if(User.loggedIn.hasPayment){
+      $state.go('progress');
+    } else {
+      $state.go('payment');
+    }
   };
 
   return goalBuilder;
