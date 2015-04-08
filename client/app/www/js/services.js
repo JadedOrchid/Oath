@@ -148,8 +148,5 @@ angular.module('starter.factories', [])
   };
 
   return goalBuilder;
-<<<<<<< HEAD
 });
-=======
-}]);
->>>>>>> Add auth controllers
+
