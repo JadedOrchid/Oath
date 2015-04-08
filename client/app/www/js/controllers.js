@@ -27,6 +27,10 @@ angular.module('starter.controllers', [])
   $scope.failClick = GoalBuilder.failClick;
 })
 
+.controller('AuthCtrl', function($scope, AuthFactory, $stateParams, $state) {
+  $scope.fb = AuthFactory.facebook;
+})
+
 .controller('TestCtrl', function($scope, GoalBuilder, $stateParams, $state){
   $scope.test = 'Testing';
   $scope.testFunc = function(){
