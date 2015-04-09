@@ -52,7 +52,7 @@ describe("Unit Testing Ionic", function () {
 
     it('Should redirect to goal details', function(){
       GoalBuilder.goalClick('Sleep Goal');
-      expect($state.go).toHaveBeenCalledWith('goaldetails');
+      expect($state.go).toHaveBeenCalledWith('deviceAuth');
     });
   });
 
