@@ -11,20 +11,30 @@ var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  scripts: ['./client/app/www/js/**/*.js', './server/**/*.js'],
+  css: ['./client/app/www/css/style.css'],
+  html: ['/.client/app/www/templates/', './client/app/www/index.html'],
+  images: ['./client/app/www/img/**/*.png', 
+      './client/app/www/img/**/*.jpg', 
+      './client/app/www/img/**/*.gif']
 };
-
-var lintPaths = [
-  '/client/app/www/js/**/*.js',
-]
 
 gulp.task('default');
 
 // Lint Task
 gulp.task('lint', function() {
-    return gulp.src(lintPaths)
+    return gulp.src(paths.js)
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
+});
+
+gulp.task('scripts', function() {
+ gulp.src(paths.scripts)
+ .pipe(jshint())
+ .pipe(jshint.reporter('default'))
+ .pipe(uglify())
+ .pipe(concat('app.min.js'))
+ .pipe(gulp.dest(bases.dist + 'scripts/'));
 });
 
 
