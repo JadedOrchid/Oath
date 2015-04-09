@@ -7,7 +7,7 @@ angular.module('starter.factories', [])
       {
         goalType: {
           title: 'step'
-      },
+        },
         timeRemaining: '1second'
       }
     ]
@@ -70,7 +70,7 @@ angular.module('starter.factories', [])
   };
 
   user.checkJawbone = function(){
-    if (user.data.jawbone === undefined){
+    if (user.loggedIn .jawbone === undefined){
       return false;
     } else {
       return true;
@@ -238,6 +238,7 @@ angular.module('starter.factories', [])
 
   //UTILS
   goalBuilder.sendGoal = function(){
+    console.log(User);
     User.loggedIn.currentGoals.push(goalBuilder.goal);
 
     $http.post('/api/goals', goalBuilder.goal)
