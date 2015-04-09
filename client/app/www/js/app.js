@@ -59,7 +59,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
 
   .state('localSigup', {
     url: '/localsignup',
-    templateUrl: 'templates/localSigupignup.html'
+    templateUrl: 'templates/localSignup.html'
   })
 
   .state('purgatory', {
