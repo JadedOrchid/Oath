@@ -1,9 +1,5 @@
 angular.module('starter.controllers', [])
 
-.controller('AuthCtrl', ['$scope', 'AuthFactory', function($scope, AuthFactory) {
-  $scope.fb = AuthFactory.facebook;
-}])
-
 .controller('GoalCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
   $scope.goalTypes = GoalBuilder.returnGoals();
   $scope.goalClick = GoalBuilder.goalClick;
@@ -42,10 +38,3 @@ angular.module('starter.controllers', [])
   $scope.currentGoals = GoalBuilder.calcRemaining(User.loggedIn.currentGoals);
   $scope.expiredGoals = User.loggedIn.expiredGoals;
 }]);
-
-// .controller('TestCtrl', function($scope, GoalBuilder, $stateParams, $state) {
-//   $scope.test = 'Testing';
-//   $scope.testFunc = function(){
-//     return true;
-//   };
-// });
