@@ -104,7 +104,7 @@ angular.module('starter.factories', [])
   return factory;
 }])
 
-.factory('GoalBuilder', function($state, User, $http) {
+.factory('GoalBuilder', ['$state', 'User', '$http', function($state, User, $http) {
   var goalBuilder = {};
 
   //THE GOAL
@@ -272,5 +272,5 @@ angular.module('starter.factories', [])
   };
 
   return goalBuilder;
-});
+}]);
 
