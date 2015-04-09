@@ -10,6 +10,7 @@
     "karma-jasmine": "^0.2.2",
     "karma-nyan-reporter": "0.0.60",
     "karma-phantomjs-launcher": "^0.1.4",
+    "karma-unicorn-reporter": "^0.1.4",
     "phantomjs": "^1.9.16",
     "shelljs": "^0.4.0"
   },
@@ -19,6 +20,7 @@
     "cookie-parser": "^1.3.4",
     "express": "^4.12.3",
     "express-session": "^1.10.4",
+    "jawbone-up": "^0.1.2",
     "mongoose": "^4.0.1",
     "morgan": "^1.5.2",
     "passport": "^0.2.1",

@@ -1,0 +1,24 @@
+<ion-view view-title="Settings">
+  <ion-content class="padding">
+  	<h1>This is the settings view</h1>
+  </ion-content>
+  <ion-tabs class="tabs-icon-top tabs-positive">
+
+    <!-- Dashboard Tab -->
+    <ion-tab title="Progress" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/progress">
+      <ion-nav-view name="tab-dash"></ion-nav-view>
+    </ion-tab>
+
+    <!-- New Goal -->
+    <ion-tab title="New Goal" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/goaltype">
+      <ion-nav-view name="tab-chats"></ion-nav-view>
+    </ion-tab>
+
+    <!-- Settings -->
+    <ion-tab title="Settings" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/settings">
+      <ion-nav-view name="tab-account"></ion-nav-view>
+    </ion-tab>
+
+
+  </ion-tabs>
+</ion-view>

@@ -7,13 +7,16 @@ describe("Unit Testing Ionic", function () {
   var GoalBuilder;
   var $log;
   var $state;
+  var User;
 
-  beforeEach(inject(function($rootScope, _$controller_, _GoalBuilder_, _$log_, _$state_) {
+  beforeEach(inject(function($rootScope, _$controller_, _GoalBuilder_, _$log_, _$state_, _User_) {
     $scope = $rootScope.$new();
     $controller = _$controller_;
     GoalBuilder = _GoalBuilder_;
     $state = _$state_;
+    User = _User_;
     spyOn($state, 'go');
+    spyOn(GoalBuilder, 'sendGoal');
   }));
 
 
@@ -132,7 +135,7 @@ describe("Unit Testing Ionic", function () {
   });
 
   describe('FAIL CLICK FUNCTION', function(){
-    it('Should update the goal object with fail object', function(){
+    it('Should update the goal object', function(){
       GoalBuilder.failClick({
         orgName: 'Tip the developers',
         description: "We're broke",
@@ -141,14 +144,19 @@ describe("Unit Testing Ionic", function () {
       expect(GoalBuilder.goal.fail.orgName).toBe('Tip the developers');
     });
 
-    xit('Should redirect to goal details', function(){
-      GoalBuilder.failClick({});
+    it('Should call sendGoal() to server', function(){
+      GoalBuilder.failClick();
+      expect(GoalBuilder.sendGoal).toHaveBeenCalled();
+    });
 
-      //set up a case where you're logged in
-        //redirect to home page
-        expect($state.go).toHaveBeenCalledWith('homepage');
-      //else go to payment page
+    it('Should check if user has payment and redirect accordingly', function(){
+      User.loggedIn.hasPayment = false;
+      GoalBuilder.failClick();
       expect($state.go).toHaveBeenCalledWith('payment');
+
+      User.loggedIn.hasPayment = true;
+      GoalBuilder.failClick();
+      expect($state.go).toHaveBeenCalledWith('progress');
     });
   });
 
