@@ -3,7 +3,6 @@ var User = require('../models/user');
 var apiController = {};
 
 apiController.handleGoalPost = function(req,res){
-  console.log('INSIDE GOAL HANDLER', req.user)
   var newGoal = req.body;
 
   User.findByIdAndUpdate(
@@ -14,5 +13,17 @@ apiController.handleGoalPost = function(req,res){
         console.log(err);
     });
 };
+apiController.handleLoginGet = function(req,res){
+  res.json(req.user);
+};
+
+apiController.isLoggedIn = function(req,res,next){
+    if (req.isAuthenticated()){
+        next();
+    } else{
+      res.status(401);
+      res.send('not logged in');
+    }
+  };
 
 module.exports = apiController;
