@@ -30,22 +30,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
   $stateProvider
 
   // setup an abstract state for the tabs directive
-  .state('tab', {
-    url: "/tab",
-    abstract: true,
-    templateUrl: "templates/tabs.html"
-  })
+  // .state('tab', {
+  //   url: "/tab",
+  //   abstract: true,
+  //   templateUrl: "templates/tabs.html"
+  // })
 
-  // Each tab has its own nav history stack:
-  .state('tab.progress', {
-    url: '/progress',
-    views: {
-      'tab-progress': {
-        templateUrl: 'templates/tab-progress.html',
-        controller: 'ProgressCtrl'
-      }
-    }
-  })
+  // // Each tab has its own nav history stack:
+  // .state('tab.progress', {
+  //   url: '/progress',
+  //   views: {
+  //     'tab-progress': {
+  //       templateUrl: 'templates/tab-progress.html',
+  //       controller: 'ProgressCtrl'
+  //     }
+  //   }
+  // })
 
   .state('login', {
     url: '/login',
@@ -110,28 +110,28 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     controller: 'PaymentCtrl'
   })
 
-  // .state('progress', {
-  //   url: '/progress',
-  //   templateUrl: 'templates/tab-progress.html',
-  //   controller: 'ProgressCtrl'
-  // })
+  .state('progress', { 
+    url: '/progress',
+    templateUrl: 'templates/tab-progress.html',
+    controller: 'ProgressCtrl'
+  })
 
   .state('successreport', {
     url: '/successreport',
-    templateUrl: 'templates/successreport.html',
-    controller: 'SuccessReportCtrl'
+    templateUrl: 'templates/tab-success.html'
+    // controller: 'SuccessReportCtrl'
   })
 
   .state('failurereport', {
     url: '/failurereport',
-    templateUrl: 'templates/failurereport.html',
-    controller: 'FailureReportCtrl'
+    templateUrl: 'templates/tab-failure.html'
+    // controller: 'FailureReportCtrl'
   })
 
   .state('settings', {
     url: '/settings',
-    templateUrl: 'templates/settings.html',
-    controller: 'SettingsCtrl'
+    templateUrl: 'templates/tab-settings.html'
+    // controller: 'SettingsCtrl'
   });
 
 
