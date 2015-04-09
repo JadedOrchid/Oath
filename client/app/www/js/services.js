@@ -167,16 +167,6 @@ angular.module('starter.factories', [])
     return failTypes;
   };
 
-  goalBuilder.convertTime = function(timeframe) {
-    var millis = {
-      'One Day': 86400000,
-      'One Week': 604800000,
-      'One Month': 2419200000,
-      'One Year': 3.15569e10
-    }
-    return millis[timeframe];
-  };
-
   //CLICK THROUGH GOAL SETUP
   goalBuilder.goalClick = function(goal){
     goalBuilder.goal.goalType = goal;
@@ -221,6 +211,16 @@ angular.module('starter.factories', [])
         console.log('Your goal could not be added');
       });
     goalBuilder.goal = {};
+  };
+
+  goalBuilder.convertTime = function(timeframe) {
+    var millis = {
+      'One Day': 86400000,
+      'One Week': 604800000,
+      'One Month': 2419200000,
+      'One Year': 3.15569e10
+    }
+    return millis[timeframe];
   };
 
   goalBuilder.calcRemaining = function(list) {

@@ -17,6 +17,7 @@ describe("Unit Testing Ionic", function () {
     User = _User_;
     spyOn($state, 'go');
     spyOn(GoalBuilder, 'sendGoal');
+    spyOn(GoalBuilder, 'saveGoal');
   }));
 
 
@@ -149,6 +150,11 @@ describe("Unit Testing Ionic", function () {
       expect(GoalBuilder.sendGoal).toHaveBeenCalled();
     });
 
+    it('Should call saveGoal() to server', function(){
+      GoalBuilder.failClick();
+      expect(GoalBuilder.saveGoal).toHaveBeenCalled();
+    });
+
     it('Should check if user has payment and redirect accordingly', function(){
       User.loggedIn.hasPayment = false;
       GoalBuilder.failClick();
@@ -160,5 +166,5 @@ describe("Unit Testing Ionic", function () {
     });
   });
 
-});
+}); 
 
