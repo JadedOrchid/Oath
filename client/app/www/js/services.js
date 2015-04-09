@@ -21,16 +21,16 @@ angular.module('starter.factories', [])
   user.getUser = function(){
     return $http.get('/api/user')
       .then(function(userData){
-        console.log(userData);
         user.loggedIn = userData.data;
         user.initialDirect(user.loggedIn);
       });
   };
 
   user.initialDirect = function(currentUser){
-    if(currentUser.recentGoals.length > 0){
-      user.checkUserStatus();
-    } else if (currentUser.currentGoals === undefined || currentUser.currentGoals.length === 0){
+    // if(currentUser.recentGoals.length > 0){
+    //   user.checkUserStatus();
+    // } else
+    if (currentUser.currentGoals === undefined || currentUser.currentGoals.length === 0){
       $state.go('goaltype');
     } else {
       $state.go('progress');
