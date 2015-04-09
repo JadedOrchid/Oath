@@ -11,6 +11,8 @@ angular.module('starter.factories', [])
         timeRemaining: '1second'
       }
     ]
+    //recent goals
+    //completed goals
   };
 
   //fix later to only save most pertinent data
@@ -19,14 +21,52 @@ angular.module('starter.factories', [])
   user.getUser = function(){
     return $http.get('/api/user')
       .then(function(userData){
-        console.log(userData);
-        user.data = userData.data;
-        if (userData.data.goals === undefined || userData.data.goals.length === 0){
-          $state.go('goaltype');
-        } else {
-          $state.go('progress');
-        }
+        user.loggedIn = userData.data;
+        user.initialDirect(user.loggedIn);
       });
+  };
+
+  user.initialDirect = function(currentUser){
+    // if(currentUser.recentGoals.length > 0){
+    //   user.checkUserStatus();
+    // } else
+    if (currentUser.currentGoals === undefined || currentUser.currentGoals.length === 0){
+      $state.go('goaltype');
+    } else {
+      $state.go('progress');
+    }
+  }
+
+  user.checkUserStatus = function(){
+    var goals = user.loggedIn.recentGoals;
+    var recent = goals[goals.length-1];
+
+    if(recent){
+      if(user.checkCompletedStatus(recent)){
+        $state.go('tab-success');
+      } else if (!!user.checkCompletedStatus(recent)) {
+        $state.go('tab-failure');
+      }
+    }
+  };
+
+  user.checkCompletedStatus = function(goal){
+    if(user.checkCompletedGoal(goal) && user.checkCompletedTime(goal)){
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  user.checkCompletedGoal = function(goal){
+    var target = goal.unitInput;
+    var actual = goal.progress;
+
+    return actual >= target ? true : false;
+  };
+
+  user.checkCompletedTime = function(goal){
+    return goal.timeRemaining <= 0 ? true : false;
   };
 
   user.checkJawbone = function(){
@@ -38,9 +78,8 @@ angular.module('starter.factories', [])
   };
 
   //function that checks goalstatus - called as soon as userobj is received
-    //redirect to goal celeration or goal failure page
-    //else goaltype
-    //else progress
+    //redirect to goal celeration
+    //else goal failure page
 
   return user;
 }])
@@ -132,7 +171,7 @@ angular.module('starter.factories', [])
     ];
     return successTypes;
   };
-  
+
   goalBuilder.returnTimes = function(){
     var times = [
       "One Day",
@@ -142,7 +181,7 @@ angular.module('starter.factories', [])
     ];
     return times;
   };
-  
+
   goalBuilder.returnFailures = function(){
     var failTypes = [
       {
@@ -168,7 +207,7 @@ angular.module('starter.factories', [])
     }
     return millis[timeframe];
   };
-  
+
   //CLICK THROUGH GOAL SETUP
   goalBuilder.goalClick = function(goal){
     goalBuilder.goal.goalType = goal;
