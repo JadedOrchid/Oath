@@ -11,7 +11,6 @@ angular.module('starter.factories', [])
     return $http.get('/api/user')
       .then(function(userData){
         user.loggedIn = userData.data;
-        console.log('this is the user.loggedIn when it comes in', user.loggedIn);
         user.initialDirect(user.loggedIn);
       });
   };
@@ -208,7 +207,7 @@ angular.module('starter.factories', [])
 
   //UTILS
   goalBuilder.sendGoal = function(){
-    console.log('this is the user object before sending goal', User.loggedIn);
+    //use underscore instead of JSON to copy object
     var copy = JSON.parse(JSON.stringify(goalBuilder.goal));
     User.loggedIn.currentGoals.push(copy);
     goalBuilder.goal = {};
