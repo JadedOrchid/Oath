@@ -16,10 +16,10 @@ angular.module('starter.factories', [])
   };
 
   user.initialDirect = function(currentUser){
-    // if(currentUser.recentGoals.length > 0){
-    //   user.checkUserStatus();
-    // } else
-    if (currentUser.currentGoals === undefined || currentUser.currentGoals.length === 0){
+    if(currentUser.recentGoals.length > 0){
+      user.checkUserStatus();
+    } else
+    if (currentUser.currentGoals.length === 0){
       $state.go('goaltype');
     } else {
       $state.go('progress');
@@ -196,6 +196,7 @@ angular.module('starter.factories', [])
   goalBuilder.failClick = function(fail){
     goalBuilder.goal.fail = fail;
     goalBuilder.goal.startTime = Date.now();
+    goalBuilder.saveGoal();
     goalBuilder.sendGoal();
 
     if(User.loggedIn.hasPayment){
@@ -206,12 +207,12 @@ angular.module('starter.factories', [])
   };
 
   //UTILS
-  goalBuilder.sendGoal = function(){
-    //use underscore instead of JSON to copy object
-    var copy = JSON.parse(JSON.stringify(goalBuilder.goal));
+  goalBuilder.saveGoal = function() {
+    var copy = angular.copy(goalBuilder.goal);
     User.loggedIn.currentGoals.push(copy);
-    goalBuilder.goal = {};
+  };
 
+  goalBuilder.sendGoal = function(){
     $http.post('/api/goals', goalBuilder.goal)
       .success(function(data, status, headers, config) {
         console.log('YAY!!');
@@ -219,6 +220,7 @@ angular.module('starter.factories', [])
       .error(function(data, status, headers, config) {
         console.log('Your goal could not be added');
       });
+    goalBuilder.goal = {};
   };
 
   goalBuilder.calcRemaining = function(list) {
