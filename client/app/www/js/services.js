@@ -2,18 +2,7 @@ angular.module('starter.factories', [])
 
 .factory('User', ['$http', '$state', function($http, $state) {
   var user = {};
-  user.loggedIn = {
-    currentGoals: [
-      {
-        goalType: {
-          title: 'step'
-        },
-        timeRemaining: '1second'
-      }
-    ]
-    //recent goals
-    //completed goals
-  };
+  user.loggedIn = {};
 
   //fix later to only save most pertinent data
     //also to standardize the 'username' concern b/c they're different based on
@@ -84,27 +73,7 @@ angular.module('starter.factories', [])
   return user;
 }])
 
-.factory('AuthFactory', ['$state', '$http', '$q', function($state, $http, $q){
-  //post to different endpoints
-  var factory = {};
-
-  factory.facebook = function(){
-    console.log("You're calling factory.facebook");
-    return $http.get('/auth/facebook');
-      // .then(function(res){
-      //   if (!res.facebook) {
-      //           return $state.go('login');
-      //         } else {
-      //           console.log("Successful facebook login, moving on")
-      //           return $state.go('goaltype')
-      //         }
-      // })
-  };
-
-  return factory;
-}])
-
-.factory('GoalBuilder', function($state, User, $http) {
+.factory('GoalBuilder', ['$state', 'User', '$http', function($state, User, $http) {
   var goalBuilder = {};
 
   //THE GOAL
@@ -238,8 +207,10 @@ angular.module('starter.factories', [])
 
   //UTILS
   goalBuilder.sendGoal = function(){
-    console.log(User);
-    User.loggedIn.currentGoals.push(goalBuilder.goal);
+    //use underscore instead of JSON to copy object
+    var copy = JSON.parse(JSON.stringify(goalBuilder.goal));
+    User.loggedIn.currentGoals.push(copy);
+    goalBuilder.goal = {};
 
     $http.post('/api/goals', goalBuilder.goal)
       .success(function(data, status, headers, config) {
@@ -251,13 +222,13 @@ angular.module('starter.factories', [])
   };
 
   goalBuilder.calcRemaining = function(list) {
-    // var remaining;
-    // var now = Date.now();
-    // for(var i = 0; i < list.length; i++) {
-    //   goal = list[i];
-    //   remaining = goal.period.millis - (now - goal.startTime);
-    //   goal.timeRemaining = remaining;
-    // }
+    var remaining;
+    var now = Date.now();
+    for(var i = 0; i < list.length; i++) {
+      goal = list[i];
+      remaining = goal.period.millis - (now - goal.startTime);
+      goal.timeRemaining = remaining;
+    }
     return list;
   };
 
@@ -272,5 +243,5 @@ angular.module('starter.factories', [])
   };
 
   return goalBuilder;
-});
+}]);
 

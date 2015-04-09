@@ -49,8 +49,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
 
   .state('login', {
     url: '/login',
-    templateUrl: 'templates/login.html',
-    controller: 'AuthCtrl'
+    templateUrl: 'templates/login.html'
   })
 
   .state('localLogin', {
@@ -119,22 +118,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
   .state('successreport', {
     url: '/successreport',
     templateUrl: 'templates/tab-success.html'
-    // controller: 'SuccessReportCtrl'
   })
 
   .state('failurereport', {
     url: '/failurereport',
     templateUrl: 'templates/tab-failure.html'
-    // controller: 'FailureReportCtrl'
   })
 
   .state('settings', {
     url: '/settings',
     templateUrl: 'templates/tab-settings.html'
-    // controller: 'SettingsCtrl'
   });
-
-
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('login');
