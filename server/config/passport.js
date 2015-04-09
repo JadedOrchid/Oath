@@ -15,7 +15,7 @@ module.exports = function(passport) {
         if (req.isAuthenticated()){
             next();
         }
-        res.status(401).send('not logged in');
+        res.status(401);
     };
 
     // =========================================================================
@@ -309,7 +309,6 @@ module.exports = function(passport) {
         });
 
     }));
-
 
 };
 

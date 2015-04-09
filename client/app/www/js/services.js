@@ -199,13 +199,15 @@ angular.module('starter.factories', [])
 
   //UTILS
   goalBuilder.sendGoal = function(){
-    // $http.post('/api/goals', goalBuilder.goal)
-    //   .success(function(data, status, headers, config) {
-    //   })
-    //   .error(function(data, status, headers, config) {
-    //     console.log('Your goal could not be added');
-    //   });
     User.loggedIn.currentGoals.push(goalBuilder.goal);
+
+    $http.post('/api/goals', goalBuilder.goal)
+      .success(function(data, status, headers, config) {
+        console.log('YAY!!');
+      })
+      .error(function(data, status, headers, config) {
+        console.log('Your goal could not be added');
+      });
   };
 
   goalBuilder.calcRemaining = function(list) {
