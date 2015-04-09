@@ -17,6 +17,7 @@ describe("Unit Testing Ionic", function () {
     User = _User_;
     spyOn($state, 'go');
     spyOn(GoalBuilder, 'sendGoal');
+    spyOn(GoalBuilder, 'saveGoal');
   }));
 
 
@@ -42,64 +43,6 @@ describe("Unit Testing Ionic", function () {
         expect(goalTypes[0].unit).toBeDefined();
       });
     })
-  })
-
-  describe('GOAL CLICK FUNCTION', function(){
-    it('Should update the goal object with goal type', function(){
-      GoalBuilder.goalClick('Step Goal');
-      expect(GoalBuilder.goal.goalType).toBe('Step Goal');
-    });
-
-    it('Should redirect to goal details', function(){
-      GoalBuilder.goalClick('Sleep Goal');
-      expect($state.go).toHaveBeenCalledWith('deviceAuth');
-    });
-  });
-
-  describe('RETURN SUCCESSES', function(){
-
-    it('Should return an array of objects', function() {
-      var successes = GoalBuilder.returnSucesses();
-      expect(Array.isArray(successes)).toBe(true);
-      expect(typeof successes[0]).toBe('object');
-    });
-
-    it('Object should have orgName', function() {
-      var goalTypes = GoalBuilder.returnSucesses();
-      expect(goalTypes[0].orgName).toBeDefined();
-    });
-
-    it('Object should have description', function() {
-      var goalTypes = GoalBuilder.returnSucesses();
-      expect(goalTypes[0].description).toBeDefined();
-    });
-
-    it('Object should have price', function() {
-      var goalTypes = GoalBuilder.returnSucesses();
-      expect(goalTypes[0].price).toBeDefined();
-    });
-
-    it('Object should have img', function() {
-      var goalTypes = GoalBuilder.returnSucesses();
-      expect(goalTypes[0].img).toBeDefined();
-    });
-  });
-
-  describe('SUCCESS CLICK FUNCTION', function(){
-    it('Should update the goal object with success object', function(){
-      GoalBuilder.successClick({
-        orgName: 'Red Cross',
-        description: 'Buy a vaccination',
-        price: '$5',
-        img: 'imgurl'
-      });
-      expect(GoalBuilder.goal.success.orgName).toBe('Red Cross');
-    });
-
-    it('Should redirect to goal details', function(){
-      GoalBuilder.successClick({});
-      expect($state.go).toHaveBeenCalledWith('goalfailure');
-    });
   });
 
   describe('RETURN TIMES', function(){
@@ -134,6 +77,66 @@ describe("Unit Testing Ionic", function () {
     });
   });
 
+  describe('RETURN SUCCESSES', function(){
+
+    it('Should return an array of objects', function() {
+      var successes = GoalBuilder.returnSucesses();
+      expect(Array.isArray(successes)).toBe(true);
+      expect(typeof successes[0]).toBe('object');
+    });
+
+    it('Object should have orgName', function() {
+      var goalTypes = GoalBuilder.returnSucesses();
+      expect(goalTypes[0].orgName).toBeDefined();
+    });
+
+    it('Object should have description', function() {
+      var goalTypes = GoalBuilder.returnSucesses();
+      expect(goalTypes[0].description).toBeDefined();
+    });
+
+    it('Object should have price', function() {
+      var goalTypes = GoalBuilder.returnSucesses();
+      expect(goalTypes[0].price).toBeDefined();
+    });
+
+    it('Object should have img', function() {
+      var goalTypes = GoalBuilder.returnSucesses();
+      expect(goalTypes[0].img).toBeDefined();
+    });
+  });
+
+  //Click through goal creation
+
+  describe('GOAL CLICK FUNCTION', function(){
+    it('Should update the goal object with goal type', function(){
+      GoalBuilder.goalClick('Step Goal');
+      expect(GoalBuilder.goal.goalType).toBe('Step Goal');
+    });
+
+    it('Should redirect to goal details', function(){
+      GoalBuilder.goalClick('Sleep Goal');
+      expect($state.go).toHaveBeenCalledWith('deviceAuth');
+    });
+  });
+
+  describe('SUCCESS CLICK FUNCTION', function(){
+    it('Should update the goal object with success object', function(){
+      GoalBuilder.successClick({
+        orgName: 'Red Cross',
+        description: 'Buy a vaccination',
+        price: '$5',
+        img: 'imgurl'
+      });
+      expect(GoalBuilder.goal.success.orgName).toBe('Red Cross');
+    });
+
+    it('Should redirect to goal details', function(){
+      GoalBuilder.successClick({});
+      expect($state.go).toHaveBeenCalledWith('goalfailure');
+    });
+  });
+
   describe('FAIL CLICK FUNCTION', function(){
     it('Should update the goal object', function(){
       GoalBuilder.failClick({
@@ -149,6 +152,20 @@ describe("Unit Testing Ionic", function () {
       expect(GoalBuilder.sendGoal).toHaveBeenCalled();
     });
 
+    it('Should call saveGoal() to server', function(){
+      GoalBuilder.failClick();
+      expect(GoalBuilder.saveGoal).toHaveBeenCalled();
+    });
+
+    it('Should call saveGoal() to server', function(){
+      GoalBuilder.failClick();
+      if(User.loggedIn.hasPayment){
+        expect($state.go).toHaveBeenCalledWith('progress');
+      } else {
+        expect($state.go).toHaveBeenCalledWith('payment');
+      }
+    });
+
     it('Should check if user has payment and redirect accordingly', function(){
       User.loggedIn.hasPayment = false;
       GoalBuilder.failClick();
@@ -160,5 +177,28 @@ describe("Unit Testing Ionic", function () {
     });
   });
 
-});
+  //Goal Builder Utility Functions
+
+  describe('CONVERT TIME FUNCTION', function(){
+    it('Return milliseconds', function(){
+      var millis = GoalBuilder.convertTime('One Day');
+      expect(millis).toEqual(86400000);
+    });
+  });
+
+  describe('CALCULATE REMAINING FUNCTION', function(){
+    it('Add timeRemaining property to goals in list', function(){
+      var goal = {
+        startTime: 234124,
+        period: {
+          millis: 23423424
+        }
+      };
+      var goals = [goal];
+      goals = GoalBuilder.calcRemaining(goals);
+      expect(goals[0].timeRemaining).toBeLessThan(0);
+    });
+  });
+
+}); 
 

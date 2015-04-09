@@ -2,7 +2,9 @@ angular.module('starter.factories', [])
 
 .factory('User', ['$http', '$state', function($http, $state) {
   var user = {};
-  user.loggedIn = {};
+  user.loggedIn = {
+    currentGoals: []
+  };
 
   //fix later to only save most pertinent data
     //also to standardize the 'username' concern b/c they're different based on
@@ -167,16 +169,6 @@ angular.module('starter.factories', [])
     return failTypes;
   };
 
-  goalBuilder.convertTime = function(timeframe) {
-    var millis = {
-      'One Day': 86400000,
-      'One Week': 604800000,
-      'One Month': 2419200000,
-      'One Year': 3.15569e10
-    }
-    return millis[timeframe];
-  };
-
   //CLICK THROUGH GOAL SETUP
   goalBuilder.goalClick = function(goal){
     goalBuilder.goal.goalType = goal;
@@ -194,10 +186,11 @@ angular.module('starter.factories', [])
   };
 
   goalBuilder.failClick = function(fail){
-    goalBuilder.goal.fail = fail;
-    goalBuilder.goal.startTime = Date.now();
-    goalBuilder.saveGoal();
-    goalBuilder.sendGoal();
+    var goal = goalBuilder.goal;
+    goal.fail = fail;
+    goal.startTime = Date.now();
+    goalBuilder.saveGoal(goal);
+    goalBuilder.sendGoal(goal);
 
     if(User.loggedIn.hasPayment){
       $state.go('progress');
@@ -207,13 +200,13 @@ angular.module('starter.factories', [])
   };
 
   //UTILS
-  goalBuilder.saveGoal = function() {
-    var copy = angular.copy(goalBuilder.goal);
+  goalBuilder.saveGoal = function(goal) {
+    var copy = angular.copy(goal);
     User.loggedIn.currentGoals.push(copy);
   };
 
-  goalBuilder.sendGoal = function(){
-    $http.post('/api/goals', goalBuilder.goal)
+  goalBuilder.sendGoal = function(goal){
+    $http.post('/api/goals', goal)
       .success(function(data, status, headers, config) {
         console.log('YAY!!');
       })
@@ -221,6 +214,16 @@ angular.module('starter.factories', [])
         console.log('Your goal could not be added');
       });
     goalBuilder.goal = {};
+  };
+
+  goalBuilder.convertTime = function(timeframe) {
+    var millis = {
+      'One Day': 86400000,
+      'One Week': 604800000,
+      'One Month': 2419200000,
+      'One Year': 3.15569e10
+    }
+    return millis[timeframe];
   };
 
   goalBuilder.calcRemaining = function(list) {
@@ -233,7 +236,6 @@ angular.module('starter.factories', [])
     }
     return list;
   };
-
 
   goalBuilder.updateDeets = function() {
     goalBuilder.goal.period = {
