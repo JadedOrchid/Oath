@@ -155,6 +155,15 @@ describe("Unit Testing Ionic", function () {
       expect(GoalBuilder.saveGoal).toHaveBeenCalled();
     });
 
+    it('Should call saveGoal() to server', function(){
+      GoalBuilder.failClick();
+      if(User.loggedIn.hasPayment){
+        expect($state.go).toHaveBeenCalledWith('progress');
+      } else {
+        expect($state.go).toHaveBeenCalledWith('payment');
+      }
+    });
+
     it('Should check if user has payment and redirect accordingly', function(){
       User.loggedIn.hasPayment = false;
       GoalBuilder.failClick();
