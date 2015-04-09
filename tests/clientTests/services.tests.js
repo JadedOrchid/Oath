@@ -43,17 +43,37 @@ describe("Unit Testing Ionic", function () {
         expect(goalTypes[0].unit).toBeDefined();
       });
     })
-  })
+  });
 
-  describe('GOAL CLICK FUNCTION', function(){
-    it('Should update the goal object with goal type', function(){
-      GoalBuilder.goalClick('Step Goal');
-      expect(GoalBuilder.goal.goalType).toBe('Step Goal');
+  describe('RETURN TIMES', function(){
+    it('Should return an array of strings', function() {
+      var times = GoalBuilder.returnTimes();
+      expect(Array.isArray(times)).toBe(true);
+      expect(typeof times[0]).toBe('string');
+    });
+  });
+
+  describe('RETURN FAILURES', function(){
+
+    it('Should return an array of objects', function() {
+      var failures = GoalBuilder.returnFailures();
+      expect(Array.isArray(failures)).toBe(true);
+      expect(typeof failures[0]).toBe('object');
     });
 
-    it('Should redirect to goal details', function(){
-      GoalBuilder.goalClick('Sleep Goal');
-      expect($state.go).toHaveBeenCalledWith('deviceAuth');
+    it('Object should have orgName', function() {
+      var goalTypes = GoalBuilder.returnFailures();
+      expect(goalTypes[0].orgName).toBeDefined();
+    });
+
+    it('Object should have description', function() {
+      var goalTypes = GoalBuilder.returnFailures();
+      expect(goalTypes[0].description).toBeDefined();
+    });
+
+    it('Object should have img', function() {
+      var goalTypes = GoalBuilder.returnFailures();
+      expect(goalTypes[0].img).toBeDefined();
     });
   });
 
@@ -86,6 +106,20 @@ describe("Unit Testing Ionic", function () {
     });
   });
 
+  //Click through goal creation
+
+  describe('GOAL CLICK FUNCTION', function(){
+    it('Should update the goal object with goal type', function(){
+      GoalBuilder.goalClick('Step Goal');
+      expect(GoalBuilder.goal.goalType).toBe('Step Goal');
+    });
+
+    it('Should redirect to goal details', function(){
+      GoalBuilder.goalClick('Sleep Goal');
+      expect($state.go).toHaveBeenCalledWith('deviceAuth');
+    });
+  });
+
   describe('SUCCESS CLICK FUNCTION', function(){
     it('Should update the goal object with success object', function(){
       GoalBuilder.successClick({
@@ -100,38 +134,6 @@ describe("Unit Testing Ionic", function () {
     it('Should redirect to goal details', function(){
       GoalBuilder.successClick({});
       expect($state.go).toHaveBeenCalledWith('goalfailure');
-    });
-  });
-
-  describe('RETURN TIMES', function(){
-    it('Should return an array of strings', function() {
-      var times = GoalBuilder.returnTimes();
-      expect(Array.isArray(times)).toBe(true);
-      expect(typeof times[0]).toBe('string');
-    });
-  });
-
-  describe('RETURN FAILURES', function(){
-
-    it('Should return an array of objects', function() {
-      var failures = GoalBuilder.returnFailures();
-      expect(Array.isArray(failures)).toBe(true);
-      expect(typeof failures[0]).toBe('object');
-    });
-
-    it('Object should have orgName', function() {
-      var goalTypes = GoalBuilder.returnFailures();
-      expect(goalTypes[0].orgName).toBeDefined();
-    });
-
-    it('Object should have description', function() {
-      var goalTypes = GoalBuilder.returnFailures();
-      expect(goalTypes[0].description).toBeDefined();
-    });
-
-    it('Object should have img', function() {
-      var goalTypes = GoalBuilder.returnFailures();
-      expect(goalTypes[0].img).toBeDefined();
     });
   });
 
@@ -172,6 +174,29 @@ describe("Unit Testing Ionic", function () {
       User.loggedIn.hasPayment = true;
       GoalBuilder.failClick();
       expect($state.go).toHaveBeenCalledWith('progress');
+    });
+  });
+
+  //Goal Builder Utility Functions
+
+  describe('CONVERT TIME FUNCTION', function(){
+    it('Return milliseconds', function(){
+      var millis = GoalBuilder.convertTime('One Day');
+      expect(millis).toEqual(86400000);
+    });
+  });
+
+  describe('CALCULATE REMAINING FUNCTION', function(){
+    it('Add timeRemaining property to goals in list', function(){
+      var goal = {
+        startTime: 234124,
+        period: {
+          millis: 23423424
+        }
+      };
+      var goals = [goal];
+      goals = GoalBuilder.calcRemaining(goals);
+      expect(goals[0].timeRemaining).toBeLessThan(0);
     });
   });
 
