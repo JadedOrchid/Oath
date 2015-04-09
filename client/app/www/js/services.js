@@ -199,7 +199,7 @@ angular.module('starter.factories', [])
 
   //UTILS
   goalBuilder.sendGoal = function(){
-    // $http.post('/api/goal', goalBuilder.goal)
+    // $http.post('/api/goals', goalBuilder.goal)
     //   .success(function(data, status, headers, config) {
     //   })
     //   .error(function(data, status, headers, config) {

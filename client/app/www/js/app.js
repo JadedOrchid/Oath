@@ -37,13 +37,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
   })
 
   // Each tab has its own nav history stack:
-
-  .state('tab.dash', {
-    url: '/dash',
+  .state('tab.progress', {
+    url: '/progress',
     views: {
-      'tab-dash': {
-        templateUrl: 'templates/progress.html',
-        // controller: 'DashCtrl'
+      'tab-progress': {
+        templateUrl: 'templates/tab-progress.html',
+        controller: 'ProgressCtrl'
       }
     }
   })
@@ -111,11 +110,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     controller: 'PaymentCtrl'
   })
 
-  .state('progress', {
-    url: '/progress',
-    templateUrl: 'templates/progress.html',
-    controller: 'ProgressCtrl'
-  })
+  // .state('progress', {
+  //   url: '/progress',
+  //   templateUrl: 'templates/tab-progress.html',
+  //   controller: 'ProgressCtrl'
+  // })
 
   .state('successreport', {
     url: '/successreport',

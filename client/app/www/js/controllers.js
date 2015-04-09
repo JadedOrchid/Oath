@@ -1,7 +1,5 @@
 angular.module('starter.controllers', [])
 
-// .controller('DashCtrl', function($scope) {})
-
 .controller('AuthCtrl', function($scope, AuthFactory, $stateParams, $state) {
   $scope.fb = AuthFactory.facebook;
 })
@@ -36,7 +34,7 @@ angular.module('starter.controllers', [])
     //call stripe function with form data that returns token
     //send ajax request to auth/stripe with token
     //redirect to progress
-    $state.go('progress');
+    $state.go('tab.progress');
   };
 })  
 
