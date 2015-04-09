@@ -74,7 +74,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     controller: 'GoalCtrl',
   })
 
-    .state('signup', {
+  .state('signup', {
     url: '/signup',
     templateUrl: 'templates/signup.html'
   })
@@ -109,7 +109,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     controller: 'PaymentCtrl'
   })
 
-  .state('progress', { 
+  .state('progress', {
     url: '/progress',
     templateUrl: 'templates/tab-progress.html',
     controller: 'ProgressCtrl'

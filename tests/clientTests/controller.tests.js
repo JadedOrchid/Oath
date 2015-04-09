@@ -66,7 +66,7 @@ describe("Unit Testing Controllers", function () {
 
     it('Should go to start of choices', function() {
       GoalBuilder.goalClick();
-      expect($state.go).toHaveBeenCalledWith('goaldetails');
+      expect($state.go).toHaveBeenCalledWith('deviceAuth');
     });
   })
 
