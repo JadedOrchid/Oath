@@ -6,12 +6,27 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 var karma = require('karma').server;
+//adding the following:
+var jshint = require('gulp-jshint');
+var uglify = require('gulp-uglify');
 
 var paths = {
   sass: ['./scss/**/*.scss']
 };
 
+var lintPaths = [
+  '/client/app/www/js/**/*.js',
+]
+
 gulp.task('default');
+
+// Lint Task
+gulp.task('lint', function() {
+    return gulp.src(lintPaths)
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+});
+
 
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
