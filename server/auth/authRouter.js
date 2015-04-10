@@ -17,10 +17,17 @@ module.exports = function(app, passport) {
       });
 
   //connect jawbone
-  app.get('/jawbone', passport.authorize('jawbone', { scope : ['basic_read','extended_read','friends_read','move_read','sleep_read','meal_read','mood_write'] }));
+  app.get('/jawbone', passport.authorize('jawbone', { scope : ['basic_read','extended_read','friends_read','move_read','sleep_read','meal_read'] }));
   app.get('/jawbone/callback', passport.authorize('jawbone'), function(req, res){
     res.redirect('/#/purgatory');
   });
+
+  app.post('/jawbone/pubsub', function(req,res){
+    var info = req.body;
+    console.log('body', info);
+    console.log('url', req.url);
+  })
+
 
 };
 
