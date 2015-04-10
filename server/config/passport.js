@@ -281,7 +281,7 @@ module.exports = function(passport) {
                         // save our user to the database
                         newUser.save(function (err, user) {
                           if (err) return console.error(err);
-                          return done(null, newUser, console.log('Welcome '+newUser.local.email+', from UP to funmotivation.com!'));
+                          return done(null, newUser);
                         });
 
                             // if successful, return the new user
