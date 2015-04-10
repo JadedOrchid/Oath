@@ -4,6 +4,7 @@ var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
+var jawbone = require('../lib/jawbone');
 
 module.exports = function(app,express) {
 
@@ -40,4 +41,5 @@ module.exports = function(app,express) {
 
   require('../auth/authRouter.js')(authRouter, passport);
   require('../api/apiRouter.js')(apiRouter, passport);
-}
+
+};
