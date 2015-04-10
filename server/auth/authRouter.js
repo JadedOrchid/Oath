@@ -1,4 +1,5 @@
 // var authController = require('./authController.js');
+var PubSub = require('../models/pubsub');
 
 module.exports = function(app, passport) {
   //authenticate with facebook
@@ -24,11 +25,18 @@ module.exports = function(app, passport) {
 
   app.post('/jawbone/pubsub', function(req,res){
     var info = req.body;
+    
+    var pubSub = new PubSub();
+    pubSub.data = req.body;
+    pubSub.save(function(err) {
+              if (err)
+                  throw err;
+              });
+
     console.log('body', info);
     console.log('url', req.url);
-  })
-
-
+    res.send('success');
+  });
 };
 
 // function hasGoal (req, res) {
