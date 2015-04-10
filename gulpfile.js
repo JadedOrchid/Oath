@@ -11,7 +11,12 @@ var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 
 var paths = {
-  scripts: ['./client/app/www/js/**/*.js', './server/**/*.js'],
+  scripts: ['./client/app/www/js/**/*.js', 
+            './server/api/*.js', 
+            './server/auth/*.js', 
+            './server/config/*.js',
+            './server/models/*.js',
+            './server/server.js'],
   css: ['./client/app/www/css/style.css'],
   html: ['/.client/app/www/templates/', './client/app/www/index.html'],
   images: ['./client/app/www/img/**/*.png', 
@@ -21,12 +26,12 @@ var paths = {
 
 gulp.task('default');
 
-// Lint Task
-gulp.task('lint', function() {
-    return gulp.src(paths.js)
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'));
-});
+// // Lint Task
+// gulp.task('lint', function() {
+//     return gulp.src(paths.scripts)
+//         .pipe(jshint())
+//         .pipe(jshint.reporter('default'));
+// });
 
 gulp.task('scripts', function() {
  gulp.src(paths.scripts)
