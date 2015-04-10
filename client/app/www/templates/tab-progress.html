@@ -3,7 +3,7 @@
     <h1>Goal Progress!</h1>
 
     <ion-list>
-      <ion-item collection-repeat="goal in currentGoals">
+      <ion-item collection-repeat="goal in goals">
          {{goal.goalType.title}} for {{goal.success.orgName}} Time remaining: {{goal.timeRemaining}} Progress: {{goal.progress}}
       </ion-item>
     </ion-list>

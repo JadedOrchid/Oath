@@ -17,19 +17,19 @@ apiController.handleGoalsPost = function(req,res){
 apiController.handleGoalsGet = function(req,res){
 
   User.findById(req.user._id, function(err, user) {
-        res.send(user.currentGoals);
+        res.send(user.goals);
     });
 };
 
 apiController.handleGoalGet = function(req,res){
   var startTime = req.params.startTime;
     User.findById(req.user._id, function(err, user) {
-        var currentGoals = user.currentGoals;
+        var goals = user.goals;
         var goal = null;
-        for (var i = 0; i < currentGoals.length; i++){
+        for (var i = 0; i < goals.length; i++){
           // triple equals doesn't work here (?)
-          if (currentGoals[i].startTime == startTime){
-            goal = currentGoals[i]
+          if (goals[i].startTime == startTime){
+            goal = goals[i]
           }
         }
         console.log(goal);
@@ -48,11 +48,11 @@ apiController.handleGoalPut = function(req,res){
   var startTime = req.params.startTime;
     User.findById(req.user._id, function(err, user) {
         var oldGoal = null;
-        for (var i = 0; i < user.currentGoals.length; i++){
+        for (var i = 0; i < user.goals.length; i++){
           // triple equals doesn't work here (?)
-          if (user.currentGoals[i].startTime == startTime){
-            oldGoal = user.currentGoals[i];
-            user.currentGoals[i] = newGoal;
+          if (user.goals[i].startTime == startTime){
+            oldGoal = user.goals[i];
+            user.goals[i] = newGoal;
           }
         }
         user.save(function(err){

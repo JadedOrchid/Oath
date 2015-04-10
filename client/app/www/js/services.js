@@ -3,7 +3,7 @@ angular.module('starter.factories', [])
 .factory('User', ['$http', '$state', function($http, $state) {
   var user = {};
   user.loggedIn = {
-    currentGoals: []
+    goals: []
   };
 
   //fix later to only save most pertinent data
@@ -18,15 +18,15 @@ angular.module('starter.factories', [])
   };
 
   user.initialDirect = function(currentUser){
-    if(currentUser.recentGoals.length > 0){
-      user.checkUserStatus();
-    } else
-    if (currentUser.currentGoals.length === 0){
+    // if(currentUser.recentGoals.length > 0){
+    //   user.checkUserStatus();
+    // } else
+    if (currentUser.goals.length === 0){
       $state.go('goaltype');
     } else {
       $state.go('progress');
     }
-  }
+  };
 
   user.checkUserStatus = function(){
     var goals = user.loggedIn.recentGoals;
@@ -50,7 +50,7 @@ angular.module('starter.factories', [])
   };
 
   user.checkCompletedGoal = function(goal){
-    var target = goal.unitInput;
+    var target = goal.target;
     var actual = goal.progress;
 
     return actual >= target ? true : false;
@@ -61,16 +61,12 @@ angular.module('starter.factories', [])
   };
 
   user.checkJawbone = function(){
-    if (user.loggedIn .jawbone === undefined){
+    if (user.loggedIn.jawbone === undefined){
       return false;
     } else {
       return true;
     }
   };
-
-  //function that checks goalstatus - called as soon as userobj is received
-    //redirect to goal celeration
-    //else goal failure page
 
   return user;
 }])
@@ -80,7 +76,9 @@ angular.module('starter.factories', [])
 
   //THE GOAL
   goalBuilder.goal = {
-    progress: 0
+    progress: 0, // unreliable
+    completed: false,
+    celebrated: false
   };
 
   //DATA
@@ -202,7 +200,7 @@ angular.module('starter.factories', [])
   //UTILS
   goalBuilder.saveGoal = function(goal) {
     var copy = angular.copy(goal);
-    User.loggedIn.currentGoals.push(copy);
+    User.loggedIn.goals.push(copy);
   };
 
   goalBuilder.sendGoal = function(goal){
@@ -213,7 +211,12 @@ angular.module('starter.factories', [])
       .error(function(data, status, headers, config) {
         console.log('Your goal could not be added');
       });
-    goalBuilder.goal = {};
+    // NOT WORKING
+    goalBuilder.goal = {
+      progress: 0, // unreliable
+      completed: false,
+      celebrated: false
+    };
   };
 
   goalBuilder.convertTime = function(timeframe) {
@@ -242,7 +245,7 @@ angular.module('starter.factories', [])
       human: this.timeframe,
       millis: goalBuilder.convertTime(this.timeframe)
     }
-    goalBuilder.goal.unitInput = this.unitInput;
+    goalBuilder.goal.target = this.target;
     $state.go('goalsuccess');
   };
 
