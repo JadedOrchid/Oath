@@ -1,3 +1,3 @@
 module.exports = {
-    'url' : process.env.CUSTOMCONNSTR_MONGOLAB_URI || 'mongodb://localhost/synpact'
+    'url' : process.env.MONGOLAB_URI || 'mongodb://localhost/synpact'
 };

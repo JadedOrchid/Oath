@@ -16,7 +16,7 @@ node_modules/
 coverage/
 
 # Secrets
-auth.js
+settings.json
 
 # Misc
 *.DS_Store
