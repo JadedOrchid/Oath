@@ -1,22 +1,23 @@
 // var authController = require('./authController.js');
-var stripe = require('stripe')('sk_test_twv1oUzJ57KxofaPhYLor1Yw');
+var auth = require('../config/auth.js');
+var stripe = require("stripe")(auth.stripeAuth.testSecretKey);
 
 
 module.exports = function(router) {
-  router.post('/stripe', function(req, res){
+  router.post("/stripe", function(req, res){
     var token = req.body.JSONtoken;
     console.log(token)
 
     var charge = stripe.charges.create({
       amount: 1000,
-      currency: 'usd',
+      currency: "usd",
       source: token,
-      description: 'You bought a tree!'
+      description: "You bought a tree?"
     }, function(err, charge){
-      if(err && err.type === 'StripeCardError'){
-        console.log('This card has been declined.');
+      if(err){
+        console.log("ERROR: ", err.raw);
       }
     });
-    console.log("Here's the charge: ", charge);
+    // console.log("Here's the charge: ", charge);
   })
 };
