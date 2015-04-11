@@ -62,7 +62,7 @@ angular.module('starter.controllers', [])
 
 .controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', function($scope, User, GoalBuilder) {
   $scope.goals = User.loggedIn.goals;
-}]);
+}])
 
 .controller('FailureReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {
   $scope.failed = User.getOldestUncelebrated();

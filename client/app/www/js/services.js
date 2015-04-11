@@ -24,7 +24,7 @@ angular.module('starter.factories', [])
   };
 
   user.getUncelebrated = function(goals) {
-    return goals.map(function(goal){
+    return goals.filter(function(goal){
       if(goal.completed && !goal.celebrated) {
         return goal;
       }
@@ -78,8 +78,8 @@ angular.module('starter.factories', [])
       });
   };
 
-  user.checkJawbone = function(){
-    if (user.loggedIn.jawbone === undefined){
+  user.checkJawbone = function(currentUser){
+    if (currentUser.jawbone === undefined){
       return false;
     } else {
       return true;
@@ -187,7 +187,7 @@ angular.module('starter.factories', [])
   //CLICK THROUGH GOAL SETUP
   goalBuilder.goalClick = function(goal){
     goalBuilder.goal.goalType = goal;
-    if (User.checkJawbone()){
+    if (User.checkJawbone(User.loggedIn)){
       $state.go('goaldetails');
     } else {
       $state.go('deviceAuth');
