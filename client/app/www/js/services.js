@@ -4,15 +4,14 @@ angular.module('starter.factories', [])
 
   payment.sendToken = function(token){
 
-    var JSONtoken = JSON.stringify(token);
-    console.log("you are sending token now! let's see what happens, here is the token", JSONtoken);
-    $http.post('/payments/stripe', {JSONtoken: JSONtoken})
+    console.log("you are sending token now! let's see what happens, here is the token", token);
+    $http.post('/payments/stripe', {JSONtoken: token})
       .success(function(data, status, headers, config) {
         console.log('You were able to send payment token to server!!');
       })
       .error(function(data, status, headers, config) {
         console.log('Your token was not added to server');
-      });  
+      });
   };
   return payment;
 }])
@@ -42,9 +41,9 @@ angular.module('starter.factories', [])
       $state.go('goaltype');
       return;
     }
-    if(uncelebrated) {
-      return user.celebrate(uncelebrated);
-    } 
+    if(uncelebrated[0]) {
+      return user.celebrate(uncelebrated[0]);
+    }
     $state.go('progress');
   };
 
@@ -65,7 +64,7 @@ angular.module('starter.factories', [])
       })
       .error(function(data, status, headers, config) {
         console.log('error', data);
-      });  
+      });
   };
 
   //fix later to only save most pertinent data

@@ -1,20 +1,23 @@
 // var authController = require('./authController.js');
+var auth = require('../config/auth.js');
+var stripe = require("stripe")(auth.stripeAuth.testSecretKey);
+
 
 module.exports = function(router) {
-  router.post('/stripe', function(req, res){
+  router.post("/stripe", function(req, res){
+    var token = req.body.JSONtoken;
+    console.log(token)
 
-    
-    console.log("Here is the req.body: ", req.body);
-    console.log("Here is the res: ", res);
-
-
-    res.send("You posted a token to post / stripe!");
+    var charge = stripe.charges.create({
+      amount: 1000,
+      currency: "usd",
+      source: token,
+      description: "You bought a tree?"
+    }, function(err, charge){
+      if(err){
+        console.log("ERROR: ", err.raw);
+      }
+    });
+    // console.log("Here's the charge: ", charge);
   })
 };
-
-// function hasGoal (req, res) {
-//   var user = req.userData;
-//   if (user.goals.length) 
-//     goalHandler(req, res);
-//   makeGoalHandler(req, res);
-// }
