@@ -84,38 +84,6 @@ angular.module('starter.factories', [])
       });
   };
 
-  // user.checkUserStatus = function(){
-  //   var goals = user.loggedIn.recentGoals;
-  //   var recent = goals[goals.length-1];
-
-  //   if(recent){
-  //     if(user.checkCompletedStatus(recent)){
-  //       $state.go('tab-success');
-  //     } else if (!!user.checkCompletedStatus(recent)) {
-  //       $state.go('tab-failure');
-  //     }
-  //   }
-  // };
-
-  // user.checkCompletedStatus = function(goal){
-  //   if(user.checkCompletedGoal(goal) && user.checkCompletedTime(goal)){
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
-
-  // user.checkCompletedGoal = function(goal){
-  //   var target = goal.target;
-  //   var actual = goal.progress;
-
-  //   return actual >= target ? true : false;
-  // };
-
-  // user.checkCompletedTime = function(goal){
-  //   return goal.timeRemaining <= 0 ? true : false;
-  // };
-
   user.checkJawbone = function(){
     if (user.loggedIn.jawbone === undefined){
       return false;
