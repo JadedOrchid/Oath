@@ -7,8 +7,7 @@ var rename = require('gulp-rename');
 var sh = require('shelljs');
 var karma = require('karma').server;
 //adding the following:
-var jshint = require('gulp-jshint');
-var uglify = require('gulp-uglify');
+// var uglify = require('gulp-uglify');
 
 var paths = {
   scripts: ['./client/app/www/js/**/*.js', 
