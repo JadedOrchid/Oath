@@ -19,6 +19,7 @@ angular.module('starter.factories', [])
 
 .factory('User', ['$http', '$state', function($http, $state) {
   var user = {};
+
   user.loggedIn = {
     goals: []
   };
@@ -31,14 +32,18 @@ angular.module('starter.factories', [])
     });
   };
 
+  user.getOldestUncelebrated = function(goals) {
+    return user.getUncelebrated(goals)[0];
+  }
+
   user.initialDirect = function(currentUser){
-    var uncelebrated = user.getUncelebrated(currentUser.goals);
+    var uncelebrated = user.getOldestUncelebrated(currentUser.goals);
     if (currentUser.goals.length === 0){
       $state.go('goaltype');
       return;
     }
-    if(uncelebrated[0]) {
-      return user.celebrate(uncelebrated[0]);
+    if(uncelebrated) {
+      return user.celebrate(uncelebrated);
     } 
     $state.go('progress');
   };
@@ -54,8 +59,13 @@ angular.module('starter.factories', [])
   };
 
   user.putGoal = function(goal) {
-    //send goal to server put request to /api/goal/:startTime to goal
-
+    $http.put('/api/goal', goal)
+      .success(function(data, status, headers, config) {
+        console.log('Load was performed.', data);
+      })
+      .error(function(data, status, headers, config) {
+        console.log('error', data);
+      });  
   };
 
   //fix later to only save most pertinent data
@@ -68,38 +78,6 @@ angular.module('starter.factories', [])
         user.initialDirect(user.loggedIn);
       });
   };
-
-  // user.checkUserStatus = function(){
-  //   var goals = user.loggedIn.recentGoals;
-  //   var recent = goals[goals.length-1];
-
-  //   if(recent){
-  //     if(user.checkCompletedStatus(recent)){
-  //       $state.go('tab-success');
-  //     } else if (!!user.checkCompletedStatus(recent)) {
-  //       $state.go('tab-failure');
-  //     }
-  //   }
-  // };
-
-  // user.checkCompletedStatus = function(goal){
-  //   if(user.checkCompletedGoal(goal) && user.checkCompletedTime(goal)){
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
-
-  // user.checkCompletedGoal = function(goal){
-  //   var target = goal.target;
-  //   var actual = goal.progress;
-
-  //   return actual >= target ? true : false;
-  // };
-
-  // user.checkCompletedTime = function(goal){
-  //   return goal.timeRemaining <= 0 ? true : false;
-  // };
 
   user.checkJawbone = function(){
     if (user.loggedIn.jawbone === undefined){
