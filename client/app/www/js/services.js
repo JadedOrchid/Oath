@@ -64,7 +64,7 @@ angular.module('starter.factories', [])
   };
 
   user.putGoal = function(goal) {
-    //send data to server put request to /api/goal/:startTime to goal
+    //send goal to server put request to /api/goal/:startTime to goal
 
   };
 
