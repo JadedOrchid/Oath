@@ -6,13 +6,14 @@ var stripe = require("stripe")(auth.stripeAuth.testSecretKey);
 module.exports = function(router) {
   router.post("/stripe", function(req, res){
     var token = req.body.JSONtoken;
-    console.log(token)
+    var cost = req.body.choices.success.stripePrice;
+    var descrip = req.body.choices.success.description;
 
     var charge = stripe.charges.create({
-      amount: 1000,
+      amount: cost,
       currency: "usd",
       source: token,
-      description: "You bought a tree?"
+      description: descrip
     }, function(err, charge){
       if(err){
         console.log("ERROR: ", err.raw);

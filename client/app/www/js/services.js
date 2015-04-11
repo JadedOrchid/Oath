@@ -1,11 +1,12 @@
 angular.module('starter.factories', [])
+
 .factory('Payment', ['$http', function($http){
   var payment = {};
+  payment.stripeInfo = {};
 
   payment.sendToken = function(token){
-
     console.log("you are sending token now! let's see what happens, here is the token", token);
-    $http.post('/payments/stripe', {JSONtoken: token})
+    $http.post('/payments/stripe', {JSONtoken: token, choices: payment.stripeInfo})
       .success(function(data, status, headers, config) {
         console.log('You were able to send payment token to server!!');
       })
@@ -89,7 +90,7 @@ angular.module('starter.factories', [])
   return user;
 }])
 
-.factory('GoalBuilder', ['$state', 'User', '$http', function($state, User, $http) {
+.factory('GoalBuilder', ['$state', 'User', '$http', 'Payment', function($state, User, $http, Payment) {
   var goalBuilder = {};
 
   //THE GOAL
@@ -140,18 +141,21 @@ angular.module('starter.factories', [])
         orgName: 'Arbor Day Foundation',
         description: 'Plant a tree!',
         price: '$5',
+        stripePrice: 500,
         img: 'imgurl'
       },
       {
         orgName: 'Red Cross',
         description: 'Buy a vaccination',
         price: '$5',
+        stripePrice: 500,
         img: 'imgurl'
       },
       {
         orgName: 'TerraPass',
         description: 'Offset a flight',
         price: '$5',
+        stripePrice: 500,
         img: 'imgurl'
       }
     ];
@@ -203,6 +207,13 @@ angular.module('starter.factories', [])
     var goal = goalBuilder.goal;
     goal.fail = fail;
     goal.startTime = Date.now();
+
+    /////////////////
+    // console.log(Payment.sendToken)
+    Payment.stripeInfo = goal;
+    /////////////////
+
+
 
     goalBuilder.saveGoal(goal);
     goalBuilder.sendGoal(goal);

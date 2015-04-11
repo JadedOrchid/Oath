@@ -25,8 +25,8 @@ angular.module('starter.controllers', [])
   $scope.updateDeets = GoalBuilder.updateDeets;
 }])
 
-.controller('PaymentCtrl', ['$scope', 'Payment', function($scope, Payment) {
-  
+.controller('PaymentCtrl', ['$scope', 'Payment', '$state', function($scope, Payment, $state) {
+
   $scope.pay = function() {
     var cardholder = {
       number: this.card,
@@ -57,8 +57,8 @@ angular.module('starter.controllers', [])
     //send ajax request to auth/stripe with token
     //redirect to progress
     // $state.go('progress');
-  };
-}])  
+  }
+}])
 
 .controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', function($scope, User, GoalBuilder) {
   $scope.goals = User.loggedIn.goals;
@@ -70,4 +70,4 @@ angular.module('starter.controllers', [])
 
 .controller('SuccessReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {
   $scope.achieved = User.getOldestUncelebrated();
-}])
+}]);
