@@ -23,17 +23,6 @@ angular.module('starter.factories', [])
     goals: []
   };
 
-  //fix later to only save most pertinent data
-    //also to standardize the 'username' concern b/c they're different based on
-    //how they logged in
-  user.getUser = function(){
-    return $http.get('/api/user')
-      .then(function(userData){
-        user.loggedIn = userData.data;
-        user.initialDirect(user.loggedIn);
-      });
-  };
-
   user.getUncelebrated = function(goals) {
     return goals.map(function(goal){
       if(goal.completed && !goal.celebrated) {
@@ -42,12 +31,13 @@ angular.module('starter.factories', [])
     });
   };
 
-  user.initialDirect = function(user){
-    var uncelebrated = user.getUncelebrated(user.goals);
-    if (user.goals.length === 0){
+  user.initialDirect = function(currentUser){
+    var uncelebrated = user.getUncelebrated(currentUser.goals);
+    if (currentUser.goals.length === 0){
       $state.go('goaltype');
+      return;
     }
-    if(uncelebrated) {
+    if(uncelebrated[0]) {
       return user.celebrate(uncelebrated[0]);
     } 
     $state.go('progress');
@@ -64,8 +54,19 @@ angular.module('starter.factories', [])
   };
 
   user.putGoal = function(goal) {
-    //send data to server put request to /api/goal/:startTime to goal
+    //send goal to server put request to /api/goal/:startTime to goal
 
+  };
+
+  //fix later to only save most pertinent data
+    //also to standardize the 'username' concern b/c they're different based on
+    //how they logged in
+  user.getUser = function(){
+    return $http.get('/api/user')
+      .then(function(userData){
+        user.loggedIn = userData.data;
+        user.initialDirect(user.loggedIn);
+      });
   };
 
   // user.checkUserStatus = function(){
