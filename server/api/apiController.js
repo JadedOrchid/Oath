@@ -79,4 +79,8 @@ apiController.isLoggedIn = function(req,res,next){
     }
   };
 
+apiController.stripePost = function(req,res,next){
+  res.send("you did it!");
+}
+
 module.exports = apiController;

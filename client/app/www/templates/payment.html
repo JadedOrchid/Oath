@@ -2,11 +2,10 @@
   <ion-content class="padding">
     <h1>Payment Information</h1>
 
-    <!-- add post method to form -->
-    <!-- <form action=""  id="payment-form">
-      <span class="payment-errors"></span>
+    <!-- <form action="" method="POST" id="payment-form"> -->
+      <!-- <span class="payment-errors"></span> -->
 
-      <div class="form-row">
+<!--       <div class="form-row">
         <label>
           <span>Card Number</span>
           <input type="text" size="20" data-stripe="number"/>
@@ -27,10 +26,27 @@
         </label>
         <span> / </span>
         <input type="text" size="4" data-stripe="exp-year"/>
-      </div> -->
+      </div>
 
-      <button type="submit" ng-click="pay()">Submit Payment</button>
-    <!-- </form> -->
+      <button type="submit">Submit Payment</button>
+    </form> -->
+
+    <div class="list">
+      <label class="item item-input">
+        <input ng-model='card' type="text" placeholder="Card Number">
+      </label>
+      <label class="item item-input">
+        <input ng-model='cvc' type="text" placeholder="CVC">
+      </label>
+      <label class="item item-input">
+        <input ng-model='month' type="text" placeholder="Expiration Month"></input>
+      </label>
+      <label class="item item-input">
+        <input ng-model='year' type="text" placeholder="Expiration Year"></input>
+      </label>
+      <button ng-click='pay()'>Submit Payment</button>
+    </div>
+
 
   </ion-content>
 </ion-view>

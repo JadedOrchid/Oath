@@ -20,23 +20,46 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('GoalDetailCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
-
-  //on init // on render
   $scope.goalType = GoalBuilder.goal.goalType;
   $scope.times = GoalBuilder.returnTimes();
   $scope.updateDeets = GoalBuilder.updateDeets;
 }])
 
-.controller('PaymentCtrl', ['$scope', '$state', function($scope, $state) {
+.controller('PaymentCtrl', ['$scope', 'Payment', function($scope, Payment) {
+  
   $scope.pay = function() {
+    var cardholder = {
+      number: this.card,
+      cvc: this.cvc,
+      exp_month: this.month,
+      exp_year: this.year
+    }
+
+    console.log(cardholder);
+
+    var stripeResponseHandler = function (status, response) {
+
+      if (response.error) {
+        // Show the errors on the form
+        console.log("There was some sort of error, yo");
+      } else {
+        // response contains id and card, which contains additional card details
+        var token = response.id;
+        console.log("token", token);
+        Payment.sendToken(token);
+      }
+    }
+
+    Stripe.card.createToken(cardholder, stripeResponseHandler);
+    //grab data from all of the input fields
+
     //call stripe function with form data that returns token
     //send ajax request to auth/stripe with token
     //redirect to progress
-    $state.go('progress');
+    // $state.go('progress');
   };
 }])  
 
 .controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', function($scope, User, GoalBuilder) {
-  $scope.goals = GoalBuilder.calcRemaining(User.loggedIn.goals);
-  $scope.expiredGoals = User.loggedIn.expiredGoals;
+  $scope.goals = User.loggedIn.goals;
 }]);

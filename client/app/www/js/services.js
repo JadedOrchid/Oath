@@ -1,9 +1,61 @@
 angular.module('starter.factories', [])
+.factory('Payment', ['$http', function($http){
+  var payment = {};
+
+  payment.sendToken = function(token){
+
+    var JSONtoken = JSON.stringify(token);
+    console.log("you are sending token now! let's see what happens, here is the token", JSONtoken);
+    $http.post('/payments/stripe', {JSONtoken: JSONtoken})
+      .success(function(data, status, headers, config) {
+        console.log('You were able to send payment token to server!!');
+      })
+      .error(function(data, status, headers, config) {
+        console.log('Your token was not added to server');
+      });  
+  };
+  return payment;
+}])
 
 .factory('User', ['$http', '$state', function($http, $state) {
   var user = {};
   user.loggedIn = {
     goals: []
+  };
+
+  user.getUncelebrated = function(goals) {
+    return goals.map(function(goal){
+      if(goal.completed && !goal.celebrated) {
+        return goal;
+      }
+    });
+  };
+
+  user.initialDirect = function(currentUser){
+    var uncelebrated = user.getUncelebrated(currentUser.goals);
+    if (currentUser.goals.length === 0){
+      $state.go('goaltype');
+      return;
+    }
+    if(uncelebrated[0]) {
+      return user.celebrate(uncelebrated[0]);
+    } 
+    $state.go('progress');
+  };
+
+  user.celebrate = function(goal) {
+    goal.celebrated = true;
+    user.putGoal(goal);
+    if(+goal.target - +goal.progress > 0) {
+      $state.go('tab-success');
+    } else {
+      $state.go('tab-failure');
+    }
+  };
+
+  user.putGoal = function(goal) {
+    //send goal to server put request to /api/goal/:startTime to goal
+
   };
 
   //fix later to only save most pertinent data
@@ -17,48 +69,37 @@ angular.module('starter.factories', [])
       });
   };
 
-  user.initialDirect = function(currentUser){
-    // if(currentUser.recentGoals.length > 0){
-    //   user.checkUserStatus();
-    // } else
-    if (currentUser.goals.length === 0){
-      $state.go('goaltype');
-    } else {
-      $state.go('progress');
-    }
-  };
+  // user.checkUserStatus = function(){
+  //   var goals = user.loggedIn.recentGoals;
+  //   var recent = goals[goals.length-1];
 
-  user.checkUserStatus = function(){
-    var goals = user.loggedIn.recentGoals;
-    var recent = goals[goals.length-1];
+  //   if(recent){
+  //     if(user.checkCompletedStatus(recent)){
+  //       $state.go('tab-success');
+  //     } else if (!!user.checkCompletedStatus(recent)) {
+  //       $state.go('tab-failure');
+  //     }
+  //   }
+  // };
 
-    if(recent){
-      if(user.checkCompletedStatus(recent)){
-        $state.go('tab-success');
-      } else if (!!user.checkCompletedStatus(recent)) {
-        $state.go('tab-failure');
-      }
-    }
-  };
+  // user.checkCompletedStatus = function(goal){
+  //   if(user.checkCompletedGoal(goal) && user.checkCompletedTime(goal)){
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
 
-  user.checkCompletedStatus = function(goal){
-    if(user.checkCompletedGoal(goal) && user.checkCompletedTime(goal)){
-      return true;
-    } else {
-      return false;
-    }
-  };
+  // user.checkCompletedGoal = function(goal){
+  //   var target = goal.target;
+  //   var actual = goal.progress;
 
-  user.checkCompletedGoal = function(goal){
-    var target = goal.target;
-    var actual = goal.progress;
+  //   return actual >= target ? true : false;
+  // };
 
-    return actual >= target ? true : false;
-  };
-
-  user.checkCompletedTime = function(goal){
-    return goal.timeRemaining <= 0 ? true : false;
-  };
+  // user.checkCompletedTime = function(goal){
+  //   return goal.timeRemaining <= 0 ? true : false;
+  // };
 
   user.checkJawbone = function(){
     if (user.loggedIn.jawbone === undefined){
@@ -76,7 +117,6 @@ angular.module('starter.factories', [])
 
   //THE GOAL
   goalBuilder.goal = {
-    progress: 0, // unreliable
     completed: false,
     celebrated: false
   };
@@ -170,7 +210,6 @@ angular.module('starter.factories', [])
   //CLICK THROUGH GOAL SETUP
   goalBuilder.goalClick = function(goal){
     goalBuilder.goal.goalType = goal;
-
     if (User.checkJawbone()){
       $state.go('goaldetails');
     } else {
@@ -187,6 +226,7 @@ angular.module('starter.factories', [])
     var goal = goalBuilder.goal;
     goal.fail = fail;
     goal.startTime = Date.now();
+
     goalBuilder.saveGoal(goal);
     goalBuilder.sendGoal(goal);
 
@@ -211,9 +251,7 @@ angular.module('starter.factories', [])
       .error(function(data, status, headers, config) {
         console.log('Your goal could not be added');
       });
-    // NOT WORKING
     goalBuilder.goal = {
-      progress: 0, // unreliable
       completed: false,
       celebrated: false
     };
@@ -229,17 +267,6 @@ angular.module('starter.factories', [])
     return millis[timeframe];
   };
 
-  goalBuilder.calcRemaining = function(list) {
-    var remaining;
-    var now = Date.now();
-    for(var i = 0; i < list.length; i++) {
-      goal = list[i];
-      remaining = goal.period.millis - (now - goal.startTime);
-      goal.timeRemaining = remaining;
-    }
-    return list;
-  };
-
   goalBuilder.updateDeets = function() {
     goalBuilder.goal.period = {
       human: this.timeframe,
@@ -251,4 +278,3 @@ angular.module('starter.factories', [])
 
   return goalBuilder;
 }]);
-

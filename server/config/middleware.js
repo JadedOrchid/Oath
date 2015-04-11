@@ -1,14 +1,15 @@
 var passport = require('passport');
-
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
+var jawbone = require('../lib/jawbone');
 
 module.exports = function(app,express) {
 
   var authRouter = express.Router();
   var apiRouter = express.Router();
+  var paymentsRouter = express.Router();
 
   require('../config/passport')(passport); // pass passport for configuration
 
@@ -37,7 +38,10 @@ module.exports = function(app,express) {
 
   app.use('/auth', authRouter);
   app.use('/api', apiRouter);
+  app.use('/payments', paymentsRouter);
 
   require('../auth/authRouter.js')(authRouter, passport);
   require('../api/apiRouter.js')(apiRouter, passport);
-}
+  require('../payments/paymentsRouter.js')(paymentsRouter);
+};
+
