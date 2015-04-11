@@ -1,4 +1,22 @@
 angular.module('starter.factories', [])
+.factory('Payment', ['$http', function($http){
+  var payment = {};
+
+  payment.sendToken = function(token){
+
+    var JSONtoken = JSON.stringify(token);
+    console.log("you are sending token now! let's see what happens, here is the token", JSONtoken);
+    $http.post('/payments/stripe', {JSONtoken: JSONtoken})
+      .success(function(data, status, headers, config) {
+        console.log('You were able to send payment token to server!!');
+      })
+      .error(function(data, status, headers, config) {
+        console.log('Your token was not added to server');
+      });  
+  };
+  return payment;
+}])
+
 .factory('User', ['$http', '$state', function($http, $state) {
   var user = {};
   user.loggedIn = {
