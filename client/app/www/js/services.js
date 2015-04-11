@@ -6,7 +6,7 @@ angular.module('starter.factories', [])
 
   payment.sendToken = function(token){
     console.log("you are sending token now! let's see what happens, here is the token", token);
-    $http.post('/payments/stripe', {JSONtoken: token, descriptions: payment.stripeInfo})
+    $http.post('/payments/stripe', {JSONtoken: token, choices: payment.stripeInfo})
       .success(function(data, status, headers, config) {
         console.log('You were able to send payment token to server!!');
       })
