@@ -5,10 +5,8 @@ angular.module('starter.factories', [])
   payment.stripeInfo = {};
 
   payment.sendToken = function(token){
-
-    console.log(payment.stripeInfo);
     console.log("you are sending token now! let's see what happens, here is the token", token);
-    $http.post('/payments/stripe', {JSONtoken: token})
+    $http.post('/payments/stripe', {JSONtoken: token, descriptions: payment.stripeInfo})
       .success(function(data, status, headers, config) {
         console.log('You were able to send payment token to server!!');
       })
@@ -143,18 +141,21 @@ angular.module('starter.factories', [])
         orgName: 'Arbor Day Foundation',
         description: 'Plant a tree!',
         price: '$5',
+        stripePrice: 500,
         img: 'imgurl'
       },
       {
         orgName: 'Red Cross',
         description: 'Buy a vaccination',
         price: '$5',
+        stripePrice: 500,
         img: 'imgurl'
       },
       {
         orgName: 'TerraPass',
         description: 'Offset a flight',
         price: '$5',
+        stripePrice: 500,
         img: 'imgurl'
       }
     ];
