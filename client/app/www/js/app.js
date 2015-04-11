@@ -118,12 +118,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
 
   .state('successreport', {
     url: '/successreport',
-    templateUrl: 'templates/tab-success.html'
+    templateUrl: 'templates/tab-success.html',
+    controller: 'SuccessReportCtrl'
   })
 
   .state('failurereport', {
     url: '/failurereport',
-    templateUrl: 'templates/tab-failure.html'
+    templateUrl: 'templates/tab-failure.html',
+    controller: 'FailureReportCtrl'
   })
 
   .state('settings', {
