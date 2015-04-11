@@ -7,7 +7,10 @@ var _ = require('underscore');
 //namespace
 var lib = {};
 
-lib.updateAllGoals = function(){
+lib.updateAllUserGoals = function(){
+  // possible bug: we're currently finding all users, and then trying to save them
+  // one-by-one.  If this doesn't work, we can wait for all individual users to 
+  // update and then re-save the array
   User.find(function(err, users){
     for (var i = 0; i < users.length; i++){
       var user = users[i];
@@ -36,7 +39,7 @@ function jawboneUpdate(type, user cb){
   } else {
     // error: only sleep and moves currently supported
   }
-  
+
   var goals = user.goals;
   var relevantGoals = _.filter(goals, function(goal){
     return (!goal.completed && goal.goalType.title === clientType); 
@@ -62,10 +65,9 @@ function jawboneUpdate(type, user cb){
         goal.completed = true;
       }
     });
+    cb(user);
   });
 }
-
-
 
 // lib.updateSleeps = function(user, cb){
 //   var goals = user.goals;
