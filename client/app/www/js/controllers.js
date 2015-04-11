@@ -56,7 +56,7 @@ angular.module('starter.controllers', [])
     //call stripe function with form data that returns token
     //send ajax request to auth/stripe with token
     //redirect to progress
-    $state.go('progress');
+    // $state.go('progress');
   }
 }])
 

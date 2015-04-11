@@ -1,9 +1,12 @@
 angular.module('starter.factories', [])
+
 .factory('Payment', ['$http', function($http){
   var payment = {};
+  payment.stripeInfo = {};
 
   payment.sendToken = function(token){
 
+    console.log(payment.stripeInfo);
     console.log("you are sending token now! let's see what happens, here is the token", token);
     $http.post('/payments/stripe', {JSONtoken: token})
       .success(function(data, status, headers, config) {
@@ -89,7 +92,7 @@ angular.module('starter.factories', [])
   return user;
 }])
 
-.factory('GoalBuilder', ['$state', 'User', '$http', function($state, User, $http) {
+.factory('GoalBuilder', ['$state', 'User', '$http', 'Payment', function($state, User, $http, Payment) {
   var goalBuilder = {};
 
   //THE GOAL
@@ -203,6 +206,13 @@ angular.module('starter.factories', [])
     var goal = goalBuilder.goal;
     goal.fail = fail;
     goal.startTime = Date.now();
+
+    /////////////////
+    // console.log(Payment.sendToken)
+    Payment.stripeInfo = goal;
+    /////////////////
+
+
 
     goalBuilder.saveGoal(goal);
     goalBuilder.sendGoal(goal);
