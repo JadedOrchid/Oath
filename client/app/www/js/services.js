@@ -34,48 +34,71 @@ angular.module('starter.factories', [])
       });
   };
 
-  user.initialDirect = function(currentUser){
-    // if(currentUser.recentGoals.length > 0){
-    //   user.checkUserStatus();
-    // } else
-    if (currentUser.goals.length === 0){
-      $state.go('goaltype');
-    } else {
-      $state.go('progress');
-    }
-  };
-
-  user.checkUserStatus = function(){
-    var goals = user.loggedIn.recentGoals;
-    var recent = goals[goals.length-1];
-
-    if(recent){
-      if(user.checkCompletedStatus(recent)){
-        $state.go('tab-success');
-      } else if (!!user.checkCompletedStatus(recent)) {
-        $state.go('tab-failure');
+  user.getUncelebrated = function(goals) {
+    return goals.map(function(goal){
+      if(goal.completed && !goal.celebrated) {
+        return goal;
       }
-    }
+    });
   };
 
-  user.checkCompletedStatus = function(goal){
-    if(user.checkCompletedGoal(goal) && user.checkCompletedTime(goal)){
-      return true;
+  user.initialDirect = function(user){
+    var uncelebrated = user.getUncelebrated(user.goals);
+    if (user.goals.length === 0){
+      $state.go('goaltype');
+    }
+    if(uncelebrated) {
+      return user.celebrate(uncelebrated[0]);
+    } 
+    $state.go('progress');
+  };
+
+  user.celebrate = function(goal) {
+    goal.celebrated = true;
+    user.putGoal(goal);
+    if(+goal.target - +goal.progress > 0) {
+      $state.go('tab-success');
     } else {
-      return false;
+      $state.go('tab-failure');
     }
   };
 
-  user.checkCompletedGoal = function(goal){
-    var target = goal.target;
-    var actual = goal.progress;
+  user.putGoal = function(goal) {
+    //send data to server put request to /api/goal/:startTime to goal
 
-    return actual >= target ? true : false;
   };
 
-  user.checkCompletedTime = function(goal){
-    return goal.timeRemaining <= 0 ? true : false;
-  };
+  // user.checkUserStatus = function(){
+  //   var goals = user.loggedIn.recentGoals;
+  //   var recent = goals[goals.length-1];
+
+  //   if(recent){
+  //     if(user.checkCompletedStatus(recent)){
+  //       $state.go('tab-success');
+  //     } else if (!!user.checkCompletedStatus(recent)) {
+  //       $state.go('tab-failure');
+  //     }
+  //   }
+  // };
+
+  // user.checkCompletedStatus = function(goal){
+  //   if(user.checkCompletedGoal(goal) && user.checkCompletedTime(goal)){
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
+
+  // user.checkCompletedGoal = function(goal){
+  //   var target = goal.target;
+  //   var actual = goal.progress;
+
+  //   return actual >= target ? true : false;
+  // };
+
+  // user.checkCompletedTime = function(goal){
+  //   return goal.timeRemaining <= 0 ? true : false;
+  // };
 
   user.checkJawbone = function(){
     if (user.loggedIn.jawbone === undefined){
@@ -202,7 +225,7 @@ angular.module('starter.factories', [])
     var goal = goalBuilder.goal;
     goal.fail = fail;
     goal.startTime = Date.now();
-    
+
     goalBuilder.saveGoal(goal);
     goalBuilder.sendGoal(goal);
 
