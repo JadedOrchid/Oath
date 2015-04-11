@@ -17,8 +17,7 @@ angular.module('starter.factories', [])
   return payment;
 }])
 
-.factory('User', ['$http', '$state', '$document', function($http, $state, $document) {
-  var $ = $document;
+.factory('User', ['$http', '$state', function($http, $state) {
   var user = {};
 
   user.loggedIn = {
@@ -60,17 +59,13 @@ angular.module('starter.factories', [])
   };
 
   user.putGoal = function(goal) {
-    $.ajax({
-      url: '/api/goal/' + goal.startTime,
-      type: 'PUT',
-      data: goal,
-      success: function(data) {
+    $http.put('/api/goal', goal)
+      .success(function(data, status, headers, config) {
         console.log('Load was performed.', data);
-      },
-      failure: function(err) {
-        console.log(err);
-      }
-    });
+      })
+      .error(function(data, status, headers, config) {
+        console.log('error', data);
+      });  
   };
 
   //fix later to only save most pertinent data
