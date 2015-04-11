@@ -93,7 +93,6 @@ angular.module('starter.factories', [])
 
   //THE GOAL
   goalBuilder.goal = {
-    progress: 0, // unreliable
     completed: false,
     celebrated: false
   };
@@ -203,6 +202,7 @@ angular.module('starter.factories', [])
     var goal = goalBuilder.goal;
     goal.fail = fail;
     goal.startTime = Date.now();
+    
     goalBuilder.saveGoal(goal);
     goalBuilder.sendGoal(goal);
 
@@ -227,9 +227,7 @@ angular.module('starter.factories', [])
       .error(function(data, status, headers, config) {
         console.log('Your goal could not be added');
       });
-    // NOT WORKING
     goalBuilder.goal = {
-      progress: 0, // unreliable
       completed: false,
       celebrated: false
     };
@@ -243,17 +241,6 @@ angular.module('starter.factories', [])
       'One Year': 3.15569e10
     }
     return millis[timeframe];
-  };
-
-  goalBuilder.calcRemaining = function(list) {
-    var remaining;
-    var now = Date.now();
-    for(var i = 0; i < list.length; i++) {
-      goal = list[i];
-      remaining = goal.period.millis - (now - goal.startTime);
-      goal.timeRemaining = remaining;
-    }
-    return list;
   };
 
   goalBuilder.updateDeets = function() {
