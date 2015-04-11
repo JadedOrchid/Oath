@@ -17,8 +17,10 @@ angular.module('starter.factories', [])
   return payment;
 }])
 
-.factory('User', ['$http', '$state', function($http, $state) {
+.factory('User', ['$http', '$state', '$document', function($http, $state, $document) {
+  var $ = $document;
   var user = {};
+
   user.loggedIn = {
     goals: []
   };
@@ -31,14 +33,18 @@ angular.module('starter.factories', [])
     });
   };
 
+  user.getOldestUncelebrated = function(goals) {
+    return user.getUncelebrated(goals)[0];
+  }
+
   user.initialDirect = function(currentUser){
-    var uncelebrated = user.getUncelebrated(currentUser.goals);
+    var uncelebrated = user.getOldestUncelebrated(currentUser.goals);
     if (currentUser.goals.length === 0){
       $state.go('goaltype');
       return;
     }
-    if(uncelebrated[0]) {
-      return user.celebrate(uncelebrated[0]);
+    if(uncelebrated) {
+      return user.celebrate(uncelebrated);
     } 
     $state.go('progress');
   };
@@ -54,8 +60,17 @@ angular.module('starter.factories', [])
   };
 
   user.putGoal = function(goal) {
-    //send goal to server put request to /api/goal/:startTime to goal
-
+    $.ajax({
+      url: '/api/goal/' + goal.startTime,
+      type: 'PUT',
+      data: goal,
+      success: function(data) {
+        console.log('Load was performed.', data);
+      },
+      failure: function(err) {
+        console.log(err);
+      }
+    });
   };
 
   //fix later to only save most pertinent data
