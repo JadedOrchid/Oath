@@ -86,6 +86,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
   })
 
   .state('goaldetails', {
+    cache: false,
     url: '/goaldetails',
     templateUrl: 'templates/goaldetails.html',
     controller: 'GoalDetailCtrl'

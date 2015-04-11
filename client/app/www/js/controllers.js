@@ -20,8 +20,6 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('GoalDetailCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
-
-  //on init // on render
   $scope.goalType = GoalBuilder.goal.goalType;
   $scope.times = GoalBuilder.returnTimes();
   $scope.updateDeets = GoalBuilder.updateDeets;
@@ -63,6 +61,5 @@ angular.module('starter.controllers', [])
 }])  
 
 .controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', function($scope, User, GoalBuilder) {
-  $scope.goals = GoalBuilder.calcRemaining(User.loggedIn.goals);
-  $scope.expiredGoals = User.loggedIn.expiredGoals;
+  $scope.goals = User.loggedIn.goals;
 }]);
