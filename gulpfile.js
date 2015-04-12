@@ -29,7 +29,7 @@ var paths = {
 gulp.task('default');
 
 gulp.task('minify-js', function(){
-    return gulp.src(['./client/app/www/js/app.js', './client/app/www/js/controllers.js'])
+    return gulp.src(paths.scripts)
         .pipe(concat('concat.js'))
         .pipe(ignore.exclude([ "**/*.map" ]))
         .pipe(uglify().on('error', gutil.log))
