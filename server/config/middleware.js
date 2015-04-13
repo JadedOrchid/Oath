@@ -43,5 +43,7 @@ module.exports = function(app,express) {
   require('../auth/authRouter.js')(authRouter, passport);
   require('../api/apiRouter.js')(apiRouter, passport);
   require('../payments/paymentsRouter.js')(paymentsRouter);
+
+  require('../lib/scheduler'); // begin cron job
 };
 

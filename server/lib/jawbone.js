@@ -9,7 +9,7 @@ jawbone.get = function(type, userToken, cb) {
   };
   var up = require('jawbone-up')(options);
   up[type].get({}, function(err, body){
-    cb(err, body);
+    cb(err, JSON.parse(body));
   });
 };
 
