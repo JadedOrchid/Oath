@@ -17,7 +17,7 @@ lib.updateAllUserGoals = function(){
       jawboneUpdate('sleep', user, function(user){
         jawboneUpdate('moves', user, function(user){
           user.save(function(err){
-            // good god
+            console.log('User saved');
           });
         });
       });
@@ -27,107 +27,77 @@ lib.updateAllUserGoals = function(){
 
 module.exports = lib;
 
-function jawboneUpdate(type, user cb){
-  var clientType, path;
-  // config
-  if (type === 'sleep'){
-    clientType = 'Sleep Goal';
-    path = 'duration';
-  } else if (type === 'moves'){
-    clientType = 'Step Goal';
-    path = 'steps';
-  } else {
-    // error: only sleep and moves currently supported
-  }
-
+function jawboneUpdate(type, user, cb){
   var goals = user.goals;
-  var relevantGoals = _.filter(goals, function(goal){
-    return (!goal.completed && goal.goalType.title === clientType); 
-    // check if past end time?
-  });
+  var relevantGoals = filterGoalsByType(goals, type);
   if (relevantGoals.length === 0){
-    return cb(user);
+    return cb(user);  // put inside a setTimeout?
   }
   jawbone.get(type, user.jawbone.token, function(err, resp){
-    var currentTime = + new Date();
-    _.each(relevantGoals, function(goal){
-      var startTime = goal.startTime;
-      var endTime = goal.startTime + goal.period.millis;
-
-      var relevantData = _.filter(resp.data.items, function(data){
-        return data.time_completed > startTime && data.time_completed < endTime ;
-      });
-      var newTotal = _.reduce(relevantData, function(memo, datum){
-        return memo + datum.details[path];
-      },0);
-      goal.progress = newTotal; 
-      if (endTime < currentTime){
-        goal.completed = true;
-      }
-    });
+    var data = resp.data.items;
+    var updateGoal = _.bind(updateGoalUnbound, null, data);
+    _.each(relevantGoals, updateGoal);
     cb(user);
   });
 }
 
-// lib.updateSleeps = function(user, cb){
-//   var goals = user.goals;
-//   var sleepGoals = _.filter(goals, function(goal){
-//     return (!goal.completed && goal.goalType.title === "Sleep Goal"); 
-//     // check if past end time?
-//   })
-//   if (sleepGoals.length === 0){
-//     return cb(user);
-//   }
-//   jawbone.get('sleeps', user.jawbone.token, function(err, resp) {
-//     var currentTime = + new Date();
-//     _.each(sleepGoals, function(goal){
-//       var startTime = goal.startTime;
-//       var endTime = goal.startTime + goal.period.millis;
+// entire goals array -> filtered goals array
+// valid types: 'sleep', 'moves'
+function filterGoalsByType(goals, type){
+  var clientType;
+  if (type === 'sleep'){
+    clientType = 'Sleep Goal';
+  } else if (type === 'moves'){
+    clientType = 'Step Goal';
+  } else{
+    console.error('invalid type');
+  }
+  // return uncompleted goals of type clientType
+  return _.filter(goals, function(goal){
+    return (!goal.completed && goal.goalType.title === clientType);
+  });
+}
 
-//       var relevantSleeps = _.filter(resp.data.items, function(sleep){
-//         return sleep.time_completed > startTime && sleep.time_completed < endTime ;
-//       });
-//       var totalSleepTime = _.reduce(relevantSleeps, function(memo, sleep){
-//         return memo + sleep.details.duration;
-//       },0);
+// entire data array -> filtered data array
+function filterJawboneDataByTime(data, startTime, endTime){
+  return _.filter(data, function(datum){
+        //return data where time completed is between start and endtime
+         return datum.time_completed > startTime && datum.time_completed < endTime ;
+       });
+}
 
-//       goal.progress = totalSleepTime; 
-//       if (endTime < currentTime){
-//         goal.completed = true;
-//       }
-//     });
-//     cb(user)
-//   });
-// };
+function calculateProgress(relevantData, type){
+  var path;
+  if (type === 'sleep'){
+    path = 'duration';
+  } else if (type === 'moves'){
+    path = 'steps';
+  } else {
+    console.error('invalid type');
+  }
+  return _.reduce(relevantData, function(memo, datum){
+        return memo + datum.details[path];
+      },0);
+}
 
-// lib.updateSteps = function(user, cb){
-//   var goals = user.goals;
-//   var stepGoals = _.filter(goals, function(goal){
-//     return (!goal.completed && goal.goalType.title === "Step Goal"); 
-//     // check if past end time?
-//   })
-//   if (stepGoals.length === 0){
-//     return cb(user);
-//   }
-//   jawbone.get('moves', user.jawbone.token, function(err, resp) {
-//     var currentTime = + new Date();
-//     _.each(stepGoals, function(goal){
-//       var startTime = goal.startTime;
-//       var endTime = goal.startTime + goal.period.millis;
+function isCompleted (endTime, currentTime){
+  if (currentTime > endTime){
+    return true;
+  } else {
+    return false;
+  }
+}
 
-//       var relevantMoves = _.filter(resp.data.items, function(move){
-//         return move.time_completed > startTime && move.time_completed < endTime ;
-//       });
-//       var totalSteps = _.reduce(relevantMoves, function(memo, move){
-//         return memo + move.details.steps;
-//       },0);
+//side effect: mutates goal object
+function updateGoalUnbound(data, goal){
+  var currentTime = + new Date();
+  var startTime = goal.startTime;
+  var endTime = goal.startTime + goal.period.millis;
+  var relevantData = filterJawboneDataByTime(data, startTime, endTime);
 
-//       goal.progress = totalSteps; 
-//       if (endTime < currentTime){
-//         goal.completed = true;
-//       }
-//     });
-//     cb(user)
-//   });
-// };
+  goal.progress = calculateProgress(relevantData, type);
+  goal.completed = isCompleted(endTime, currentTime);
+
+}
+
 
