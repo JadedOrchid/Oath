@@ -32,9 +32,6 @@ module.exports = function(app, passport) {
               if (err)
                   throw err;
               });
-
-    console.log('body', info);
-    console.log('url', req.url);
     res.send('success');
   });
 };
