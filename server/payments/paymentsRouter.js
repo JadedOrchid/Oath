@@ -19,6 +19,5 @@ module.exports = function(router) {
         console.log("ERROR: ", err.raw);
       }
     });
-    // console.log("Here's the charge: ", charge);
   })
 };
