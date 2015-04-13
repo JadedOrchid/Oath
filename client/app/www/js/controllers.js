@@ -35,8 +35,6 @@ angular.module('starter.controllers', [])
       exp_year: this.year
     }
 
-    console.log(cardholder);
-
     var stripeResponseHandler = function (status, response) {
 
       if (response.error) {
@@ -45,18 +43,14 @@ angular.module('starter.controllers', [])
       } else {
         // response contains id and card, which contains additional card details
         var token = response.id;
-        console.log("token", token);
         Payment.sendToken(token);
       }
     }
-
+    //Use the Stripe module to get a token for this user
+    //if successful, call our response handler, which defers to server to charge customer
     Stripe.card.createToken(cardholder, stripeResponseHandler);
-    //grab data from all of the input fields
 
-    //call stripe function with form data that returns token
-    //send ajax request to auth/stripe with token
-    //redirect to progress
-    // $state.go('progress');
+    $state.go('progress');
   }
 }])
 

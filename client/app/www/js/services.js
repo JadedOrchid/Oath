@@ -37,6 +37,7 @@ angular.module('starter.factories', [])
   }
 
   user.initialDirect = function(currentUser){
+
     var uncelebrated = user.getOldestUncelebrated(currentUser.goals);
     if (currentUser.goals.length === 0){
       $state.go('goaltype');
