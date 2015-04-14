@@ -14,9 +14,14 @@ lib.updateAllUserGoals = function(){
   User.find(function(err, users){
     for (var i = 0; i < users.length; i++){
       var user = users[i];
-      jawboneUpdate('sleep', user, function(user){
-        jawboneUpdate('moves', user, function(user){
+      if (!user.jawbone) continue;
+      
+      lib.jawboneUpdate('sleeps', user, function(user){
+        lib.jawboneUpdate('moves', user, function(user){
+          user.markModified('goals');
           user.save(function(err){
+            if (err) console.log(err);
+
             console.log('User saved');
           });
         });
@@ -25,17 +30,15 @@ lib.updateAllUserGoals = function(){
   });
 };
 
-module.exports = lib;
-
-function jawboneUpdate(type, user, cb){
+lib.jawboneUpdate = function(type, user, cb){
   var goals = user.goals;
-  var relevantGoals = filterGoalsByType(goals, type);
+  var relevantGoals = lib.filterGoalsByType(goals, type);
   if (relevantGoals.length === 0){
     return cb(user);  // put inside a setTimeout?
   }
   jawbone.get(type, user.jawbone.token, function(err, resp){
     var data = resp.data.items;
-    var updateGoal = _.bind(updateGoalUnbound, null, data);
+    var updateGoal = _.bind(lib.updateGoalUnbound, null, type, data);
     _.each(relevantGoals, updateGoal);
     cb(user);
   });
@@ -43,9 +46,9 @@ function jawboneUpdate(type, user, cb){
 
 // entire goals array -> filtered goals array
 // valid types: 'sleep', 'moves'
-function filterGoalsByType(goals, type){
+lib.filterGoalsByType = function(goals, type){
   var clientType;
-  if (type === 'sleep'){
+  if (type === 'sleeps'){
     clientType = 'Sleep Goal';
   } else if (type === 'moves'){
     clientType = 'Step Goal';
@@ -59,28 +62,25 @@ function filterGoalsByType(goals, type){
 }
 
 // entire data array -> filtered data array
-function filterJawboneDataByTime(data, startTime, endTime){
+lib.filterJawboneDataByTime = function(data, startTime, endTime){
   return _.filter(data, function(datum){
         //return data where time completed is between start and endtime
          return datum.time_completed > startTime && datum.time_completed < endTime ;
        });
 }
 
-function calculateProgress(relevantData, type){
-  var path;
-  if (type === 'sleep'){
-    path = 'duration';
-  } else if (type === 'moves'){
-    path = 'steps';
-  } else {
-    console.error('invalid type');
-  }
+lib.calculateProgress = function(relevantData, type){
   return _.reduce(relevantData, function(memo, datum){
-        return memo + datum.details[path];
-      },0);
+      if (type === 'sleeps') {
+        return memo + datum.details.light + datum.details.sound;
+      } else if (type === 'moves'){
+        return memo + datum.details.steps;
+      }
+    },0);
 }
 
-function isCompleted (endTime, currentTime){
+lib.isCompleted = function (endTime, currentTime){
+  //Maybe allow goal to end early if target is met, handled here
   if (currentTime > endTime){
     return true;
   } else {
@@ -89,15 +89,15 @@ function isCompleted (endTime, currentTime){
 }
 
 //side effect: mutates goal object
-function updateGoalUnbound(data, goal){
+lib.updateGoalUnbound = function(type, data, goal){
   var currentTime = + new Date();
   var startTime = goal.startTime;
   var endTime = goal.startTime + goal.period.millis;
-  var relevantData = filterJawboneDataByTime(data, startTime, endTime);
+  var relevantData = lib.filterJawboneDataByTime(data, startTime, endTime);
 
-  goal.progress = calculateProgress(relevantData, type);
-  goal.completed = isCompleted(endTime, currentTime);
-
+  goal.progress = lib.calculateProgress(relevantData, type);
+  goal.completed = lib.isCompleted(endTime, currentTime);
 }
 
+module.exports = lib;
 

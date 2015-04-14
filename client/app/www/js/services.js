@@ -33,18 +33,21 @@ angular.module('starter.factories', [])
   };
 
   user.getOldestUncelebrated = function(goals) {
+    if (goals.length === 0) return null;
+
     return user.getUncelebrated(goals)[0];
   }
 
   user.initialDirect = function(currentUser){
-
+    console.log(currentUser.goals);
     var uncelebrated = user.getOldestUncelebrated(currentUser.goals);
     if (currentUser.goals.length === 0){
       $state.go('goaltype');
       return;
     }
-    if(uncelebrated[0]) {
-      return user.celebrate(uncelebrated[0]);
+    if(uncelebrated) {
+      user.celebrate(uncelebrated);
+      return;
     }
     $state.go('progress');
   };
@@ -53,14 +56,14 @@ angular.module('starter.factories', [])
     goal.celebrated = true;
     user.putGoal(goal);
     if(+goal.target - +goal.progress > 0) {
-      $state.go('tab-success');
+      $state.go('failurereport');
     } else {
-      $state.go('tab-failure');
+      $state.go('successreport');
     }
   };
 
   user.putGoal = function(goal) {
-    $http.put('/api/goal', goal)
+    $http.put('/api/goals/' + goal.startTime, goal)
       .success(function(data, status, headers, config) {
         console.log('Load was performed.', data);
       })
