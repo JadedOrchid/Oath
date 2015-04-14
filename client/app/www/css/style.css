@@ -1,5 +1,5 @@
 /* Empty. Add your own CSS if you like */
-    .center {
+.center {
     top: 50%;
     /*-webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
@@ -10,6 +10,9 @@
     margin:0 auto;*/
     width:100%;
 }
+
+
+
 
 h2, h4 {
     text-align: center;
@@ -78,6 +81,6 @@ a:active{
   text-transform: uppercase;
 }
 
-
-
-
+button {
+  width: 100%;
+}
