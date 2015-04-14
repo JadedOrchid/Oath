@@ -184,7 +184,7 @@ angular.module('starter.factories', [])
         img: 'imgurl'
       },
       {
-        orgName: 'Cupcake of condesention',
+        orgName: 'Consolation cupcake',
         description: 'Sweets',
         img: 'imgurl'
       }
@@ -250,19 +250,19 @@ angular.module('starter.factories', [])
   };
 
   goalBuilder.convertTime = function(timeframe) {
-    var millis = {
-      'One Day': 86400000,
-      'One Week': 604800000,
-      'One Month': 2419200000,
-      'One Year': 3.15569e10
+    var seconds = {
+      'One Day': 86400,
+      'One Week': 604800,
+      'One Month': 2592000,
+      'One Year': 3.15569e7
     }
-    return millis[timeframe];
+    return seconds[timeframe];
   };
 
   goalBuilder.updateDeets = function() {
     goalBuilder.goal.period = {
       human: this.timeframe,
-      millis: goalBuilder.convertTime(this.timeframe)
+      seconds: goalBuilder.convertTime(this.timeframe)
     }
     goalBuilder.goal.target = this.target;
     $state.go('goalsuccess');
