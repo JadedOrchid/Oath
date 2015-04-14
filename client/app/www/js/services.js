@@ -39,7 +39,6 @@ angular.module('starter.factories', [])
   }
 
   user.initialDirect = function(currentUser){
-    console.log(currentUser.goals);
     var uncelebrated = user.getOldestUncelebrated(currentUser.goals);
     if (currentUser.goals.length === 0){
       $state.go('goaltype');
@@ -140,27 +139,31 @@ angular.module('starter.factories', [])
   };
 
   goalBuilder.returnSucesses = function(){
+    //images need to be 760px by 380px
     var successTypes = [
       {
-        orgName: 'Arbor Day Foundation',
-        description: 'Plant a tree!',
+        orgName: 'Doctors Without Borders',
+        description: 'helps people worldwide where the need is greatest, delivering emergency medical aid to people affected by conflict, epidemics, disasters or exclusion from health care.',
         price: '$5',
         stripePrice: 500,
-        img: 'imgurl'
+        img: '../img/msf.jpg',
+        clickAction: 'buy a vaccine'
       },
       {
-        orgName: 'Red Cross',
-        description: 'Buy a vaccination',
-        price: '$5',
-        stripePrice: 500,
-        img: 'imgurl'
+        orgName: 'The Arbor Day Foundation',
+        description: 'inspires people to plant, nurture, and celebrate trees.',
+        price: '$25',
+        stripePrice: 2500,
+        img: '../img/arbor.jpg',
+        clickAction: 'buy a tree'
       },
       {
         orgName: 'TerraPass',
-        description: 'Offset a flight',
-        price: '$5',
-        stripePrice: 500,
-        img: 'imgurl'
+        description: 'helps create, implement, and operate customer-funded emissions reduction projects at facilities such as dairy farms and landfills.',
+        price: '$15',
+        stripePrice: 1500,
+        img: '../img/carbonoffset.jpg',
+        clickAction: 'offset a flight'
       }
     ];
     return successTypes;
@@ -180,13 +183,15 @@ angular.module('starter.factories', [])
     var failTypes = [
       {
         orgName: 'Tip the developers',
-        description: "We're broke",
-        img: 'imgurl'
+        description: "The money you've pledged will go to support the developrment of Sympact. Maybe we'll donate it ourselves, or maybe we'll buy cupcakes.",
+        img: '../img/developers.jpg',
+        clickAction: 'tip the developers'
       },
       {
-        orgName: 'Consolation cupcake',
-        description: 'Sweets',
-        img: 'imgurl'
+        orgName: 'Consolation Cupcakes',
+        description: 'You\'ll need the sugar to support you trying again tomorrow. Shipped from SF, CA',
+        img: '../img/cupcake.jpg',
+        clickAction: 'send some cupcakes'
       }
     ];
     return failTypes;
