@@ -11,6 +11,7 @@
     width:100%;
 }
 
+<<<<<<< HEAD
 h1, .h1 {
     color : #5B554F;
     /*font-size: 100px;*/
@@ -20,6 +21,10 @@ h1, .h1 {
     font-size: 1.2em;
     line-height: 1.5;
 }
+=======
+
+
+>>>>>>> 9f7a19ad33ac7e2df7684e0b606490ed20d9d710
 
 h2, h4 {
     text-align: center;
@@ -88,6 +93,7 @@ a:active{
   text-transform: uppercase;
 }
 
+<<<<<<< HEAD
 .goaldimensions {
   margin: 5px;
   width: 200px;
@@ -108,4 +114,8 @@ a:active{
   left: 0;
   right: 0;
   position: absolute;
+=======
+button {
+  width: 100%;
+>>>>>>> 9f7a19ad33ac7e2df7684e0b606490ed20d9d710
 }
