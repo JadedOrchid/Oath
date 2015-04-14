@@ -1,12 +1,12 @@
-<ion-view view-title="How do you want to change the world?">
+<ion-view view-title="What's your global impact?">
   <ion-content class="padding">
     <div class="list card" ng-repeat="success in successes">
       <div class="item item-body">
-        <img class="full-image" src={{success.img}}>
+        <img class="full-image" src='{{success.img}}'>
         <p>
           <b>{{success.orgName}}</b> {{success.description}}
         </p>
-        <button class="button button-outline button-positive center" ng-click="successClick()">
+        <button class="button button-outline button-positive center" ng-click="successClick(success)">
             Click to {{success.clickAction}} for {{success.price}}
        </button>
         </div>

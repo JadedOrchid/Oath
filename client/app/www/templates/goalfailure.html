@@ -1,7 +1,16 @@
-<ion-view view-title="Who would you like to donate to?">
+<ion-view view-title="And if you miss your goal?">
+
   <ion-content class="padding">
-    <ion-item collection-repeat="fail in failures" ng-click="failClick(fail)">
-     {{fail.description}} with the {{fail.orgName}}
-    </ion-item>
+    <div class="list card" ng-repeat="failure in failures">
+      <div class="item item-body">
+        <img class="full-image" src={{failure.img}}>
+        <p>
+          <b>{{failure.orgName}}</b> {{failure.description}}
+        </p>
+        <button class="button button-outline button-positive center" ng-click="failClick(failure)">
+            Click to {{failure.clickAction}}
+       </button>
+        </div>
+      </div>
   </ion-content>
 </ion-view>

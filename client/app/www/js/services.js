@@ -183,13 +183,15 @@ angular.module('starter.factories', [])
     var failTypes = [
       {
         orgName: 'Tip the developers',
-        description: "We're broke",
-        img: 'imgurl'
+        description: "The money you've pledged will go to support the developrment of Sympact. Maybe we'll donate it ourselves, or maybe we'll buy cupcakes.",
+        img: '../img/developers.jpg',
+        clickAction: 'tip the developers'
       },
       {
-        orgName: 'Consolation cupcake',
-        description: 'Sweets',
-        img: 'imgurl'
+        orgName: 'Consolation Cupcakes',
+        description: 'You\'ll need the sugar to support you trying again tomorrow. Shipped from SF, CA',
+        img: '../img/cupcake.jpg',
+        clickAction: 'send me some cupcakes'
       }
     ];
     return failTypes;
