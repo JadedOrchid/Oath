@@ -191,7 +191,7 @@ angular.module('starter.factories', [])
         orgName: 'Consolation Cupcakes',
         description: 'You\'ll need the sugar to support you trying again tomorrow. Shipped from SF, CA',
         img: '../img/cupcake.jpg',
-        clickAction: 'send me some cupcakes'
+        clickAction: 'send some cupcakes'
       }
     ];
     return failTypes;
