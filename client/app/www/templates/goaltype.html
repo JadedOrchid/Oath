@@ -9,51 +9,61 @@
 <ion-view view-title="What kind of goal?">
   <ion-content class="padding">
 
-<!--     <ion-item class='card' collection-repeat="goal in goalTypes" ng-click="goalClick(goal)">
-      <div>{{goal.title}}</div>
-    </ion-item> -->
-
-    <div style='width: 413px; text-align: center'>
+    <div class='goal-type-container'>
 
         <div class="row">
           <ion-item class='card col goaldimensions' ng-click="goalClick(goalTypes[0])">
             <div class="icon-text-wrapper">
               <i class="ion-android-walk iconsize"></i>
-              <div style='text-align: center'>Step Goal</div>
+            </div>
+            <div class='goal-text'>
+              <div>Step Goal</div>
             </div>
           </ion-item>
           <ion-item class='card col goaldimensions' ng-click="goalClick(goalTypes[1])">
             <div class="icon-text-wrapper">
               <i class="ion-ios-cloudy-night-outline iconsize"></i>
-              <div style='text-align: center'>Sleep Goal</div>
+            </div>
+            <div class='goal-text'>
+              <div>Sleep Goal</div>
             </div>
           </ion-item>
         </div>
+
         <div class="row">
           <ion-item class='card col goaldimensions' ng-click="goalClick(goalTypes[2])">
             <div class="icon-text-wrapper">
               <i class="ion-android-bicycle iconsize"></i>
-              <div style='text-align: center'>Cycling Distance Goal</div>
+            </div>
+            <div class='goal-text'>
+              <div>Cycling Distance Goal</div>
             </div>
           </ion-item>
           <ion-item class='card col goaldimensions' ng-click="goalClick(goalTypes[4])">
             <div class="icon-text-wrapper">
               <i class="ion-ios-monitor iconsize"></i>
-              <div style='text-align: center'>Tech Usage Goal</div>
+            </div>
+            <div class='goal-text'>
+              <div>Tech Usage Goal</div>
             </div>
           </ion-item>
         </div>
+
         <div class="row">
           <ion-item class='card col goaldimensions' ng-click="goalClick(goalTypes[5])">
             <div class="icon-text-wrapper">
               <i class="ion-android-walk iconsize"></i>
-              <div style='text-align: center'>Running Distance Goal</div>
+            </div>
+            <div class='goal-text'>
+              <div>Running Distance Goal</div>
             </div>
           </ion-item>
           <ion-item class='card col goaldimensions' ng-click="goalClick(goalTypes[6])">
             <div class="icon-text-wrapper">
               <i class="ion-android-radio-button-on iconsize"></i>
-              <div style='text-align: center'>Focus Goal</div>
+            </div>
+            <div class='goal-text'>
+              <div>Focus Goal</div>
             </div>
           </ion-item>
         </div>
