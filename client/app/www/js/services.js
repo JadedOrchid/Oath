@@ -39,11 +39,6 @@ angular.module('starter.factories', [])
   }
 
   user.initialDirect = function(currentUser){
-<<<<<<< HEAD
-    console.log(currentUser.goals);
-=======
-
->>>>>>> Add redirect functionality after successful payment
     var uncelebrated = user.getOldestUncelebrated(currentUser.goals);
     if (currentUser.goals.length === 0){
       $state.go('goaltype');
