@@ -1,5 +1,5 @@
 /* Empty. Add your own CSS if you like */
-    .center {
+.center {
     top: 50%;
     /*-webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
@@ -11,9 +11,19 @@
     width:100%;
 }
 
-/*h2, h4 {
+h1, .h1 {
+    color : #5B554F;
+    /*font-size: 100px;*/
+    font-family: 'Roboto', sans-serif;
     text-align: center;
-}*/
+    font-weight: 700;
+    font-size: 1.2em;
+    line-height: 1.5;
+}
+
+h2, h4 {
+    text-align: center;
+}
 
 .ion-social-facebook {
   padding-right: 15px;
@@ -78,21 +88,24 @@ a:active{
   text-transform: uppercase;
 }
 
-.charities {
-  padding-top: 0.3em;
-
-  padding-bottom: 0.3em;
-  font-style: italic;
-  font-size: 18px;
-  text-align: center;
+.goaldimensions {
+  margin: 5px;
+  width: 200px;
+  height: 200px;
 }
 
-.charityHeader {
-  text-align: center;
-  /*background-color: #D79C8C;*/
+.iconsize {
+  font-size: 100px;
+  color: #28BE9B;
 }
 
-
-
-
-
+.icon-text-wrapper {
+  width: 100px;
+  margin: auto;
+  height: 125px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
