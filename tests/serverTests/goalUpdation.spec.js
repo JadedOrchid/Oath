@@ -152,7 +152,7 @@ describe("Unit Testing Updation", function () {
       goalType: { title: 'Step Goal'},
       startTime: NOW - 100,
       period: {
-        millis: 80
+        seconds: 80
       }
     }
     it('Should update goal correctly', function() {

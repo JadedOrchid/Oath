@@ -92,7 +92,7 @@ lib.isCompleted = function (endTime, currentTime){
 lib.updateGoalUnbound = function(type, data, goal){
   var currentTime = + new Date();
   var startTime = goal.startTime;
-  var endTime = goal.startTime + goal.period.millis;
+  var endTime = goal.startTime + goal.period.seconds;
   var relevantData = lib.filterJawboneDataByTime(data, startTime, endTime);
 
   goal.progress = lib.calculateProgress(relevantData, type);
