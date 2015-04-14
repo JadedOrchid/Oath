@@ -11,9 +11,9 @@
     width:100%;
 }
 
-h2, h4 {
+/*h2, h4 {
     text-align: center;
-}
+}*/
 
 .ion-social-facebook {
   padding-right: 15px;
@@ -77,6 +77,21 @@ a:active{
   position: relative;
   text-transform: uppercase;
 }
+
+.charities {
+  padding-top: 0.3em;
+
+  padding-bottom: 0.3em;
+  font-style: italic;
+  font-size: 18px;
+  text-align: center;
+}
+
+.charityHeader {
+  text-align: center;
+  /*background-color: #D79C8C;*/
+}
+
 
 
 
