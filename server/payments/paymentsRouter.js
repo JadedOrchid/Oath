@@ -15,7 +15,7 @@ module.exports = function(router) {
       amount: cost,
       currency: "usd",
       source: token,
-      description: "Sympact donation to: " + orgName + "or, in case of failure, money to: " + fail
+      description: "Sympact donation to: " + orgName + "or, in case of failure, money to " + fail
     }, function(err, charge){
       if(err){
         console.log("ERROR: ", err.raw);
