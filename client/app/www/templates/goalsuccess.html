@@ -1,7 +1,15 @@
 <ion-view view-title="What's your global impact?">
   <ion-content class="padding">
+
+  <div class="card">
+    <div class="item item-text-wrap">
+      Sympact operates on the theory that when we link our personal goals to greater social impact, we're more likely to be successful. To which social benefit would you like to link your goal?
+    </div>
+  </div>
+
     <div class="list card" ng-repeat="success in successes">
-      <div class="item item-body">
+      <div class="item item-body noPadding">
+        <h3 class="successHeadline">{{success.headline}}</h3>
         <img class="full-image" src='{{success.img}}'>
         <p>
           <b>{{success.orgName}}</b> {{success.description}}

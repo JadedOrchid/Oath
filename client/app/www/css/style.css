@@ -144,3 +144,14 @@ a:active{
   vertical-align: middle;
   text-align: left;
 }
+
+.successHeadline {
+  color: #0a9ec7;
+  text-decoration: bold;
+  text-align: center;
+}
+
+.noPadding {
+  padding-top: 0px;
+  margin-top: 0px;
+}
