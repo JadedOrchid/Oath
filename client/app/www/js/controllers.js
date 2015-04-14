@@ -1,5 +1,10 @@
 angular.module('starter.controllers', [])
 
+.controller('LoginCtrl', ['$scope', '$cookies', function($scope, $cookies) {
+  // $scope.cookies = $cookies.getAll();
+  console.log($cookies.token);
+}])
+
 .controller('GoalCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
   $scope.goalTypes = GoalBuilder.returnGoals();
   $scope.goalClick = GoalBuilder.goalClick;
