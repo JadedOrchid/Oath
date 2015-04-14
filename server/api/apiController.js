@@ -54,10 +54,11 @@ apiController.handleGoalPut = function(req,res){
             oldGoal = user.goals[i];
             user.goals[i] = newGoal;
           }
-        }
-        user.save(function(err){
+        }    
+        user.markModified('goals');
+        user.save(function(err, newGoal){
           if (oldGoal){
-            res.send(oldGoal); // send back old goal?
+            res.send('success');
           } else {
             res.status(404);
             res.send('not found');

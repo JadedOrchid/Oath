@@ -18,7 +18,10 @@ lib.updateAllUserGoals = function(){
       
       lib.jawboneUpdate('sleeps', user, function(user){
         lib.jawboneUpdate('moves', user, function(user){
+          user.markModified('goals');
           user.save(function(err){
+            if (err) console.log(err);
+
             console.log('User saved');
           });
         });
@@ -67,17 +70,13 @@ lib.filterJawboneDataByTime = function(data, startTime, endTime){
 }
 
 lib.calculateProgress = function(relevantData, type){
-  var path;
-  if (type === 'sleeps'){
-    path = 'duration';
-  } else if (type === 'moves'){
-    path = 'steps';
-  } else {
-    console.error('invalid type');
-  }
   return _.reduce(relevantData, function(memo, datum){
-        return memo + datum.details[path];
-      },0);
+      if (type === 'sleeps') {
+        return memo + datum.details.light + datum.details.sound;
+      } else if (type === 'moves'){
+        return memo + datum.details.steps;
+      }
+    },0);
 }
 
 lib.isCompleted = function (endTime, currentTime){
@@ -98,7 +97,6 @@ lib.updateGoalUnbound = function(type, data, goal){
 
   goal.progress = lib.calculateProgress(relevantData, type);
   goal.completed = lib.isCompleted(endTime, currentTime);
-
 }
 
 module.exports = lib;
