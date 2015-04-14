@@ -215,7 +215,7 @@ angular.module('starter.factories', [])
   goalBuilder.failClick = function(fail){
     var goal = goalBuilder.goal;
     goal.fail = fail;
-    goal.startTime = Date.now();
+    goal.startTime = Math.floor( Date.now() / 1000 );
 
     /////////////////
     // console.log(Payment.sendToken)
