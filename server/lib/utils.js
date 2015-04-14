@@ -90,7 +90,7 @@ lib.isCompleted = function (endTime, currentTime){
 
 //side effect: mutates goal object
 lib.updateGoalUnbound = function(type, data, goal){
-  var currentTime = + new Date();
+  var currentTime = Date.now() / 1000;
   var startTime = goal.startTime;
   var endTime = goal.startTime + goal.period.seconds;
   var relevantData = lib.filterJawboneDataByTime(data, startTime, endTime);

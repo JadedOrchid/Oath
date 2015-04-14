@@ -25,6 +25,7 @@ module.exports = function(app,express) {
   app.use(passport.session()); // persistent login sessions
 
   app.use(express.static(__dirname + '/../../client/app/www'));
+  
 
   //CORS headers
   // app.all('*', function(req, res, next) {
