@@ -131,3 +131,16 @@ a:active{
   right: 0;
   position: absolute;
 }
+
+.deviceAuth{
+  width: 400px;
+  text-align: left;
+
+}
+
+.deviceAuthIcon {
+  height: 38px;
+  width: 38px;
+  vertical-align: middle;
+  text-align: left;
+}
