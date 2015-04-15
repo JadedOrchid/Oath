@@ -20,22 +20,11 @@ module.exports = function(app,express) {
   // pull information from html in POST
   app.use(bodyParser.urlencoded({ extended: false }));  
   app.use(bodyParser.json());
-  app.use(session({ secret: 'cupcake-of-condescension', resave: true, saveUninitialized: false, cookie: { httpOnly: false, maxAge: 9600000 } })); // session secret
+  app.use(session({ secret: 'cupcake-of-condescension', resave: true, saveUninitialized: false, cookie: { maxAge: 9600000 } })); // session secret
   app.use(passport.initialize());
   app.use(passport.session()); // persistent login sessions
 
   app.use(express.static(__dirname + '/../../client/app/www'));
-  
-
-  //CORS headers
-  // app.all('*', function(req, res, next) {
-  //   res.header("Access-Control-Allow-Origin", "*");
-  //   res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
-  //   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  //   res.header("Access-Control-Allow-Credentials", "true");
-
-  //   next();
-  // });
 
   app.use('/auth', authRouter);
   app.use('/api', apiRouter);
@@ -47,4 +36,3 @@ module.exports = function(app,express) {
 
   require('../lib/scheduler'); // begin cron job
 };
-

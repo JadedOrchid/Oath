@@ -11,13 +11,6 @@ var configAuth = require('./auth');
 
 module.exports = function(passport) {
 
-    passport.isLoggedIn = function(req, res, next) {
-        if (req.isAuthenticated()){
-            next();
-        }
-        res.status(401);
-    };
-
     // =========================================================================
     // passport session setup ==================================================
     // =========================================================================
@@ -231,8 +224,6 @@ module.exports = function(passport) {
         
         // get jawbone profile info
         up.me.get({}, function(err, body) {
-          console.log('Body: ' + body);
-          console.log(req.user)
           up_me = JSON.parse(body);
           global.userName = up_me.data.first + ' ' + up_me.data.last;
     

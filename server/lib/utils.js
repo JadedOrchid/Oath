@@ -1,48 +1,58 @@
 // don't we really care about AVERAGE sleep time / day over 1 week, not TOTAL ?
-
+// sleep goal currently: target: 100 hours
 var User = require('../models/user.js');
 var jawbone = require('./jawbone');
 var _ = require('underscore');
+var Promise = require('bluebird');
 
 //namespace
 var lib = {};
 
 lib.updateAllUserGoals = function(){
-  // possible bug: we're currently finding all users, and then trying to save them
-  // one-by-one.  If this doesn't work, we can wait for all individual users to 
-  // update and then re-save the array
   User.find(function(err, users){
     for (var i = 0; i < users.length; i++){
       var user = users[i];
-      if (!user.jawbone) continue;
-      
-      lib.jawboneUpdate('sleeps', user, function(user){
-        lib.jawboneUpdate('moves', user, function(user){
-          user.markModified('goals');
-          user.save(function(err){
-            if (err) console.log(err);
-
-            console.log('User saved');
-          });
-        });
-      });
+      if (user.jawbone){
+        lib.updateUserGoals(user);
+      }
     }
   });
 };
+// updates move and sleep goals for given user.
+// and passes user to an optional callback after saving to DB
+lib.updateUserGoals = function(user, cb){
+  lib.jawboneUpdate('sleeps', user)
+  .then(function(user){
+    return lib.jawboneUpdate('moves', user);
+  })
+  .then(function(user){
+    return user.save();
+    })
+  .then(function(user){
+    console.log('saved user');
+    if (cb) cb(null, user);
+  })
+  .catch(function(error){
+    console.error(error);
+  })
+};
 
-lib.jawboneUpdate = function(type, user, cb){
+var jawboneUpdate = function(type, user, cb){
   var goals = user.goals;
   var relevantGoals = lib.filterGoalsByType(goals, type);
   if (relevantGoals.length === 0){
-    return cb(user);  // put inside a setTimeout?
+    return cb(null, user); 
   }
   jawbone.get(type, user.jawbone.token, function(err, resp){
     var data = resp.data.items;
     var updateGoal = _.bind(lib.updateGoalUnbound, null, type, data);
     _.each(relevantGoals, updateGoal);
-    cb(user);
+    cb(err, user);
   });
-}
+};
+
+// export promisified version of jawbone update
+lib.jawboneUpdate = Promise.promisify(jawboneUpdate);
 
 // entire goals array -> filtered goals array
 // valid types: 'sleep', 'moves'
