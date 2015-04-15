@@ -1,8 +1,13 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', ['$scope', '$cookies', function($scope, $cookies) {
-  // $scope.cookies = $cookies.getAll();
-  console.log($cookies.token);
+.controller('SessionCtrl', ['$scope', 'Auth', '$state', 'User', function($scope, Auth, $state, User) {
+  Auth.isLoggedIn().then(function(loggedIn){
+    if(loggedIn) {
+      User.getUser();
+    } else {
+      $state.go('login');
+    }
+  });
 }])
 
 .controller('GoalCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
@@ -13,10 +18,6 @@ angular.module('starter.controllers', [])
 .controller('GoalSuccessCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
   $scope.successes = GoalBuilder.returnSucesses();
   $scope.successClick = GoalBuilder.successClick;
-}])
-
-.controller('PurgController', ['User', function(User) {
-  User.getUser();
 }])
 
 .controller('GoalFailureCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
@@ -61,8 +62,9 @@ angular.module('starter.controllers', [])
   }
 }])
 
-.controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', function($scope, User, GoalBuilder) {
+.controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', 'Auth', function($scope, User, GoalBuilder, Auth) {
   $scope.goals = User.loggedIn.goals;
+  $scope.logout = Auth.logout;
 }])
 
 .controller('FailureReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {
