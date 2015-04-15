@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
+angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter.factories', 'chart.js'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -47,6 +47,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
   //   }
   // })
 
+  .state('/', {
+    url: '/',
+    cache: false,
+    controller: 'SessionCtrl'
+  })
+
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html'
@@ -60,12 +66,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
   .state('localSigup', {
     url: '/localsignup',
     templateUrl: 'templates/localSignup.html'
-  })
-
-  .state('purgatory', {
-    url: '/purgatory',
-    templateUrl: 'templates/purgatory.html',
-    controller: 'PurgController'
   })
 
   .state('goaltype', {
@@ -86,6 +86,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
   })
 
   .state('goaldetails', {
+    cache: false,
     url: '/goaldetails',
     templateUrl: 'templates/goaldetails.html',
     controller: 'GoalDetailCtrl'
@@ -117,12 +118,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
 
   .state('successreport', {
     url: '/successreport',
-    templateUrl: 'templates/tab-success.html'
+    templateUrl: 'templates/tab-success.html',
+    controller: 'SuccessReportCtrl'
   })
 
   .state('failurereport', {
     url: '/failurereport',
-    templateUrl: 'templates/tab-failure.html'
+    templateUrl: 'templates/tab-failure.html',
+    controller: 'FailureReportCtrl'
   })
 
   .state('settings', {
@@ -131,6 +134,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('login');
+  $urlRouterProvider.otherwise('/');
 
 });

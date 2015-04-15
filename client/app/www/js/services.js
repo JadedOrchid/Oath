@@ -1,9 +1,74 @@
 angular.module('starter.factories', [])
 
+.factory('Payment', ['$http', function($http){
+  var payment = {};
+  payment.stripeInfo = {};
+
+  payment.sendToken = function(token){
+    console.log("you are sending token now! let's see what happens, here is the token", token);
+    $http.post('/payments/stripe', {JSONtoken: token, choices: payment.stripeInfo})
+      .success(function(data, status, headers, config) {
+        console.log('You were able to send payment token to server!!');
+      })
+      .error(function(data, status, headers, config) {
+        console.log('Your token was not added to server');
+      });
+  };
+  return payment;
+}])
+
 .factory('User', ['$http', '$state', function($http, $state) {
   var user = {};
+
   user.loggedIn = {
     goals: []
+  };
+
+  user.getUncelebrated = function(goals) {
+    return goals.filter(function(goal){
+      if(goal.completed && !goal.celebrated) {
+        return goal;
+      }
+    });
+  };
+
+  user.getOldestUncelebrated = function(goals) {
+    if (goals.length === 0) return null;
+
+    return user.getUncelebrated(goals)[0];
+  }
+
+  user.initialDirect = function(currentUser){
+    var uncelebrated = user.getOldestUncelebrated(currentUser.goals);
+    if (currentUser.goals.length === 0){
+      $state.go('goaltype');
+      return;
+    }
+    if(uncelebrated) {
+      user.celebrate(uncelebrated);
+      return;
+    }
+    $state.go('progress');
+  };
+
+  user.celebrate = function(goal) {
+    goal.celebrated = true;
+    user.putGoal(goal);
+    if(+goal.target - +goal.progress > 0) {
+      $state.go('failurereport');
+    } else {
+      $state.go('successreport');
+    }
+  };
+
+  user.putGoal = function(goal) {
+    $http.put('/api/goals/' + goal.startTime, goal)
+      .success(function(data, status, headers, config) {
+        console.log('Load was performed.', data);
+      })
+      .error(function(data, status, headers, config) {
+        console.log('error', data);
+      });
   };
 
   //fix later to only save most pertinent data
@@ -17,51 +82,8 @@ angular.module('starter.factories', [])
       });
   };
 
-  user.initialDirect = function(currentUser){
-    // if(currentUser.recentGoals.length > 0){
-    //   user.checkUserStatus();
-    // } else
-    if (currentUser.goals.length === 0){
-      $state.go('goaltype');
-    } else {
-      $state.go('progress');
-    }
-  };
-
-  user.checkUserStatus = function(){
-    var goals = user.loggedIn.recentGoals;
-    var recent = goals[goals.length-1];
-
-    if(recent){
-      if(user.checkCompletedStatus(recent)){
-        $state.go('tab-success');
-      } else if (!!user.checkCompletedStatus(recent)) {
-        $state.go('tab-failure');
-      }
-    }
-  };
-
-  user.checkCompletedStatus = function(goal){
-    if(user.checkCompletedGoal(goal) && user.checkCompletedTime(goal)){
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  user.checkCompletedGoal = function(goal){
-    var target = goal.target;
-    var actual = goal.progress;
-
-    return actual >= target ? true : false;
-  };
-
-  user.checkCompletedTime = function(goal){
-    return goal.timeRemaining <= 0 ? true : false;
-  };
-
-  user.checkJawbone = function(){
-    if (user.loggedIn.jawbone === undefined){
+  user.checkJawbone = function(currentUser){
+    if (currentUser.jawbone === undefined){
       return false;
     } else {
       return true;
@@ -71,12 +93,30 @@ angular.module('starter.factories', [])
   return user;
 }])
 
-.factory('GoalBuilder', ['$state', 'User', '$http', function($state, User, $http) {
+.factory('Auth', ['User', '$state', '$http', function(User, $state, $http){
+  var auth = {};
+
+  auth.isLoggedIn = function() {
+    return $http.get('/auth/isLoggedIn').then(function(response) {
+      return response.data;
+    });
+  };
+
+  auth.logout = function() {
+    $http.get('/auth/logout').then(function() {
+      console.log('logged out');
+      $state.go('login');
+    });
+  }
+
+  return auth;
+}])
+
+.factory('GoalBuilder', ['$state', 'User', '$http', 'Payment', function($state, User, $http, Payment) {
   var goalBuilder = {};
 
   //THE GOAL
   goalBuilder.goal = {
-    progress: 0, // unreliable
     completed: false,
     celebrated: false
   };
@@ -118,24 +158,34 @@ angular.module('starter.factories', [])
   };
 
   goalBuilder.returnSucesses = function(){
+    //images need to be 760px by 380px
     var successTypes = [
       {
-        orgName: 'Arbor Day Foundation',
-        description: 'Plant a tree!',
+        orgName: 'Doctors Without Borders',
+        headline: 'Vaccines - Doctors Without Borders',
+        description: 'helps people worldwide where the need is greatest, delivering emergency medical aid to people affected by conflict, epidemics, disasters or exclusion from health care.',
         price: '$5',
-        img: 'imgurl'
+        stripePrice: 500,
+        img: '../img/msf.jpg',
+        clickAction: 'buy a vaccine'
       },
       {
-        orgName: 'Red Cross',
-        description: 'Buy a vaccination',
-        price: '$5',
-        img: 'imgurl'
+        orgName: 'The Arbor Day Foundation',
+        headline: 'Plant a tree with the Arbor Day Foundation',
+        description: 'inspires people to plant, nurture, and celebrate trees.',
+        price: '$25',
+        stripePrice: 2500,
+        img: '../img/arbor.jpg',
+        clickAction: 'buy a tree'
       },
       {
         orgName: 'TerraPass',
-        description: 'Offset a flight',
-        price: '$5',
-        img: 'imgurl'
+        headline: 'Offset a flight with TerraPass',
+        description: 'helps create, implement, and operate customer-funded emissions reduction projects at facilities such as dairy farms and landfills.',
+        price: '$15',
+        stripePrice: 1500,
+        img: '../img/carbonoffset.jpg',
+        clickAction: 'offset a flight'
       }
     ];
     return successTypes;
@@ -155,13 +205,15 @@ angular.module('starter.factories', [])
     var failTypes = [
       {
         orgName: 'Tip the developers',
-        description: "We're broke",
-        img: 'imgurl'
+        description: "The money you've pledged will go to support the development of Sympact. Maybe we'll donate it ourselves, or maybe we'll buy cupcakes. Or go to Vegas.",
+        img: '../img/developers.jpg',
+        clickAction: 'tip the developers'
       },
       {
-        orgName: 'Cupcake of condesention',
-        description: 'Sweets',
-        img: 'imgurl'
+        orgName: 'Consolation Cupcakes',
+        description: 'You\'ll need the sugar to support you trying again tomorrow. Shipped from SF, CA.',
+        img: '../img/cupcake.jpg',
+        clickAction: 'send some cupcakes'
       }
     ];
     return failTypes;
@@ -170,8 +222,7 @@ angular.module('starter.factories', [])
   //CLICK THROUGH GOAL SETUP
   goalBuilder.goalClick = function(goal){
     goalBuilder.goal.goalType = goal;
-
-    if (User.checkJawbone()){
+    if (User.checkJawbone(User.loggedIn)){
       $state.go('goaldetails');
     } else {
       $state.go('deviceAuth');
@@ -186,7 +237,15 @@ angular.module('starter.factories', [])
   goalBuilder.failClick = function(fail){
     var goal = goalBuilder.goal;
     goal.fail = fail;
-    goal.startTime = Date.now();
+    goal.startTime = Math.floor( Date.now() / 1000 );
+
+    /////////////////
+    // console.log(Payment.sendToken)
+    Payment.stripeInfo = goal;
+    /////////////////
+
+
+
     goalBuilder.saveGoal(goal);
     goalBuilder.sendGoal(goal);
 
@@ -211,39 +270,26 @@ angular.module('starter.factories', [])
       .error(function(data, status, headers, config) {
         console.log('Your goal could not be added');
       });
-    // NOT WORKING
     goalBuilder.goal = {
-      progress: 0, // unreliable
       completed: false,
       celebrated: false
     };
   };
 
   goalBuilder.convertTime = function(timeframe) {
-    var millis = {
-      'One Day': 86400000,
-      'One Week': 604800000,
-      'One Month': 2419200000,
-      'One Year': 3.15569e10
+    var seconds = {
+      'One Day': 86400,
+      'One Week': 604800,
+      'One Month': 2592000,
+      'One Year': 3.15569e7
     }
-    return millis[timeframe];
-  };
-
-  goalBuilder.calcRemaining = function(list) {
-    var remaining;
-    var now = Date.now();
-    for(var i = 0; i < list.length; i++) {
-      goal = list[i];
-      remaining = goal.period.millis - (now - goal.startTime);
-      goal.timeRemaining = remaining;
-    }
-    return list;
+    return seconds[timeframe];
   };
 
   goalBuilder.updateDeets = function() {
     goalBuilder.goal.period = {
       human: this.timeframe,
-      millis: goalBuilder.convertTime(this.timeframe)
+      seconds: goalBuilder.convertTime(this.timeframe)
     }
     goalBuilder.goal.target = this.target;
     $state.go('goalsuccess');
@@ -251,4 +297,3 @@ angular.module('starter.factories', [])
 
   return goalBuilder;
 }]);
-

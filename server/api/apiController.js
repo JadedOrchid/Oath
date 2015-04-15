@@ -54,10 +54,11 @@ apiController.handleGoalPut = function(req,res){
             oldGoal = user.goals[i];
             user.goals[i] = newGoal;
           }
-        }
-        user.save(function(err){
+        }    
+        user.markModified('goals');
+        user.save(function(err, newGoal){
           if (oldGoal){
-            res.send(oldGoal); // send back old goal?
+            res.send('success');
           } else {
             res.status(404);
             res.send('not found');
@@ -72,11 +73,18 @@ apiController.handleUserGet = function(req,res){
 
 apiController.isLoggedIn = function(req,res,next){
     if (req.isAuthenticated()){
+      console.log('session', req.session);
         next();
     } else{
+      console.log('session', req.session);
+
       res.status(401);
       res.send('not logged in');
     }
   };
+
+apiController.stripePost = function(req,res,next){
+  res.send("you did it!");
+}
 
 module.exports = apiController;

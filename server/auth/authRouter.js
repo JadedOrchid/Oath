@@ -5,7 +5,7 @@ module.exports = function(app, passport) {
   //authenticate with facebook
   app.get('/facebook', passport.authenticate('facebook', { scope : 'email' }));
   app.get('/facebook/callback', passport.authenticate('facebook', {
-    successRedirect : '/#/purgatory', 
+    successRedirect : '/#/', 
     failureRedirect : '/#/login'
   }));
 
@@ -20,7 +20,7 @@ module.exports = function(app, passport) {
   //connect jawbone
   app.get('/jawbone', passport.authorize('jawbone', { scope : ['basic_read','extended_read','friends_read','move_read','sleep_read','meal_read'] }));
   app.get('/jawbone/callback', passport.authorize('jawbone'), function(req, res){
-    res.redirect('/#/purgatory');
+    res.redirect('/#/');
   });
 
   app.post('/jawbone/pubsub', function(req,res){
@@ -32,16 +32,15 @@ module.exports = function(app, passport) {
               if (err)
                   throw err;
               });
-
-    console.log('body', info);
-    console.log('url', req.url);
     res.send('success');
   });
-};
 
-// function hasGoal (req, res) {
-//   var user = req.userData;
-//   if (user.goals.length) 
-//     goalHandler(req, res);
-//   makeGoalHandler(req, res);
-// }
+  app.get('/logout', function(req, res) {
+    req.logout();
+    res.send('logged out');
+  });
+
+  app.get('/isLoggedIn', function(req, res) {
+    res.send(req.isAuthenticated());
+  });
+};

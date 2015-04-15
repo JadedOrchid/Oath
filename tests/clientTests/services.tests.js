@@ -18,6 +18,8 @@ describe("Unit Testing Ionic", function () {
     spyOn($state, 'go');
     spyOn(GoalBuilder, 'sendGoal');
     spyOn(GoalBuilder, 'saveGoal');
+    spyOn(User, 'celebrate');
+    spyOn(User, 'putGoal');
   }));
 
 
@@ -186,17 +188,108 @@ describe("Unit Testing Ionic", function () {
     });
   });
 
-  describe('CALCULATE REMAINING FUNCTION', function(){
-    it('Add timeRemaining property to goals in list', function(){
-      var goal = {
-        startTime: 234124,
-        period: {
-          millis: 23423424
+  //User Factory
+
+  describe('USER FACTORY', function() {
+    describe('Get uncelebrated goals', function(){
+      it('Should return a list of goals that have finished but not celebrated', function(){
+        var goals = [
+          {
+            completed: false,
+            celebrated: false 
+          },
+          {
+            completed: true,
+            celebrated: false
+          },
+          {
+            completed: true,
+            celebrated: true
+          }
+        ];
+        var uncelebrated = User.getUncelebrated(goals);
+        expect(uncelebrated.length).toBe(1);
+      });
+    });
+
+    describe('Get oldest uncelebrated goal', function(){
+      it('Should return the oldest uncelebrated goal', function(){
+        var goals = [
+          {
+            completed: true,
+            celebrated: false,
+            startTime: 0
+          },
+          {
+            completed: true,
+            celebrated: false,
+            startTime: 123
+          },
+          {
+            completed: true,
+            celebrated: false,
+            startTime: 123213
+          }
+        ];
+        var uncelebrated = User.getOldestUncelebrated(goals);
+        expect(uncelebrated.startTime).toBe(0);
+      });
+    });
+
+    describe('Initial Direct', function(){
+      it('User with no goals should be redirected to the goaltype page', function(){
+        var currentUser = {
+          goals: []
+        };
+        User.initialDirect(currentUser);
+        expect($state.go).toHaveBeenCalledWith('goaltype');
+      });
+      it('user.celebrate should be called if the user has uncelebrated goals', function(){
+        var currentUser = {
+          goals: [
+            {
+              completed: true,
+              celebrated: false,
+              startTime: 123
+            },
+            {
+              completed: true,
+              celebrated: false,
+              startTime: 123213
+            }
+          ]
         }
-      };
-      var goals = [goal];
-      goals = GoalBuilder.calcRemaining(goals);
-      expect(goals[0].timeRemaining).toBeLessThan(0);
+        User.initialDirect(currentUser);
+        expect(User.celebrate).toHaveBeenCalledWith({completed: true, celebrated: false, startTime: 123});
+      });
+      it('User with no uncelebrated goals should be redirected to the progress page', function(){
+        var currentUser = {
+          goals: [
+            {
+              completed: true,
+              celebrated: true
+            }
+          ]
+        }
+        User.initialDirect(currentUser);
+        expect($state.go).toHaveBeenCalledWith('progress');
+      });
+    });
+
+    describe('Check Jawbone', function(){
+      it('Should return false if jawbone not activated', function(){
+        var user = {
+        };
+        var jawbone = User.checkJawbone(user);
+        expect(jawbone).toBe(false);
+      });
+      it('Should return true if jawbone has been activated', function(){
+        var user = {
+          jawbone: true
+        };
+        var jawbone = User.checkJawbone(user);
+        expect(jawbone).toBe(true);
+      });
     });
   });
 

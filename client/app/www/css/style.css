@@ -1,5 +1,5 @@
 /* Empty. Add your own CSS if you like */
-    .center {
+.center {
     top: 50%;
     /*-webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
@@ -9,6 +9,16 @@
     position: relative !important;
     margin:0 auto;*/
     width:100%;
+}
+
+h1, .h1 {
+    color : #5B554F;
+    /*font-size: 100px;*/
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.2em;
+    line-height: 1.5;
 }
 
 h2, h4 {
@@ -78,6 +88,82 @@ a:active{
   text-transform: uppercase;
 }
 
+.goaldimensions {
+  margin: 5px;
+  width: 200px;
+  height: 200px;
+}
 
+.progress-chart {
+  position: absolute;
+  top: 68%;
+  left: 40%;
+  /*margin-top: -100px;*/
+  margin-left: -50px;
+  width: 400px;
+  height: 400px;
+  /*background-color: red*/
+}
 
+.iconsize {
+  font-size: 100px;
+  color: #28BE9B;
+}
 
+.icon-text-wrapper {
+  width: 100px;
+  margin: auto;
+  height: 0px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  text-align: center;
+}
+
+.goal-text {
+  margin: auto;
+  height: 125px;
+  top: 255px;
+  bottom: 0;
+  left: 0px;
+  right: 0;
+  position: absolute;
+  text-align: center;
+}
+
+.goal-type-container {
+  margin: auto;
+  width: 430px;
+  top: 0px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+.deviceAuth{
+  width: 400px;
+  text-align: left;
+
+}
+
+.deviceAuthIcon {
+  height: 38px;
+  width: 38px;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.successHeadline {
+  color: #0a9ec7;
+  font-size: 100px;
+  text-decoration: bold;
+  text-align: center;
+}
+
+.noPadding {
+  padding-top: 0px;
+  margin-top: 0px;
+}

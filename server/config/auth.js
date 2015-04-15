@@ -1,4 +1,4 @@
-var nconf = require('nconf'); 
+var nconf = require('nconf');
 
 nconf.file('settings.json'); //add secret file
 nconf.env(); //use env variables if no file found
@@ -8,7 +8,7 @@ module.exports = {
     'facebookAuth' : {
         'clientID'      : nconf.get('facebookKey'),
         'clientSecret'  : nconf.get('facebookSecret'),
-        'callbackURL'   : nconf.get('facebookCallback') 
+        'callbackURL'   : nconf.get('facebookCallback')
     },
     'twitterAuth' : {
         'consumerKey'       : nconf.get('twitterKey'),
@@ -21,5 +21,8 @@ module.exports = {
        'authorizationURL' : 'https://jawbone.com/auth/oauth2/auth',
        'tokenURL'         : 'https://jawbone.com/auth/oauth2/token',
        'callbackURL'      : nconf.get('jawboneCallback')
+    },
+    'stripeAuth' : {
+      'testSecretKey'     :  nconf.get('stripeTestSecretKey')
     }
 };

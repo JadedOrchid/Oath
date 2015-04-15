@@ -1,5 +1,15 @@
 angular.module('starter.controllers', [])
 
+.controller('SessionCtrl', ['$scope', 'Auth', '$state', 'User', function($scope, Auth, $state, User) {
+  Auth.isLoggedIn().then(function(loggedIn){
+    if(loggedIn) {
+      User.getUser();
+    } else {
+      $state.go('login');
+    }
+  });
+}])
+
 .controller('GoalCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
   $scope.goalTypes = GoalBuilder.returnGoals();
   $scope.goalClick = GoalBuilder.goalClick;
@@ -10,33 +20,113 @@ angular.module('starter.controllers', [])
   $scope.successClick = GoalBuilder.successClick;
 }])
 
-.controller('PurgController', ['User', function(User) {
-  User.getUser();
-}])
-
 .controller('GoalFailureCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
   $scope.failures = GoalBuilder.returnFailures();
   $scope.failClick = GoalBuilder.failClick;
 }])
 
 .controller('GoalDetailCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
-
-  //on init // on render
   $scope.goalType = GoalBuilder.goal.goalType;
   $scope.times = GoalBuilder.returnTimes();
   $scope.updateDeets = GoalBuilder.updateDeets;
 }])
 
-.controller('PaymentCtrl', ['$scope', '$state', function($scope, $state) {
+.controller('PaymentCtrl', ['$scope', 'Payment', '$state', 'User', function($scope, Payment, $state, User) {
+  console.log("This is Payment", Payment);
+  $scope.goal = Payment.stripeInfo;
+  $scope.goalDuration = Payment.stripeInfo.period.human.toLowerCase();
   $scope.pay = function() {
-    //call stripe function with form data that returns token
-    //send ajax request to auth/stripe with token
-    //redirect to progress
-    $state.go('progress');
-  };
-}])  
+    var cardholder = {
+      number: this.card,
+      cvc: this.cvc,
+      exp_month: this.month,
+      exp_year: this.year
+    }
 
-.controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', function($scope, User, GoalBuilder) {
-  $scope.goals = GoalBuilder.calcRemaining(User.loggedIn.goals);
-  $scope.expiredGoals = User.loggedIn.expiredGoals;
-}]);
+    var stripeResponseHandler = function (status, response) {
+
+      if (response.error) {
+        // Show the errors on the form
+        console.log("There was some sort of error, yo");
+      } else {
+        // response contains id and card, which contains additional card details
+        var token = response.id;
+        Payment.sendToken(token);
+      }
+    }
+    //Use the Stripe module to get a token for this user
+    //if successful, call our response handler, which defers to server to charge customer
+    Stripe.card.createToken(cardholder, stripeResponseHandler);
+
+    $state.go('progress');
+  }
+}])
+
+.controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', 'Auth', function($scope, User, GoalBuilder, Auth) {
+  $scope.goals = User.loggedIn.goals;
+  $scope.logout = Auth.logout;
+}])
+
+.controller('FailureReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {
+  $scope.failed = User.getOldestUncelebrated(User.loggedIn.goals);
+}])
+
+.controller('SuccessReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {
+  $scope.achieved = User.getOldestUncelebrated(User.loggedIn.goals);
+}])
+
+.directive('chartjsdonut', function() {
+  return {
+    restrict: 'E',
+    scope: {
+      onCreate: '&'
+    },
+    link: function ($scope, $element, $attr) {
+
+      function initialize() {
+        var doughnutData = [
+        {
+          value: 300,
+          color:"#F7464A",
+          highlight: "#FF5A5E",
+          label: "Red"
+        },
+        {
+          value: 50,
+          color: "#46BFBD",
+          highlight: "#5AD3D1",
+          label: "Green"
+        },
+        {
+          value: 100,
+          color: "#FDB45C",
+          highlight: "#FFC870",
+          label: "Yellow"
+        },
+        {
+          value: 40,
+          color: "#949FB1",
+          highlight: "#A8B3C5",
+          label: "Grey"
+        },
+        {
+          value: 120,
+          color: "#4D5360",
+          highlight: "#616774",
+          label: "Dark Grey"
+        }
+
+      ];
+      var ctx = $("#chart-area").get(0).getContext("2d");
+      var myNewChart = new Chart(ctx).Doughnut(doughnutData, {responsive : true});
+      } // end fn initialize
+
+      if (document.readyState === "complete") {
+        console.log('initialize');
+        initialize();
+      } else {
+        console.info('event.addDomListener');
+      }
+    }
+  }
+});
