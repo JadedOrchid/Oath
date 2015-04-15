@@ -94,6 +94,17 @@ a:active{
   height: 200px;
 }
 
+.progress-chart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /*margin-top: -100px;*/
+  margin-left: -50px;
+  width: 500px;
+  height: 500px;
+  /*background-color: red*/
+}
+
 .iconsize {
   font-size: 100px;
   color: #28BE9B;
@@ -102,7 +113,7 @@ a:active{
 .icon-text-wrapper {
   width: 100px;
   margin: auto;
-  height: 125px;
+  height: 0px;
   top: 0;
   bottom: 0;
   left: 0;

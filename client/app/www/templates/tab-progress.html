@@ -2,11 +2,23 @@
   <ion-content class="padding">
     <h1>Goal Progress!</h1>
 
-    <ion-list>
+<!-- OMG CHART!!! -->
+    <div class="row">
+      <div class="progress-chart">
+        <chartjsdonut id="chartjs">
+          <div id="canvas-holder">
+            <canvas id="chart-area" />
+          </div>
+        </chartjsdonut>
+      </div>
+    </div>
+
+
+<!--     <ion-list>
       <ion-item collection-repeat="goal in goals">
          {{goal.goalType.title}} for {{goal.success.orgName}} Time remaining: {{goal.timeRemaining}} Progress: {{goal.progress}}
       </ion-item>
-    </ion-list>
+    </ion-list> -->
 
 <!--     <ion-list>
       <ion-item collection-repeat="goal in expiredGoals">
@@ -16,6 +28,8 @@
     </ion-list> -->
 
   </ion-content>
+
+  <!-- Bottom dash -->
   <ion-tabs class="tabs-icon-top tabs-positive">
 
     <!-- Dashboard Tab -->
