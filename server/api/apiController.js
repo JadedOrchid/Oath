@@ -36,6 +36,7 @@ apiController.handleGoalsPost = function(req,res){
     {$push: {"goals": newGoal}},
     {safe: true, upsert: true},
     function(err, model) {
+        res.send('success');
         console.log(err);
     });
 };

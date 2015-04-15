@@ -3,7 +3,7 @@
 var User = require('../models/user.js');
 var jawbone = require('./jawbone');
 var _ = require('underscore');
-// var Bluebird = require('bluebird');
+var Promise = require('bluebird');
 
 //namespace
 var lib = {};
@@ -12,26 +12,32 @@ lib.updateAllUserGoals = function(){
   User.find(function(err, users){
     for (var i = 0; i < users.length; i++){
       var user = users[i];
-      if (!user.jawbone) continue;
-      lib.updateUserGoals(user);
+      if (user.jawbone){
+        lib.updateUserGoals(user);
+      }
     }
   });
 };
-
+// updates move and sleep goals for given user.
+// and passes user to an optional callback after saving to DB
 lib.updateUserGoals = function(user, cb){
-  lib.jawboneUpdate('sleeps', user, function(err, user){
-    lib.jawboneUpdate('moves', user, function(err, user){
-      user.markModified('goals');
-      user.save(function(err, user){
-        if (err) console.error(err);
-        console.log('User saved');
-        if (cb) cb(err, user);
-      });
-    });
-  });
+  lib.jawboneUpdate('sleeps', user)
+  .then(function(user){
+    return lib.jawboneUpdate('moves', user);
+  })
+  .then(function(user){
+    return user.save();
+    })
+  .then(function(user){
+    console.log('saved user');
+    if (cb) cb(null, user);
+  })
+  .catch(function(error){
+    console.error(error);
+  })
 };
 
-lib.jawboneUpdate = function(type, user, cb){
+var jawboneUpdate = function(type, user, cb){
   var goals = user.goals;
   var relevantGoals = lib.filterGoalsByType(goals, type);
   if (relevantGoals.length === 0){
@@ -43,7 +49,10 @@ lib.jawboneUpdate = function(type, user, cb){
     _.each(relevantGoals, updateGoal);
     cb(err, user);
   });
-}
+};
+
+// export promisified version of jawbone update
+lib.jawboneUpdate = Promise.promisify(jawboneUpdate);
 
 // entire goals array -> filtered goals array
 // valid types: 'sleep', 'moves'
