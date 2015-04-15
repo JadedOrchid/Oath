@@ -73,8 +73,11 @@ apiController.handleUserGet = function(req,res){
 
 apiController.isLoggedIn = function(req,res,next){
     if (req.isAuthenticated()){
+      console.log('session', req.session);
         next();
     } else{
+      console.log('session', req.session);
+
       res.status(401);
       res.send('not logged in');
     }

@@ -20,7 +20,7 @@ module.exports = function(app,express) {
   // pull information from html in POST
   app.use(bodyParser.urlencoded({ extended: false }));  
   app.use(bodyParser.json());
-  app.use(session({ secret: 'cupcake-of-condescension', resave: false, saveUninitialized: false })); // session secret
+  app.use(session({ secret: 'cupcake-of-condescension', resave: true, saveUninitialized: false, cookie: { httpOnly: false, maxAge: 9600000 } })); // session secret
   app.use(passport.initialize());
   app.use(passport.session()); // persistent login sessions
 

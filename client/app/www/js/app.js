@@ -47,10 +47,15 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
   //   }
   // })
 
+  .state('/', {
+    url: '/',
+    cache: false,
+    controller: 'SessionCtrl'
+  })
+
   .state('login', {
     url: '/login',
-    templateUrl: 'templates/login.html',
-    controller: 'LoginCtrl'
+    templateUrl: 'templates/login.html'
   })
 
   .state('localLogin', {
@@ -65,7 +70,6 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
 
   .state('purgatory', {
     url: '/purgatory',
-    templateUrl: 'templates/purgatory.html',
     controller: 'PurgController'
   })
 
@@ -135,6 +139,6 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('login');
+  $urlRouterProvider.otherwise('/');
 
 });

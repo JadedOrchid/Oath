@@ -34,11 +34,13 @@ module.exports = function(app, passport) {
               });
     res.send('success');
   });
-};
 
-// function hasGoal (req, res) {
-//   var user = req.userData;
-//   if (user.goals.length) 
-//     goalHandler(req, res);
-//   makeGoalHandler(req, res);
-// }
+  app.get('/logout', function(req, res) {
+    req.logout();
+    res.send('logged out');
+  });
+
+  app.get('/isLoggedIn', function(req, res) {
+    res.send(req.isAuthenticated());
+  });
+};

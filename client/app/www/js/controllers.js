@@ -1,8 +1,13 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', ['$scope', '$cookies', function($scope, $cookies) {
-  // $scope.cookies = $cookies.getAll();
-  console.log($cookies.token);
+.controller('SessionCtrl', ['$scope', 'Auth', '$state', function($scope, Auth, $state) {
+  Auth.isLoggedIn().then(function(loggedIn){
+    if(loggedIn) {
+      $state.go('progress');
+    } else {
+      $state.go('login');
+    }
+  });
 }])
 
 .controller('GoalCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
@@ -61,8 +66,9 @@ angular.module('starter.controllers', [])
   }
 }])
 
-.controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', function($scope, User, GoalBuilder) {
+.controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', 'Auth', function($scope, User, GoalBuilder, Auth) {
   $scope.goals = User.loggedIn.goals;
+  $scope.logout = Auth.logout;
 }])
 
 .controller('FailureReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {

@@ -93,6 +93,25 @@ angular.module('starter.factories', [])
   return user;
 }])
 
+.factory('Auth', ['User', '$state', '$http', function(User, $state, $http){
+  var auth = {};
+
+  auth.isLoggedIn = function() {
+    return $http.get('/auth/isLoggedIn').then(function(response) {
+      return response.data;
+    });
+  };
+
+  auth.logout = function() {
+    $http.get('/auth/logout').then(function() {
+      console.log('logged out');
+      $state.go('login');
+    });
+  }
+
+  return auth;
+}])
+
 .factory('GoalBuilder', ['$state', 'User', '$http', 'Payment', function($state, User, $http, Payment) {
   var goalBuilder = {};
 
