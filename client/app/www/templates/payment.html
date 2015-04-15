@@ -1,6 +1,29 @@
 <ion-view view-title="Payment Information">
   <ion-content class="padding">
-    <h1>Payment Information</h1>
+    <h1>Up the ante! Help yourself stay motivated to hit your goal. Your summary:</h1>
+
+    <div class="list card">
+      <div class="item item-avatar">
+        <img src="{{goal.success.img}}">
+        <h2 style="text-align:left">Beneficiary upon goal completion: <br>{{goal.success.orgName}}</h2>
+        <p>Your donation of {{goal.success.price}} will go to {{goal.success.clickAction}}</p>
+      </div>
+    </div>
+
+    <div class="list card">
+      <div class="item item-avatar">
+        <img src="{{goal.fail.img}}">
+        <h2 style="text-align:left">Result of missing your goal:</h2>
+        <p>Your donation of {{goal.success.price}} will go to {{goal.fail.clickAction}}</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="item item-divider">
+        You will be charged {{goal.success.price}} immediately<br>
+        and the money will be routed accordingly once your <br>
+        goal is over in {{goalDuration}}
+      </div>
 
     <div class="list">
       <label class="item item-input">

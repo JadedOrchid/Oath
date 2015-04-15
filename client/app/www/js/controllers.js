@@ -30,8 +30,10 @@ angular.module('starter.controllers', [])
   $scope.updateDeets = GoalBuilder.updateDeets;
 }])
 
-.controller('PaymentCtrl', ['$scope', 'Payment', '$state', function($scope, Payment, $state) {
-
+.controller('PaymentCtrl', ['$scope', 'Payment', '$state', 'User', function($scope, Payment, $state, User) {
+  console.log("This is Payment", Payment);
+  $scope.goal = Payment.stripeInfo;
+  $scope.goalDuration = Payment.stripeInfo.period.human.toLowerCase();
   $scope.pay = function() {
     var cardholder = {
       number: this.card,

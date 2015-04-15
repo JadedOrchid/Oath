@@ -143,6 +143,7 @@ angular.module('starter.factories', [])
     var successTypes = [
       {
         orgName: 'Doctors Without Borders',
+        headline: 'Vaccines - Doctors Without Borders',
         description: 'helps people worldwide where the need is greatest, delivering emergency medical aid to people affected by conflict, epidemics, disasters or exclusion from health care.',
         price: '$5',
         stripePrice: 500,
@@ -151,6 +152,7 @@ angular.module('starter.factories', [])
       },
       {
         orgName: 'The Arbor Day Foundation',
+        headline: 'Plant a tree with the Arbor Day Foundation',
         description: 'inspires people to plant, nurture, and celebrate trees.',
         price: '$25',
         stripePrice: 2500,
@@ -159,6 +161,7 @@ angular.module('starter.factories', [])
       },
       {
         orgName: 'TerraPass',
+        headline: 'Offset a flight with TerraPass',
         description: 'helps create, implement, and operate customer-funded emissions reduction projects at facilities such as dairy farms and landfills.',
         price: '$15',
         stripePrice: 1500,
@@ -183,13 +186,13 @@ angular.module('starter.factories', [])
     var failTypes = [
       {
         orgName: 'Tip the developers',
-        description: "The money you've pledged will go to support the developrment of Sympact. Maybe we'll donate it ourselves, or maybe we'll buy cupcakes.",
+        description: "The money you've pledged will go to support the development of Sympact. Maybe we'll donate it ourselves, or maybe we'll buy cupcakes. Or go to Vegas.",
         img: '../img/developers.jpg',
         clickAction: 'tip the developers'
       },
       {
         orgName: 'Consolation Cupcakes',
-        description: 'You\'ll need the sugar to support you trying again tomorrow. Shipped from SF, CA',
+        description: 'You\'ll need the sugar to support you trying again tomorrow. Shipped from SF, CA.',
         img: '../img/cupcake.jpg',
         clickAction: 'send some cupcakes'
       }

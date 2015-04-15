@@ -131,3 +131,28 @@ a:active{
   right: 0;
   position: absolute;
 }
+
+.deviceAuth{
+  width: 400px;
+  text-align: left;
+
+}
+
+.deviceAuthIcon {
+  height: 38px;
+  width: 38px;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.successHeadline {
+  color: #0a9ec7;
+  font-size: 100px;
+  text-decoration: bold;
+  text-align: center;
+}
+
+.noPadding {
+  padding-top: 0px;
+  margin-top: 0px;
+}
