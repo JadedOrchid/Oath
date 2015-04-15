@@ -68,11 +68,6 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
     templateUrl: 'templates/localSignup.html'
   })
 
-  .state('purgatory', {
-    url: '/purgatory',
-    controller: 'PurgController'
-  })
-
   .state('goaltype', {
     url: '/goaltype',
     templateUrl: 'templates/goaltype.html',
