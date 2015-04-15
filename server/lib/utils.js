@@ -1,5 +1,5 @@
 // don't we really care about AVERAGE sleep time / day over 1 week, not TOTAL ?
-
+// sleep goal currently: target: 100 hours
 var User = require('../models/user.js');
 var jawbone = require('./jawbone');
 var _ = require('underscore');
@@ -8,25 +8,25 @@ var _ = require('underscore');
 var lib = {};
 
 lib.updateAllUserGoals = function(){
-  // possible bug: we're currently finding all users, and then trying to save them
-  // one-by-one.  If this doesn't work, we can wait for all individual users to 
-  // update and then re-save the array
   User.find(function(err, users){
     for (var i = 0; i < users.length; i++){
       var user = users[i];
       if (!user.jawbone) continue;
-      
-      lib.jawboneUpdate('sleeps', user, function(user){
-        lib.jawboneUpdate('moves', user, function(user){
-          user.markModified('goals');
-          user.save(function(err){
-            if (err) console.log(err);
-
-            console.log('User saved');
-          });
-        });
-      });
+      lib.updateUserGoals(user);
     }
+  });
+};
+
+lib.updateUserGoals = function(user, cb){
+  lib.jawboneUpdate('sleeps', user, function(user){
+    lib.jawboneUpdate('moves', user, function(user){
+      user.markModified('goals');
+      user.save(function(err, user){
+        if (err) console.error(err);
+        console.log('User saved');
+        if (cb) cb(user);
+      });
+    });
   });
 };
 
@@ -34,7 +34,7 @@ lib.jawboneUpdate = function(type, user, cb){
   var goals = user.goals;
   var relevantGoals = lib.filterGoalsByType(goals, type);
   if (relevantGoals.length === 0){
-    return cb(user);  // put inside a setTimeout?
+    return cb(user); 
   }
   jawbone.get(type, user.jawbone.token, function(err, resp){
     var data = resp.data.items;

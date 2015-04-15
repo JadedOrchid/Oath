@@ -1,6 +1,22 @@
 var User = require('../models/user');
+var lib = require('../lib/utils');
 
 var apiController = {};
+
+// return updated user
+apiController.handleUserGet = function(req,res){
+  lib.updateUserGoals(req.user, function(user){
+    res.json(user)  
+  });
+};
+
+// returns updated goals
+apiController.handleGoalsGet = function(req,res){
+  lib.updateUserGoals(req.user, function(user){
+    res.json(user.goals)  
+  });
+};
+
 
 apiController.handleGoalsPost = function(req,res){
   var newGoal = req.body;
@@ -14,12 +30,6 @@ apiController.handleGoalsPost = function(req,res){
     });
 };
 
-apiController.handleGoalsGet = function(req,res){
-
-  User.findById(req.user._id, function(err, user) {
-        res.send(user.goals);
-    });
-};
 
 apiController.handleGoalGet = function(req,res){
   var startTime = req.params.startTime;
@@ -32,7 +42,6 @@ apiController.handleGoalGet = function(req,res){
             goal = goals[i]
           }
         }
-        console.log(goal);
         if (goal){
           res.send(goal);
         } else {
@@ -67,17 +76,11 @@ apiController.handleGoalPut = function(req,res){
     });
 };
 
-apiController.handleUserGet = function(req,res){
-  res.json(req.user);
-};
 
 apiController.isLoggedIn = function(req,res,next){
     if (req.isAuthenticated()){
-      console.log('session', req.session);
         next();
     } else{
-      console.log('session', req.session);
-
       res.status(401);
       res.send('not logged in');
     }
