@@ -3,6 +3,7 @@
 var User = require('../models/user.js');
 var jawbone = require('./jawbone');
 var _ = require('underscore');
+// var Bluebird = require('bluebird');
 
 //namespace
 var lib = {};
@@ -18,13 +19,13 @@ lib.updateAllUserGoals = function(){
 };
 
 lib.updateUserGoals = function(user, cb){
-  lib.jawboneUpdate('sleeps', user, function(user){
-    lib.jawboneUpdate('moves', user, function(user){
+  lib.jawboneUpdate('sleeps', user, function(err, user){
+    lib.jawboneUpdate('moves', user, function(err, user){
       user.markModified('goals');
       user.save(function(err, user){
         if (err) console.error(err);
         console.log('User saved');
-        if (cb) cb(user);
+        if (cb) cb(err, user);
       });
     });
   });
@@ -34,13 +35,13 @@ lib.jawboneUpdate = function(type, user, cb){
   var goals = user.goals;
   var relevantGoals = lib.filterGoalsByType(goals, type);
   if (relevantGoals.length === 0){
-    return cb(user); 
+    return cb(null, user); 
   }
   jawbone.get(type, user.jawbone.token, function(err, resp){
     var data = resp.data.items;
     var updateGoal = _.bind(lib.updateGoalUnbound, null, type, data);
     _.each(relevantGoals, updateGoal);
-    cb(user);
+    cb(err, user);
   });
 }
 
