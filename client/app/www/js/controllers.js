@@ -1,9 +1,9 @@
 angular.module('starter.controllers', [])
 
-.controller('SessionCtrl', ['$scope', 'Auth', '$state', function($scope, Auth, $state) {
+.controller('SessionCtrl', ['$scope', 'Auth', '$state', 'User', function($scope, Auth, $state, User) {
   Auth.isLoggedIn().then(function(loggedIn){
     if(loggedIn) {
-      $state.go('progress');
+      User.getUser();
     } else {
       $state.go('login');
     }
@@ -18,10 +18,6 @@ angular.module('starter.controllers', [])
 .controller('GoalSuccessCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
   $scope.successes = GoalBuilder.returnSucesses();
   $scope.successClick = GoalBuilder.successClick;
-}])
-
-.controller('PurgController', ['User', function(User) {
-  User.getUser();
 }])
 
 .controller('GoalFailureCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
