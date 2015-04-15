@@ -147,6 +147,7 @@ a:active{
 
 .successHeadline {
   color: #0a9ec7;
+  font-size: 100px;
   text-decoration: bold;
   text-align: center;
 }
