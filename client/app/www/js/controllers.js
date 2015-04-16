@@ -122,26 +122,28 @@ angular.module('starter.controllers', [])
     datum.goal = goal;
     datum.graphData = [{
         value: + goal.target - goal.progress,
-        color:'#F7464A',
-        highlight: '#FF5A5E',
+        color:'#FF5A5E',
+        // highlight: '#FF5A5E',
         // label: 'Red'
       },
       {
         value: goal.progress,
         color: '#46BFBD',
-        highlight: '#5AD3D1',
+        // highlight: '#46BFBD',
         // label: 'Current'
       } ];
 
     datum.timeData = [{
         value: + goal.target - goal.progress,
-        color:'green',
-        highlight: 'green',
+        color:'#28BE9B',
+        // highlight: '#28BE9B',
+        // label: 'Time'
       },
       {
         value: goal.progress,
-        color: 'blue',
-        highlight: 'blue',
+        color: '#5AD3D1',
+        // highlight: '#5AD3D1',
+        // label: 'Other Time'
       } ];
 
     return datum;
