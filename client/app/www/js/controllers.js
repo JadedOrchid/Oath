@@ -10,6 +10,12 @@ angular.module('starter.controllers', [])
   });
 }])
 
+.directive('navs', function(){
+  return {
+    templateUrl: '../templates/tabs2.html'
+  };
+})
+
 .controller('TabCtrl', ['$scope', '$state', function($scope, $state){
   $scope.progressClick = function(){
     console.log("You've clicked progress on the TabCtrl");
