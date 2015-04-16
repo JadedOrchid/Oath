@@ -172,3 +172,14 @@ a:active{
   padding-top: 0px;
   margin-top: 0px;
 }
+
+
+.spinner svg {
+  display:block;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  height: 15%;
+  width:  15%;
+  transform: translateY(100%);
+}
