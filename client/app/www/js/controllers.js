@@ -86,21 +86,29 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', 'Auth', function($scope, User, GoalBuilder, Auth) {
-  $scope.goals = User.loggedIn.goals;
   $scope.logout = Auth.logout;
 
-  $scope.data = [{
-        value: 300,
+  var goals = User.loggedIn.goals;
+  // extract data from goals
+  $scope.data = goals.map(function(goal){
+    var datum = {};
+
+    datum.goal = goal;
+    datum.graphData = [{
+        value: + goal.target - goal.progress,
         color:'#F7464A',
         highlight: '#FF5A5E',
         label: 'Red'
       },
       {
-        value: 50,
+        value: goal.progress,
         color: '#46BFBD',
         highlight: '#5AD3D1',
         label: 'Green'
-      } ]
+      } ];
+
+    return datum;
+  });
 
     // Chart.js Options
    $scope.options =  {
@@ -134,7 +142,6 @@ angular.module('starter.controllers', [])
 
       // //String - A legend template
       // legendTemplate : '<ul class="tc-chart-js-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
-
     };
 }])
 
