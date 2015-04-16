@@ -118,7 +118,7 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
 
   .state('successreport', {
     url: '/successreport',
-    templateUrl: 'templates/tab-success.html',
+    templateUrl: 'templates/success.html',
     controller: 'SuccessReportCtrl'
   })
 
