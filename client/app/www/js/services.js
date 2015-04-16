@@ -292,6 +292,7 @@ angular.module('starter.factories', [])
       seconds: goalBuilder.convertTime(this.timeframe)
     }
     goalBuilder.goal.target = this.target;
+    goalBuilder.goal.progress = 0;
     $state.go('goalsuccess');
   };
 
