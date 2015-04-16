@@ -26,6 +26,7 @@ lib.updateUserGoals = function(user, cb){
     return lib.jawboneUpdate('moves', user);
   })
   .then(function(user){
+    user.markModified('goals');
     return user.save();
     })
   .then(function(user){
