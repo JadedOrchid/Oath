@@ -54,11 +54,18 @@ angular.module('starter.controllers', [])
   $scope.updateDeets = GoalBuilder.updateDeets;
 }])
 
-.controller('PaymentCtrl', ['$scope', 'Payment', '$state', 'User', function($scope, Payment, $state, User) {
+.controller('PaymentCtrl', ['$scope', 'Payment', '$state', 'User', 'GoalBuilder', function($scope, Payment, $state, User, GoalBuilder) {
   console.log("This is Payment", Payment);
-  $scope.goal = Payment.stripeInfo;
-  $scope.goalDuration = Payment.stripeInfo.period.human.toLowerCase();
+  var goal = GoalBuilder.goal;
+
+  $scope.goal = goal;
+  $scope.goalDuration = goal.period.human.toLowerCase();
+
   $scope.pay = function() {
+    // only save/send goal when pay function is called
+    GoalBuilder.saveGoal(goal);
+    GoalBuilder.sendGoal(goal);
+
     var cardholder = {
       number: this.card,
       cvc: this.cvc,
@@ -88,7 +95,7 @@ angular.module('starter.controllers', [])
 .controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', 'Auth', function($scope, User, GoalBuilder, Auth) {
   $scope.logout = Auth.logout;
 
-  var goals = User.loggedIn.goals;
+  var goals = User.loggedIn.goals.reverse();
   // extract data from goals
   $scope.data = goals.map(function(goal){
     var datum = {};

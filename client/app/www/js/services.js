@@ -2,7 +2,7 @@ angular.module('starter.factories', [])
 
 .factory('Payment', ['$http', function($http){
   var payment = {};
-  payment.stripeInfo = {};
+  // payment.stripeInfo = {};
 
   payment.sendToken = function(token){
     console.log("you are sending token now! let's see what happens, here is the token", token);
@@ -238,16 +238,11 @@ angular.module('starter.factories', [])
     var goal = goalBuilder.goal;
     goal.fail = fail;
     goal.startTime = Math.floor( Date.now() / 1000 );
+    goal.completed = false;
+    goal.celebrated = false;
 
-    /////////////////
-    // console.log(Payment.sendToken)
-    Payment.stripeInfo = goal;
-    /////////////////
-
-
-
-    goalBuilder.saveGoal(goal);
-    goalBuilder.sendGoal(goal);
+    // goalBuilder.saveGoal(goal);
+    // goalBuilder.sendGoal(goal);
 
     if(User.loggedIn.hasPayment){
       $state.go('progress');
@@ -259,7 +254,8 @@ angular.module('starter.factories', [])
   //UTILS
   goalBuilder.saveGoal = function(goal) {
     var copy = angular.copy(goal);
-    User.loggedIn.goals.push(copy);
+    //prepend a copy to local goals array
+    User.loggedIn.goals.unshift(copy);
   };
 
   goalBuilder.sendGoal = function(goal){
@@ -270,10 +266,6 @@ angular.module('starter.factories', [])
       .error(function(data, status, headers, config) {
         console.log('Your goal could not be added');
       });
-    goalBuilder.goal = {
-      completed: false,
-      celebrated: false
-    };
   };
 
   goalBuilder.convertTime = function(timeframe) {
