@@ -1,9 +1,27 @@
 angular.module('starter.controllers', [])
 
 .controller('SessionCtrl', ['$scope', 'Auth', '$state', 'User', function($scope, Auth, $state, User) {
+  var redirect = function(user){
+    var uncelebratedGoal = User.getOldestUncelebrated(user.goals);
+    if (user.goals.length === 0){
+      $state.go('goaltype');
+    } else if (uncelebratedGoal){
+      uncelebratedGoal.celebrated = true;
+      User.putGoal(uncelebratedGoal);
+      var successful = (+goal.progress - +goal.target > 0);
+      if {
+        $state.go('success');
+      } else {
+        $state.go('failurereport');
+      }
+    } else {
+       $state.go('progress');
+    }
+  }
+
   Auth.isLoggedIn().then(function(loggedIn){
     if(loggedIn) {
-      User.getUser();
+      User.getUser(redirect);
     } else {
       $state.go('login');
     }

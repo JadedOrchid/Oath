@@ -2,7 +2,6 @@ angular.module('starter.factories', [])
 
 .factory('Payment', ['$http', function($http){
   var payment = {};
-  // payment.stripeInfo = {};
 
   payment.sendToken = function(token){
     console.log("you are sending token now! let's see what happens, here is the token", token);
@@ -17,9 +16,8 @@ angular.module('starter.factories', [])
   return payment;
 }])
 
-.factory('User', ['$http', '$state', function($http, $state) {
+.factory('User', ['$http', function($http) {
   var user = {};
-
   user.loggedIn = {
     goals: []
   };
@@ -31,33 +29,12 @@ angular.module('starter.factories', [])
       }
     });
   };
-
   user.getOldestUncelebrated = function(goals) {
-    if (goals.length === 0) return null;
-
-    return user.getUncelebrated(goals)[0];
-  }
-
-  user.initialDirect = function(currentUser){
-    var uncelebrated = user.getOldestUncelebrated(currentUser.goals);
-    if (currentUser.goals.length === 0){
-      $state.go('goaltype');
-      return;
-    }
-    if(uncelebrated) {
-      user.celebrate(uncelebrated);
-      return;
-    }
-    $state.go('progress');
-  };
-
-  user.celebrate = function(goal) {
-    goal.celebrated = true;
-    user.putGoal(goal);
-    if(+goal.target - +goal.progress > 0) {
-      $state.go('failurereport');
+    var uncelebrated = user.getUncelebrated(goals);
+    if (uncelebrated.length > 0){
+      return uncelebrated[0];
     } else {
-      $state.go('successreport');
+      return null;
     }
   };
 
@@ -74,11 +51,11 @@ angular.module('starter.factories', [])
   //fix later to only save most pertinent data
     //also to standardize the 'username' concern b/c they're different based on
     //how they logged in
-  user.getUser = function(){
+  user.getUser = function(redirect){
     return $http.get('/api/user')
       .then(function(userData){
         user.loggedIn = userData.data;
-        user.initialDirect(user.loggedIn);
+        redirect(user.loggedIn);
       });
   };
 
