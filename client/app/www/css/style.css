@@ -108,6 +108,11 @@ a:active{
 .iconsize {
   font-size: 100px;
   color: #28BE9B;
+  position: absolute;
+  top: -60px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .icon-text-wrapper {
@@ -135,7 +140,7 @@ a:active{
 
 .goal-type-container {
   margin: auto;
-  width: 430px;
+  width: 320px;
   top: 0px;
   bottom: 0;
   left: 0;
