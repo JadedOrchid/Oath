@@ -10,6 +10,23 @@ angular.module('starter.controllers', [])
   });
 }])
 
+.controller('TabCtrl', ['$scope', '$state', function($scope, $state){
+  $scope.progressClick = function(){
+    console.log("You've clicked progress on the TabCtrl");
+    $state.go('progress');
+  };
+
+  $scope.newGoalClick = function(){
+    console.log("You've clicked new goal on the TabCtrl");
+    $state.go('goaltype');
+  };
+
+  $scope.settingsClick = function(){
+    console.log("You've clicked settings on the TabCtrl");
+    $state.go('settings');
+  };
+}])
+
 .controller('GoalCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
   $scope.goalTypes = GoalBuilder.returnGoals();
   $scope.goalClick = GoalBuilder.goalClick;
