@@ -1,22 +1,7 @@
 <ion-view view-title="Success !">
-  <ion-content class="padding">
+  <ion-content class="padding has-footer">
   	<h1>Congratulations!</h1>
     <h2>You've acheived your {{achieved.goalType.title}}! Your {{achieved.success.price}} donation will help {{achieved.success.description}} for {{achieved.success.orgName}}!</h2>
   </ion-content>
-
-<div class="tabs tabs-icon-left" ng-controller="TabCtrl">
-  <a class="tab-item" ng-click="progressClick()">
-    <i class="icon ion-home"></i>
-    Goals Dashboard
-  </a>
-  <a class="tab-item" ng-click="newGoalClick()">
-    <i class="icon ion-star"></i>
-    New Goal
-  </a>
-  <a class="tab-item" ng-click="settingsClick()">
-    <i class="icon ion-gear-a"></i>
-    Account Settings
-  </a>
-</div>
-
+  <div navs></div>
 </ion-view>
