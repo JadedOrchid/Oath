@@ -50,7 +50,8 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
   .state('/', {
     url: '/',
     cache: false,
-    controller: 'SessionCtrl'
+    controller: 'SessionCtrl',
+    templateUrl: 'templates/loading.html'
   })
 
   .state('login', {
