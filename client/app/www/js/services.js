@@ -18,9 +18,7 @@ angular.module('starter.factories', [])
 
 .factory('User', ['$http', function($http) {
   var user = {};
-  user.loggedIn = {
-    goals: []
-  };
+  user.loggedIn = null;
 
   user.getUncelebrated = function(goals) {
     return goals.filter(function(goal){
@@ -47,20 +45,15 @@ angular.module('starter.factories', [])
         console.log('error', data);
       });
   };
-
-  //fix later to only save most pertinent data
-    //also to standardize the 'username' concern b/c they're different based on
-    //how they logged in
-  user.getUser = function(redirect){
-    return $http.get('/api/user')
-      .then(function(userData){
-        user.loggedIn = userData.data;
-        redirect(user.loggedIn);
-      });
+  
+  user.getUser = function(){
+    return $http.get('/api/user').then(function(res){
+      return res.data;
+    });
   };
 
-  user.checkJawbone = function(currentUser){
-    if (currentUser.jawbone === undefined){
+  user.checkJawbone = function(user){
+    if (user.jawbone === undefined){
       return false;
     } else {
       return true;

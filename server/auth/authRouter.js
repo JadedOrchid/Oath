@@ -40,6 +40,10 @@ module.exports = function(app, passport) {
   });
 
   app.get('/isLoggedIn', function(req, res) {
-    res.send(req.isAuthenticated());
+    if (req.isAuthenticated()){
+      res.send(req.user)
+    } else {  
+      res.send(false);
+    }
   });
 };

@@ -1,15 +1,24 @@
 angular.module('starter.controllers', [])
 
 .controller('SessionCtrl', ['$scope', 'Auth', '$state', 'User', function($scope, Auth, $state, User) {
-  var redirect = function(user){
+  
+  User.getUser().then(function(user){
+    User.loggedIn = user;
+    redirect(user);
+  }).catch(function(err){
+    $state.go('login');
+  });
+
+  function redirect (user){
     var uncelebratedGoal = User.getOldestUncelebrated(user.goals);
     if (user.goals.length === 0){
       $state.go('goaltype');
-    } else if (uncelebratedGoal){
+    } else if (uncelebratedGoal) {
       uncelebratedGoal.celebrated = true;
       User.putGoal(uncelebratedGoal);
-      var successful = (+goal.progress - +goal.target > 0);
-      if {
+      var successful = (+uncelebratedGoal.progress - 
+                        +uncelebratedGoal.target > 0);
+      if (successful) {
         $state.go('success');
       } else {
         $state.go('failurereport');
@@ -18,14 +27,6 @@ angular.module('starter.controllers', [])
        $state.go('progress');
     }
   }
-
-  Auth.isLoggedIn().then(function(loggedIn){
-    if(loggedIn) {
-      User.getUser(redirect);
-    } else {
-      $state.go('login');
-    }
-  });
 }])
 
 .directive('navs', function(){
