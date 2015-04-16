@@ -1,17 +1,23 @@
 <ion-view hide-back-button="true" view-title="Progress">
   <ion-content class="padding has-footer">
-    <ion-list>
-      <ion-item ng-repeat="datum in data">
+      <div ng-repeat="datum in data">
+       <div>{{datum.goal.goalType.title}}</div>
+       <div>Current {{datum.goal.goalType.unit}}</div>
+       <div>Time Remaining</div>
+        <div class='chart-container'>
+          <canvas tc-chartjs-doughnut chart-options="options" chart-data="datum.graphData" auto-legend></canvas>
 
-       <canvas tc-chartjs-doughnut chart-options="options" chart-data="datum.graphData" auto-legend></canvas>
-      {{datum.goal}}
+          <span class='time-chart-container'>
+            <canvas tc-chartjs-doughnut chart-options="options" chart-data="datum.timeData" auto-legend></canvas>
+          </span>
+        </div>
+      </div>
 
-      </ion-item>
-    </ion-list>
   </ion-content>
 </ion-view>
 
 <div navs></div>
+
 <!--   <ion-tabs class="tabs-icon-top tabs-positive">
 
     <ion-tab title="Progress" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/progress">
