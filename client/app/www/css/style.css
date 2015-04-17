@@ -231,3 +231,9 @@ background-color: #3F5C9A;
   margin-left: auto;
   margin-right: auto;
 }
+
+h2 {
+  margin-top: 30px !important;
+  color: #11c1f3;
+
+}
