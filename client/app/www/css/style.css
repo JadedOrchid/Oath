@@ -196,7 +196,7 @@ a:active{
   position: relative;
   width: 300px !important;
   top: 0;
-  left: 0;
+  left: -75px;
   right: 0;
   bottom: 0;
 
@@ -315,6 +315,7 @@ a:active{
   font-family: '', sans-serif;
 }
 
+
 .goalDeetsHeadline{
   font-size: 44px;
   text-align: left;
@@ -324,5 +325,15 @@ a:active{
 .goalDeetsInput{
   width: 50%;
   display: inline-block;
+}
+
+.info-container {
+  padding-top: 20px;
+  /*background-color: red;*/
+  position: absolute;
+  margin-left: 55%;
+  left: -10px;
+  height: 33%;
+  width: 50%;
 }
 

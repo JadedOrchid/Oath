@@ -116,69 +116,89 @@ angular.module('starter.controllers', [])
   $scope.logout = Auth.logout;
 
   var goals = User.loggedIn.goals.slice().reverse();
-  // extract data from goals
-  $scope.goals = goals.map(function(goal){
-    goal.graphData = [{
-        value: + goal.target - goal.progress,
-        color:'#FF5A5E',
-        // highlight: '#FF5A5E',
-        // label: 'Red'
-      },
-      {
-        value: goal.progress,
-        color: '#46BFBD',
-        // highlight: '#46BFBD',
-        // label: 'Current'
-      } ];
-
-    goal.timeData = [{
-        value: + goal.target - goal.progress,
-        color:'#28BE9B',
-        // highlight: '#28BE9B',
-        // label: 'Time'
-      },
-      {
-        value: goal.progress,
-        color: '#5AD3D1',
-        // highlight: '#5AD3D1',
-        // label: 'Other Time'
-      } ];
-
-    return goal;
-  });
+  $scope.goals = goals.map(processGoal);
 
     // Chart.js Options
-   $scope.options =  {
-
-      // Sets the chart to be responsive
+   $scope.goalOptions =  {
       responsive: true,
-
-      //Boolean - Whether we should show a stroke on each segment
-      segmentShowStroke : true,
-
-      //String - The colour of each segment stroke
+      segmentShowStroke : false,
       segmentStrokeColor : '#fff',
-
-      //Number - The width of each segment stroke
       segmentStrokeWidth : 2,
-
-      //Number - The percentage of the chart that we cut out of the middle
-      percentageInnerCutout : 50, // This is 0 for Pie charts
-
-      //Number - Amount of animation steps
-      animationSteps : 100,
-
-      //String - Animation easing effect
-      animationEasing : 'easeOutBounce',
-
-      //Boolean - Whether we animate the rotation of the Doughnut
-      animateRotate : true,
-
-      //Boolean - Whether we animate scaling the Doughnut from the centre
+      percentageInnerCutout : 60,
+      animationSteps : 1,
+      animationEasing : 'easeInBounce',
+      animateRotate : false,
       animateScale : false,
+      legendTemplate : ''
+    };
 
-      //String - A legend template
-      legendTemplate : '<ul class="tc-chart-js-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
+    $scope.timeOptions =  {
+      responsive: true,
+      segmentShowStroke : false,
+      segmentStrokeColor : '#fff',
+      segmentStrokeWidth : 2,
+      percentageInnerCutout : 80,
+      animationSteps : 1,
+      animationEasing : 'easeInBounce',
+      animateRotate : false,
+      animateScale : false,
+      legendTemplate : ''
+    };
+
+    function processGoal(goal){  
+      goal.goalRemaining = Math.max( + goal.target - goal.progress, 0) ;
+      goal.graphData = [{
+          value: goal.progress,
+          color:'#ffc125', // salmon
+          // highlight: '#FF5A5E',
+          label: ''
+        },
+        {
+          value: goal.goalRemaining,
+          color: '#ececec', // grey
+          // highlight: '#46BFBD',
+          label: ''
+        } ];
+        var now = Math.floor(Date.now() / 1000);
+        goal.timeElapsed =  now - goal.startTime;
+        var timeRemaining = goal.period.seconds - goal.timeElapsed;
+        goal.timeRemaining = convertTime(timeRemaining);
+
+      goal.timeData = [{
+          value: goal.timeElapsed,
+          color:'#ececec',
+          // highlight: '#28BE9B',
+          label: ''
+        },
+        {
+          value: timeRemaining,
+          color: '#26b099',
+          // highlight: '#5AD3D1',
+          label: ''
+        } ];
+
+      if (goal.goalType.title !== "Sleep Goal"){
+        goal.displayProgress = goal.progress + ' ' + goal.goalType.unit;
+      } else {
+        goal.displayProgress = convertTime( +goal.progress);
+      }
+      return goal;
+    }
+
+    function convertTime(seconds){
+      if (seconds < 60){
+        var num = seconds;
+        return num + " second" + ((num === 1) ? '' : 's');
+      } else if (seconds < 60 * 60) {
+        var num = Math.floor(seconds / 60);
+        return  num + " minute" + ((num === 1) ? '' : 's');
+      } else if (seconds < 60 * 60 * 24 ) {
+        var num = Math.floor(seconds / 60 / 60);
+        return num + " hour" + ((num === 1) ? '' : 's');
+      } else {
+        var num = Math.floor(seconds / 60 / 60 / 24);
+        return num + " day" + ((num === 1) ? '' : 's');
+      }
     };
 }])
 
