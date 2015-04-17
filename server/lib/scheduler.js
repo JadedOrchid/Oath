@@ -1,9 +1,8 @@
 var schedule = require('node-schedule');
 var lib = require('./utils');
 
-var rule = new schedule.RecurrenceRule();
-// currently runs once / minute
-var j = schedule.scheduleJob(rule, function(){
-  console.log('inside recurrence');
+// runs at midnight each night
+var j = schedule.scheduleJob({ }, function(){
+  console.log('scheduled job called at', new Date());
   lib.updateAllUserGoals();
 })

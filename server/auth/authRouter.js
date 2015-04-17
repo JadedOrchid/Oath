@@ -1,5 +1,4 @@
 // var authController = require('./authController.js');
-var PubSub = require('../models/pubsub');
 
 module.exports = function(app, passport) {
   //authenticate with facebook
@@ -23,24 +22,28 @@ module.exports = function(app, passport) {
     res.redirect('/#/');
   });
 
-  app.post('/jawbone/pubsub', function(req,res){
-    var info = req.body;
+  // app.post('/jawbone/pubsub', function(req,res){
+  //   var info = req.body;
     
-    var pubSub = new PubSub();
-    pubSub.data = req.body;
-    pubSub.save(function(err) {
-              if (err)
-                  throw err;
-              });
-    res.send('success');
-  });
+  //   var pubSub = new PubSub();
+  //   pubSub.data = req.body;
+  //   pubSub.save(function(err) {
+  //             if (err)
+  //                 throw err;
+  //             });
+  //   res.send('success');
+  // });
 
   app.get('/logout', function(req, res) {
     req.logout();
-    res.send('logged out');
+    res.redirect('/#/login');
   });
 
   app.get('/isLoggedIn', function(req, res) {
-    res.send(req.isAuthenticated());
+    if (req.isAuthenticated()){
+      res.send(req.user)
+    } else {  
+      res.send(false);
+    }
   });
 };

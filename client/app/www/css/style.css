@@ -108,6 +108,11 @@ a:active{
 .iconsize {
   font-size: 100px;
   color: #28BE9B;
+  position: absolute;
+  top: -60px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .icon-text-wrapper {
@@ -135,7 +140,7 @@ a:active{
 
 .goal-type-container {
   margin: auto;
-  width: 430px;
+  width: 300px;
   top: 0px;
   bottom: 0;
   left: 0;
@@ -166,4 +171,27 @@ a:active{
 .noPadding {
   padding-top: 0px;
   margin-top: 0px;
+}
+
+
+.spinner svg {
+  display:block;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  height: 15%;
+  width:  15%;
+  transform: translateY(100%);
+}
+
+.fb {
+background-color: #3F5C9A;
+  color: #fff;
+}
+
+
+h2 {
+  margin-top: 30px !important;
+  color: #11c1f3;
+
 }

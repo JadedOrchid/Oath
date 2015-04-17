@@ -2,7 +2,6 @@ angular.module('starter.factories', [])
 
 .factory('Payment', ['$http', function($http){
   var payment = {};
-  payment.stripeInfo = {};
 
   payment.sendToken = function(token){
     console.log("you are sending token now! let's see what happens, here is the token", token);
@@ -17,12 +16,9 @@ angular.module('starter.factories', [])
   return payment;
 }])
 
-.factory('User', ['$http', '$state', function($http, $state) {
+.factory('User', ['$http', function($http) {
   var user = {};
-
-  user.loggedIn = {
-    goals: []
-  };
+  user.loggedIn = null;
 
   user.getUncelebrated = function(goals) {
     return goals.filter(function(goal){
@@ -31,33 +27,12 @@ angular.module('starter.factories', [])
       }
     });
   };
-
   user.getOldestUncelebrated = function(goals) {
-    if (goals.length === 0) return null;
-
-    return user.getUncelebrated(goals)[0];
-  }
-
-  user.initialDirect = function(currentUser){
-    var uncelebrated = user.getOldestUncelebrated(currentUser.goals);
-    if (currentUser.goals.length === 0){
-      $state.go('goaltype');
-      return;
-    }
-    if(uncelebrated) {
-      user.celebrate(uncelebrated);
-      return;
-    }
-    $state.go('progress');
-  };
-
-  user.celebrate = function(goal) {
-    goal.celebrated = true;
-    user.putGoal(goal);
-    if(+goal.target - +goal.progress > 0) {
-      $state.go('failurereport');
+    var uncelebrated = user.getUncelebrated(goals);
+    if (uncelebrated.length > 0){
+      return uncelebrated[0];
     } else {
-      $state.go('successreport');
+      return null;
     }
   };
 
@@ -71,19 +46,14 @@ angular.module('starter.factories', [])
       });
   };
 
-  //fix later to only save most pertinent data
-    //also to standardize the 'username' concern b/c they're different based on
-    //how they logged in
   user.getUser = function(){
-    return $http.get('/api/user')
-      .then(function(userData){
-        user.loggedIn = userData.data;
-        user.initialDirect(user.loggedIn);
-      });
+    return $http.get('/api/user').then(function(res){
+      return res.data;
+    });
   };
 
-  user.checkJawbone = function(currentUser){
-    if (currentUser.jawbone === undefined){
+  user.checkJawbone = function(user){
+    if (user.jawbone === undefined){
       return false;
     } else {
       return true;
@@ -238,16 +208,11 @@ angular.module('starter.factories', [])
     var goal = goalBuilder.goal;
     goal.fail = fail;
     goal.startTime = Math.floor( Date.now() / 1000 );
+    goal.completed = false;
+    goal.celebrated = false;
 
-    /////////////////
-    // console.log(Payment.sendToken)
-    Payment.stripeInfo = goal;
-    /////////////////
-
-
-
-    goalBuilder.saveGoal(goal);
-    goalBuilder.sendGoal(goal);
+    // goalBuilder.saveGoal(goal);
+    // goalBuilder.sendGoal(goal);
 
     if(User.loggedIn.hasPayment){
       $state.go('progress');
@@ -259,6 +224,7 @@ angular.module('starter.factories', [])
   //UTILS
   goalBuilder.saveGoal = function(goal) {
     var copy = angular.copy(goal);
+    //prepend a copy to local goals array
     User.loggedIn.goals.push(copy);
   };
 
@@ -270,10 +236,6 @@ angular.module('starter.factories', [])
       .error(function(data, status, headers, config) {
         console.log('Your goal could not be added');
       });
-    goalBuilder.goal = {
-      completed: false,
-      celebrated: false
-    };
   };
 
   goalBuilder.convertTime = function(timeframe) {
@@ -292,6 +254,7 @@ angular.module('starter.factories', [])
       seconds: goalBuilder.convertTime(this.timeframe)
     }
     goalBuilder.goal.target = this.target;
+    goalBuilder.goal.progress = 0;
     $state.go('goalsuccess');
   };
 

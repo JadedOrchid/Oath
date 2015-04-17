@@ -1,20 +1,12 @@
-<ion-view view-title="Welcome to Sympact!">
+<ion-view animation="no-animation" hide-back-button="true" view-title="Welcome to Sympact!">
   <ion-content class="padding">
     <div>
-      <h2>Log in to Sympact with</h2>
+      <h2>Sympact</h2>
 
-      <form action="/auth/facebook" method="get">
-        <button class="button login button-block button-positive"><i padding="10px" class="icon ion-social-facebook"></i>
-         Facebook
-        </button>
-      </form>
 
       <p class="mid soft"> We'll never post without your permission. </p>
 
-      <div class="horizontal-separator">
-        <span class="separator-text">or</span>
-      </div>
-      <h4>Log in to your Sympact account</h4>
+      <h4>Log in</h4>
 
       <form action="/auth/login" method="post">
         <div class="list">
@@ -31,11 +23,19 @@
         </div>
       </form>
 
+      <div class="horizontal-separator">
+        <span class="separator-text">or</span>
+      </div>
       <h6 class="mid" >
         <a href = "#/signup">Forgot password?</a> |
         <a href = "#/signup">Create a new account </a>
       </h6>
 
     </div>
+      <form action="/auth/facebook" method="get">
+        <button class="button login button-block button fb"><i padding="10px" class="icon ion-social-facebook"></i>
+         Facebook
+        </button>
+      </form>
   </ion-content>
 </ion-view>
