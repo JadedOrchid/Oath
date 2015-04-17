@@ -45,7 +45,7 @@ angular.module('starter.factories', [])
         console.log('error', data);
       });
   };
-  
+
   user.getUser = function(){
     return $http.get('/api/user').then(function(res){
       return res.data;
@@ -225,7 +225,7 @@ angular.module('starter.factories', [])
   goalBuilder.saveGoal = function(goal) {
     var copy = angular.copy(goal);
     //prepend a copy to local goals array
-    User.loggedIn.goals.unshift(copy);
+    User.loggedIn.goals.push(copy);
   };
 
   goalBuilder.sendGoal = function(goal){

@@ -5,26 +5,28 @@ var apiController = {};
 
 // return updated user
 apiController.handleUserGet = function(req,res){
-  lib.updateUserGoals(req.user, function(err, user){
-    if (err) {
-      res.status(500);
-      res.send('internal error')
-    } else {
-      res.json(user)  
-    }
-  });
+  res.send(req.user);
+  // lib.updateUserGoals(req.user, function(err, user){
+  //   if (err) {
+  //     res.status(500);
+  //     res.send('internal error')
+  //   } else {
+  //     res.json(user)  
+  //   }
+  // });
 };
 
 // returns updated goals
 apiController.handleGoalsGet = function(req,res){
-  lib.updateUserGoals(req.user, function(err, user){
-    if (err) {
-      res.status(500);
-      res.send('internal error')
-    } else {
-      res.json(user)  
-    }
-  });
+  res.send(req.user.goals);
+  // lib.updateUserGoals(req.user, function(err, user){
+  //   if (err) {
+  //     res.status(500);
+  //     res.send('internal error')
+  //   } else {
+  //     res.json(user)  
+  //   }
+  // });
 };
 
 

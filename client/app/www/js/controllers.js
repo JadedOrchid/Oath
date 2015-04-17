@@ -19,7 +19,7 @@ angular.module('starter.controllers', [])
       var successful = (+uncelebratedGoal.progress - 
                         +uncelebratedGoal.target > 0);
       if (successful) {
-        $state.go('success');
+        $state.go('successreport');
       } else {
         $state.go('failurereport');
       }
@@ -114,7 +114,7 @@ angular.module('starter.controllers', [])
 .controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', 'Auth', function($scope, User, GoalBuilder, Auth) {
   $scope.logout = Auth.logout;
 
-  var goals = User.loggedIn.goals.reverse();
+  var goals = User.loggedIn.goals.slice().reverse();
   // extract data from goals
   $scope.data = goals.map(function(goal){
     var datum = {};
@@ -172,9 +172,11 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('FailureReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {
+  console.log('FAILURE')
   $scope.failed = User.getOldestUncelebrated(User.loggedIn.goals);
 }])
 
 .controller('SuccessReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {
+  console.log('SUCCESS')
   $scope.achieved = User.getOldestUncelebrated(User.loggedIn.goals);
 }])
