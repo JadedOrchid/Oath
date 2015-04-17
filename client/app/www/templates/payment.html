@@ -1,11 +1,10 @@
-<ion-view view-title="Payment Information">
+<ion-view view-title="Summary">
   <ion-content class="padding">
-    <h1>Up the ante! Help yourself stay motivated to hit your goal. Your summary:</h1>
 
     <div class="list card">
       <div class="item item-avatar">
         <img src="{{goal.success.img}}">
-        <h2 style="text-align:left">Beneficiary upon goal completion: <br>{{goal.success.orgName}}</h2>
+        <h2 style="text-align:left">Successful: <br>{{goal.success.orgName}}</h2>
         <p>Your donation of {{goal.success.price}} will go to {{goal.success.clickAction}}</p>
       </div>
     </div>
@@ -13,34 +12,40 @@
     <div class="list card">
       <div class="item item-avatar">
         <img src="{{goal.fail.img}}">
-        <h2 style="text-align:left">Result of missing your goal:</h2>
+        <h2 style="text-align:left">Unsuccessful:</h2>
         <p>Your donation of {{goal.success.price}} will go to {{goal.fail.clickAction}}</p>
       </div>
     </div>
-
+<!-- 
     <div class="card">
       <div class="item item-divider">
         You will be charged {{goal.success.price}} immediately<br>
         and the money will be routed accordingly once your <br>
         goal is over in {{goalDuration}}
+      </div> -->
+
+    <!-- <div class="list list-inset card"> -->
+      <div class="row">
+          <label class="item item-input col">
+            <input class="bottom" ng-model='card' type="text" placeholder="Card Number">
+          </label>
+      </div>
+      <div class="row">
+          <label class="item bottom item-input col col-33">
+            <input class=" " ng-model='cvc' type="text" placeholder="CVC">
+          </label>
+          <label class="item bottom item-input col col-33">
+            <input class=" " ng-model='month' type="text" placeholder="Month"></input>
+          </label>
+          <label class="item bottom item-input col col-33">
+            <input class="" ng-model='year' type="text" placeholder="Year"></input>
+          </label>
       </div>
 
-    <div class="list">
-      <label class="item item-input">
-        <input ng-model='card' type="text" placeholder="Card Number">
-      </label>
-      <label class="item item-input">
-        <input ng-model='cvc' type="text" placeholder="CVC">
-      </label>
-      <label class="item item-input">
-        <input ng-model='month' type="text" placeholder="Expiration Month"></input>
-      </label>
-      <label class="item item-input">
-        <input ng-model='year' type="text" placeholder="Expiration Year"></input>
-      </label>
-      <button class="button button-block button-outline button-positive" ng-click='pay()'>Submit Payment</button>
-    </div>
+    <!-- </div> -->
+      <button class="button button-block button-calm col" ng-click='pay()'>Submit Payment</button>
 
+      <p class="details">Your card will be charged immediately</p>
 
   </ion-content>
 </ion-view>

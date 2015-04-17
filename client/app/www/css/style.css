@@ -11,6 +11,25 @@
     width:100%;
 }
 
+.details {
+  text-align: center;
+  color: #666;
+  font-size: 0.8em;
+  margin-top: -2%;
+}
+
+.bottom {
+  border-bottom: 1px solid #ddd !important;
+}
+
+label.item.bottom.item-input.col.col-33 {
+  border-bottom: 1px solid #ddd !important;
+}
+
+.right {
+  border-right: 1px solid #ddd !important;
+}
+
 h1, .h1 {
     color : #5B554F;
     /*font-size: 500px;*/
@@ -235,6 +254,9 @@ a:active{
   margin-right: auto;
 }
 
+.item {
+  border-width: 0 !important;
+}
 .logo-container {
   text-align: center;
 }
