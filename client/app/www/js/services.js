@@ -96,31 +96,38 @@ angular.module('starter.factories', [])
     var goalTypes = [
       {
         title: "Step",
-        unit: "steps"
+        unit: "steps",
+        phase: "day"
       },
       {
         title: "Sleep",
-        unit: "hours"
+        unit: "hours",
+        phase: "night"
       },
       {
         title: "Cycling",
-        unit: "miles"
+        unit: "miles",
+        phase: "day"
       },
       {
         title: "Cycling",
-        unit: "feet"
+        unit: "feet",
+        phase: "day"
       },
       {
         title: "Tech",
-        unit: "minutes"
+        unit: "minutes",
+        phase: "day"
       },
       {
         title: "Running",
-        unit: "miles"
+        unit: "miles",
+        phase: "day"
       },
       {
         title: "Focus",
-        unit: "minutes"
+        unit: "minutes",
+        phase: "day"
       }
     ];
 

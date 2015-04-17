@@ -68,8 +68,9 @@ angular.module('starter.controllers', [])
 
 .controller('GoalDetailCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
   $scope.goalType = GoalBuilder.goal.goalType;
-  $scope.times = GoalBuilder.returnTimes();
-  $scope.updateDeets = GoalBuilder.updateDeets;
+  console.log("This is $scope.goalType contains title, unit, phase ", $scope.goalType);
+  $scope.times = GoalBuilder.returnTimes(); //contains the available goal timeframes
+  $scope.updateDeets = GoalBuilder.updateDeets; //update the details
 
 }])
 

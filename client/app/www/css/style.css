@@ -314,3 +314,15 @@ a:active{
 .body{
   font-family: '', sans-serif;
 }
+
+.goalDeetsHeadline{
+  font-size: 44px;
+  text-align: left;
+  display: inline-block;
+
+}
+.goalDeetsInput{
+  width: 50%;
+  display: inline-block;
+}
+
