@@ -117,11 +117,8 @@ angular.module('starter.controllers', [])
 
   var goals = User.loggedIn.goals.slice().reverse();
   // extract data from goals
-  $scope.data = goals.map(function(goal){
-    var datum = {};
-
-    datum.goal = goal;
-    datum.graphData = [{
+  $scope.goals = goals.map(function(goal){
+    goal.graphData = [{
         value: + goal.target - goal.progress,
         color:'#FF5A5E',
         // highlight: '#FF5A5E',
@@ -134,7 +131,7 @@ angular.module('starter.controllers', [])
         // label: 'Current'
       } ];
 
-    datum.timeData = [{
+    goal.timeData = [{
         value: + goal.target - goal.progress,
         color:'#28BE9B',
         // highlight: '#28BE9B',
@@ -147,7 +144,7 @@ angular.module('starter.controllers', [])
         // label: 'Other Time'
       } ];
 
-    return datum;
+    return goal;
   });
 
     // Chart.js Options
