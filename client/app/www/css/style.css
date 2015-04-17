@@ -39,11 +39,11 @@ h2, h4 {
 a {
   text-decoration: none;
 }
-a:visited, a:link{
-  color: #387ef5;
-}
 a:hover{
-  color: #11c1f3;
+  color: #3F5C9A;
+}
+/*a:visited, a:link{
+  color: #387ef5;
 }
 a:focus{
   color: #ffc900;
@@ -51,7 +51,7 @@ a:focus{
 a:active{
   color: #886aea;
 }
-
+*/
 .soft {
   margin-top: -10px;
   color: #CCCCCC;
@@ -184,8 +184,10 @@ a:active{
 }
 
 .fb {
-background-color: #3F5C9A;
+  background-color: #3F5C9A;
   color: #fff;
+  border: 0;
+  box-shadow: rgba(0,0,0, 0.298039) 0px 2px 2px 0px;
 }
 
 .chart-container {
@@ -197,6 +199,7 @@ background-color: #3F5C9A;
   left: 0;
   right: 0;
   bottom: 0;
+
 }
 
 .time-chart-container {
@@ -230,4 +233,75 @@ background-color: #3F5C9A;
 .legend-container {
   margin-left: auto;
   margin-right: auto;
+}
+.logo-container {
+  text-align: center;
+}
+.login-container {
+  width: 328px;
+  height: 1704px;
+}
+.login-div {
+  width: 100vw;
+  height: 100vh;
+}
+.main {
+  background-color: #00AA8F;
+
+}
+.mission {
+  background-color: #ffffff;
+}
+.team {
+  background-color: #00AA8F;
+}
+
+.logo {
+  width: 70vw;
+  margin-top: 80px;
+}
+.signin-container {
+  width: 265px;
+  margin: 0 auto;
+  margin-top: 55px;
+}
+.signin-button {
+  background-color: #006756;
+  color: #FFFFFF;
+  border: 0;
+  box-shadow: rgba(0,0,0, 0.298039) 0px 2px 2px 0px;
+}
+.login-text {
+  color: #FFFFFF;
+  text-align: center;
+}
+.down-arrow {
+
+}
+.down-arrow-container {
+  text-align: center;
+  margin-top: 0px;
+}
+.wtext {
+  color: #FFFFFF;
+}
+.headtext {
+  font-size: 2.6em;
+  padding-top: 25px;
+}
+
+.profile-image {
+  float: left;
+}
+
+.team-row {
+  width: 100vw;
+  height: 116px;
+  margin-left: 15px;
+}
+
+.profile-info {
+  position: relative;
+  left: 16px;
+  top: 31px;
 }
