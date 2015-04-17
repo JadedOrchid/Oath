@@ -5,4 +5,4 @@ var lib = require('./utils');
 var j = schedule.scheduleJob({ }, function(){
   console.log('scheduled job called at', new Date());
   lib.updateAllUserGoals();
-})
+});

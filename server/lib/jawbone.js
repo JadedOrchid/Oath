@@ -9,7 +9,15 @@ jawbone.get = function(type, userToken, cb) {
   };
   var up = require('jawbone-up')(options);
   up[type].get({}, function(err, body){
-    cb(err, JSON.parse(body));
+
+    try{
+      body = JSON.parse(body);
+    } catch(e) {
+      console.error('JSON PARSE ERROR', e)
+      cb(e, null);
+    }
+
+    cb(err, body);
   });
 };
 

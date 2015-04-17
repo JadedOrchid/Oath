@@ -182,7 +182,7 @@ angular.module('starter.factories', [])
     var failTypes = [
       {
         orgName: 'Tip the developers',
-        description: "The money you've pledged will go to support the development of Sympact. Maybe we'll donate it ourselves, or maybe we'll buy cupcakes. Or go to Vegas.",
+        description: "The money you've pledged will go to support the development of Oath. Maybe we'll donate it ourselves, or maybe we'll buy cupcakes. Or go to Vegas.",
         img: '../img/developers.jpg',
         clickAction: 'tip the developers'
       },

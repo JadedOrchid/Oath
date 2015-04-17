@@ -45,9 +45,11 @@ var jawboneUpdate = function(type, user, cb){
     return cb(null, user); 
   }
   jawbone.get(type, user.jawbone.token, function(err, resp){
-    var data = resp.data.items;
-    var updateGoal = _.bind(lib.updateGoalUnbound, null, type, data);
-    _.each(relevantGoals, updateGoal);
+    if (resp) {
+      var data = resp.data.items;
+      var updateGoal = _.bind(lib.updateGoalUnbound, null, type, data);
+      _.each(relevantGoals, updateGoal);
+    }
     cb(err, user);
   });
 };
@@ -111,4 +113,7 @@ lib.updateGoalUnbound = function(type, data, goal){
 }
 
 module.exports = lib;
+
+
+
 
