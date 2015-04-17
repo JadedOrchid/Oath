@@ -1,7 +1,6 @@
 angular.module('starter.controllers', [])
 
 .controller('SessionCtrl', ['$scope', 'Auth', '$state', 'User', function($scope, Auth, $state, User) {
-
   User.getUser().then(function(user){
     User.loggedIn = user;
     redirect(user);
@@ -71,7 +70,6 @@ angular.module('starter.controllers', [])
   $scope.goalType = GoalBuilder.goal.goalType;
   $scope.times = GoalBuilder.returnTimes();
   $scope.updateDeets = GoalBuilder.updateDeets;
-  console.log("This is $scope.goalType")
 
 }])
 
