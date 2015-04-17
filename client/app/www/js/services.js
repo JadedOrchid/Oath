@@ -105,13 +105,8 @@ angular.module('starter.factories', [])
         phase: "night"
       },
       {
-        title: "Cycling",
+        title: "Cycle",
         unit: "miles",
-        phase: "day"
-      },
-      {
-        title: "Cycling",
-        unit: "feet",
         phase: "day"
       },
       {
@@ -120,7 +115,7 @@ angular.module('starter.factories', [])
         phase: "day"
       },
       {
-        title: "Running",
+        title: "Run",
         unit: "miles",
         phase: "day"
       },

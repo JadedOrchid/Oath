@@ -62,9 +62,9 @@ lib.jawboneUpdate = Promise.promisify(jawboneUpdate);
 lib.filterGoalsByType = function(goals, type){
   var clientType;
   if (type === 'sleeps'){
-    clientType = 'Sleep Goal';
+    clientType = 'Sleep';
   } else if (type === 'moves'){
-    clientType = 'Step Goal';
+    clientType = 'Step';
   } else{
     console.error('invalid type');
   }
