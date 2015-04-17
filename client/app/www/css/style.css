@@ -162,7 +162,7 @@ a:active{
 }
 
 .successHeadline {
-  color: #0a9ec7;
+  /*color: #0a9ec7;*/
   font-size: 100px;
   text-decoration: bold;
   text-align: center;
@@ -234,6 +234,7 @@ a:active{
   margin-left: auto;
   margin-right: auto;
 }
+
 .logo-container {
   text-align: center;
 }
@@ -304,4 +305,12 @@ a:active{
   position: relative;
   left: 16px;
   top: 31px;
+}
+
+.oathTabs{
+  background-color: white;
+}
+
+.body{
+  font-family: '', sans-serif;
 }

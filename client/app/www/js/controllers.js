@@ -1,7 +1,6 @@
 angular.module('starter.controllers', [])
 
 .controller('SessionCtrl', ['$scope', 'Auth', '$state', 'User', function($scope, Auth, $state, User) {
-  
   User.getUser().then(function(user){
     User.loggedIn = user;
     redirect(user);
@@ -16,7 +15,7 @@ angular.module('starter.controllers', [])
     } else if (uncelebratedGoal) {
       uncelebratedGoal.celebrated = true;
       User.putGoal(uncelebratedGoal);
-      var successful = (+uncelebratedGoal.progress - 
+      var successful = (+uncelebratedGoal.progress -
                         +uncelebratedGoal.target > 0);
       if (successful) {
         $state.go('successreport');
@@ -71,6 +70,7 @@ angular.module('starter.controllers', [])
   $scope.goalType = GoalBuilder.goal.goalType;
   $scope.times = GoalBuilder.returnTimes();
   $scope.updateDeets = GoalBuilder.updateDeets;
+
 }])
 
 .controller('PaymentCtrl', ['$scope', 'Payment', '$state', 'User', 'GoalBuilder', function($scope, Payment, $state, User, GoalBuilder) {

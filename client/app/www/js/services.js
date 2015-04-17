@@ -95,31 +95,31 @@ angular.module('starter.factories', [])
   goalBuilder.returnGoals = function(){
     var goalTypes = [
       {
-        title: "Step Goal",
+        title: "Step",
         unit: "steps"
       },
       {
-        title: "Sleep Goal",
+        title: "Sleep",
         unit: "hours"
       },
       {
-        title: "Cycling Distance Goal",
+        title: "Cycling",
         unit: "miles"
       },
       {
-        title: "Cycling Climbing Goal",
+        title: "Cycling",
         unit: "feet"
       },
       {
-        title: "Tech Usage Goal",
+        title: "Tech",
         unit: "minutes"
       },
       {
-        title: "Running Distance Goal",
+        title: "Running",
         unit: "miles"
       },
       {
-        title: "Focus Goal",
+        title: "Focus",
         unit: "minutes"
       }
     ];
