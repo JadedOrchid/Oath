@@ -90,8 +90,8 @@ a:active{
 
 .goaldimensions {
   margin: 5px;
-  width: 200px;
-  height: 200px;
+  width: 145px;
+  height: 155px;
 }
 
 .progress-chart {
@@ -107,7 +107,7 @@ a:active{
 
 .iconsize {
   font-size: 100px;
-  color: #28BE9B;
+  color: #26B099;
   position: absolute;
   top: -60px;
   bottom: 0;
@@ -129,8 +129,7 @@ a:active{
 
 .goal-text {
   margin: auto;
-  height: 125px;
-  top: 255px;
+  top: 127px;
   bottom: 0;
   left: 0px;
   right: 0;
@@ -141,6 +140,7 @@ a:active{
 .goal-type-container {
   margin: auto;
   width: 300px;
+  /*height: 500px;*/
   top: 0px;
   bottom: 0;
   left: 0;
