@@ -1,41 +1,87 @@
-<ion-view animation="no-animation" hide-back-button="true" view-title="Welcome to Sympact!">
-  <ion-content class="padding">
-    <div>
-      <h2>Log in to Sympact with</h2>
-
-      <form action="/auth/facebook" method="get">
-        <button class="button login button-block button fb"><i padding="10px" class="icon ion-social-facebook"></i>
-         Facebook
-        </button>
-      </form>
-
-      <p class="mid soft"> We'll never post without your permission. </p>
-
-      <div class="horizontal-separator">
-        <span class="separator-text">or</span>
-      </div>
-      <h4>Log in to your Sympact account</h4>
-
-      <form action="/auth/login" method="post">
-        <div class="list">
-          <label class="item item-input">
-            <input type="email" name="email" placeholder="Email address">
-          </label>
-          <label class="item item-input">
-            <input type="password" name="password" placeholder="Password">
-          </label>
-          <br>
-          <button class="button login button-outline button-block button-positive" >
-            Sign In
+<ion-view hide-nav-bar="true" animation="no-animation" hide-back-button="true">
+  <ion-content>
+    <div class="login-div main">
+      <div class="logo-container"><img class ="logo" src="img/logo300.png"></div>
+      <div class="signin-container">
+        <form action="/auth/login" method="post">
+          <div class="list">
+            <label class="item item-input">
+              <input type="email" name="email" placeholder="Email address">
+            </label>
+            <label class="item item-input">
+              <input type="password" name="password" placeholder="Password">
+            </label>
+            <button class="button signin-button button-block" >
+              Sign In
+            </button>
+          <h6 class="mid" >
+            <a class="wtext" href = "#/signup">Forgot password?</a> |
+            <a class="wtext" href = "#/signup">Create a new account </a>
+          </h6>
+          </div>
+        </form>
+        <div class="login-text">You may also log in with:</div>
+        <form action="/auth/facebook" method="get">
+          <button class="button button-block fb"><i padding="10px" class="icon ion-social-facebook"></i>
+           Facebook
           </button>
+        </form>
+        <p class="mid soft"> We'll never post without your permission. </p>
+      </div>
+      <div class="down-arrow-container"><img src="img/down-arrow.png" class="down-arrow"/></div>
+    </div>
+    <div class="login-div mission">
+      <h1>Our Mission</h1>
+    </div>
+    <div class="login-div team wtext">
+      <h1 class="headtext wtext">Meet Our Team</h1>
+      <div class="team-row">
+        <div class="profile-image">
+          <img src="img/pictureholder.png"/>
         </div>
-      </form>
+        <div class="profile-info">
+          <ul>
+            <li>Name: Bradley</li>
+            <li>Phrase: Totally</li>
+          </ul>
+        </div>
+      </div>
 
-      <h6 class="mid" >
-        <a href = "#/signup">Forgot password?</a> |
-        <a href = "#/signup">Create a new account </a>
-      </h6>
+      <div class="team-row">
+        <div class="profile-image">
+          <img src="img/pictureholder.png"/>
+        </div>
+        <div class="profile-info">
+          <ul>
+            <li>Name: David</li>
+            <li>Phrase: Dude</li>
+          </ul>
+        </div>
+      </div>
 
+      <div class="team-row">
+        <div class="profile-image">
+          <img src="img/pictureholder.png"/>
+        </div>
+        <div class="profile-info">
+          <ul>
+            <li>Name: Jason</li>
+            <li>Phrase: Oh What?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="team-row">
+        <div class="profile-image">
+          <img src="img/pictureholder.png"/>
+        </div>
+        <div class="profile-info">
+          <ul>
+            <li>Name: Thomas</li>
+            <li>Phrase: what?</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </ion-content>
 </ion-view>
