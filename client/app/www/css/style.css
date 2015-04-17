@@ -173,7 +173,6 @@ a:active{
   margin-top: 0px;
 }
 
-
 .spinner svg {
   display:block;
   position: relative;
@@ -187,4 +186,48 @@ a:active{
 .fb {
 background-color: #3F5C9A;
   color: #fff;
+}
+
+.chart-container {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: 300px !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.time-chart-container {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 191px !important;
+  height: 59px !important;
+  position: absolute;
+  top: 27px;
+  left: 55px;
+}
+
+.goal-type-legend {
+  background-color: #FF5A5E;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  float: left;
+  margin-right: 5px;
+}
+
+.time-chart-legend {
+  background-color: #28BE9B;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  float: left;
+  margin-right: 5px;
+}
+
+.legend-container {
+  margin-left: auto;
+  margin-right: auto;
 }
