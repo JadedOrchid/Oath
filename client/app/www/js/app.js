@@ -112,6 +112,7 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
   })
 
   .state('progress', {
+    cache: false,
     url: '/progress',
     templateUrl: 'templates/tab-progress.html',
     controller: 'ProgressCtrl'

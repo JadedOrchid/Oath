@@ -1,13 +1,32 @@
 angular.module('starter.controllers', [])
 
 .controller('SessionCtrl', ['$scope', 'Auth', '$state', 'User', function($scope, Auth, $state, User) {
-  Auth.isLoggedIn().then(function(loggedIn){
-    if(loggedIn) {
-      User.getUser();
-    } else {
-      $state.go('login');
-    }
+  
+  User.getUser().then(function(user){
+    User.loggedIn = user;
+    redirect(user);
+  }).catch(function(err){
+    $state.go('login');
   });
+
+  function redirect (user){
+    var uncelebratedGoal = User.getOldestUncelebrated(user.goals);
+    if (user.goals.length === 0){
+      $state.go('goaltype');
+    } else if (uncelebratedGoal) {
+      uncelebratedGoal.celebrated = true;
+      User.putGoal(uncelebratedGoal);
+      var successful = (+uncelebratedGoal.progress - 
+                        +uncelebratedGoal.target > 0);
+      if (successful) {
+        $state.go('successreport');
+      } else {
+        $state.go('failurereport');
+      }
+    } else {
+       $state.go('progress');
+    }
+  }
 }])
 
 .directive('navs', function(){
@@ -54,11 +73,18 @@ angular.module('starter.controllers', [])
   $scope.updateDeets = GoalBuilder.updateDeets;
 }])
 
-.controller('PaymentCtrl', ['$scope', 'Payment', '$state', 'User', function($scope, Payment, $state, User) {
+.controller('PaymentCtrl', ['$scope', 'Payment', '$state', 'User', 'GoalBuilder', function($scope, Payment, $state, User, GoalBuilder) {
   console.log("This is Payment", Payment);
-  $scope.goal = Payment.stripeInfo;
-  $scope.goalDuration = Payment.stripeInfo.period.human.toLowerCase();
+  var goal = GoalBuilder.goal;
+
+  $scope.goal = goal;
+  $scope.goalDuration = goal.period.human.toLowerCase();
+
   $scope.pay = function() {
+    // only save/send goal when pay function is called
+    GoalBuilder.saveGoal(goal);
+    GoalBuilder.sendGoal(goal);
+
     var cardholder = {
       number: this.card,
       cvc: this.cvc,
@@ -88,7 +114,7 @@ angular.module('starter.controllers', [])
 .controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', 'Auth', function($scope, User, GoalBuilder, Auth) {
   $scope.logout = Auth.logout;
 
-  var goals = User.loggedIn.goals;
+  var goals = User.loggedIn.goals.slice().reverse();
   // extract data from goals
   $scope.data = goals.map(function(goal){
     var datum = {};
@@ -146,65 +172,11 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('FailureReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {
+  console.log('FAILURE')
   $scope.failed = User.getOldestUncelebrated(User.loggedIn.goals);
 }])
 
 .controller('SuccessReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {
+  console.log('SUCCESS')
   $scope.achieved = User.getOldestUncelebrated(User.loggedIn.goals);
 }])
-
-// .directive('chartjsdonut', function() {
-//   return {
-//     restrict: 'E',
-//     scope: {
-//       onCreate: '&'
-//     },
-//     link: function ($scope, $element, $attr) {
-
-//       function initialize() {
-//         var doughnutData = [
-//         {
-//           value: 300,
-//           color:"#F7464A",
-//           highlight: "#FF5A5E",
-//           label: "Red"
-//         },
-//         {
-//           value: 50,
-//           color: "#46BFBD",
-//           highlight: "#5AD3D1",
-//           label: "Green"
-//         },
-//         {
-//           value: 100,
-//           color: "#FDB45C",
-//           highlight: "#FFC870",
-//           label: "Yellow"
-//         },
-//         {
-//           value: 40,
-//           color: "#949FB1",
-//           highlight: "#A8B3C5",
-//           label: "Grey"
-//         },
-//         {
-//           value: 120,
-//           color: "#4D5360",
-//           highlight: "#616774",
-//           label: "Dark Grey"
-//         }
-
-//       ];
-//       var ctx = $("#chart-area").get(0).getContext("2d");
-//       var myNewChart = new Chart(ctx).Doughnut(doughnutData, {responsive : true});
-//       } // end fn initialize
-
-//       if (document.readyState === "complete") {
-//         console.log('initialize');
-//         initialize();
-//       } else {
-//         console.info('event.addDomListener');
-//       }
-//     }
-//   }
-// });
