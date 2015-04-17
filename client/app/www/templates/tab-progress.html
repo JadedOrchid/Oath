@@ -1,20 +1,30 @@
 <ion-view hide-back-button="true" view-title="Progress">
   <ion-content class="padding has-footer">
-      <div ng-repeat="datum in data">
-       <div><h1>{{datum.goal.goalType.title}}</h1></div>
+      <div ng-repeat="goal in goals">
+       <div><h1>{{ goal.goalType.title }}</h1></div>
+
+       <div class='info-container'>
+         Target: {{ goal. target }} {{ goal.goalType.unit}}
+         <br>
+         Progress: {{ goal.displayProgress }}
+         <br>
+        {{ goal.timeRemaining }} remaining
+        
+        </div>
+
         <div class='chart-container'>
-          <canvas tc-chartjs-doughnut chart-options="options" chart-data="datum.graphData" auto-legend></canvas>
+          <canvas tc-chartjs-doughnut chart-options="goalOptions" chart-data="goal.graphData" auto-legend></canvas>
 
           <div class='time-chart-container'>
-            <canvas tc-chartjs-doughnut chart-options="options" chart-data="datum.timeData" auto-legend></canvas>
+            <canvas tc-chartjs-doughnut chart-options="timeOptions" chart-data="goal.timeData" auto-legend></canvas>
           </div>
+
       <br>
-      <div class='legend-container'>
-        <div style='float: left; margin-right: 10px;'><div class='goal-type-legend'></div>Current {{datum.goal.goalType.unit}}</div>
+      <!-- <div class='legend-container'>
+        <div style='float: left; margin-right: 10px;'><div class='goal-type-legend'></div>Current {{ goal.goalType.unit }}</div>
         <div><div class='time-chart-legend'></div>Time Remaining</div>
-      </div>
+      </div> -->
       <br>
-          <hr>
         </div>
       </div>
 

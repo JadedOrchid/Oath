@@ -45,9 +45,11 @@ var jawboneUpdate = function(type, user, cb){
     return cb(null, user); 
   }
   jawbone.get(type, user.jawbone.token, function(err, resp){
-    var data = resp.data.items;
-    var updateGoal = _.bind(lib.updateGoalUnbound, null, type, data);
-    _.each(relevantGoals, updateGoal);
+    if (resp) {
+      var data = resp.data.items;
+      var updateGoal = _.bind(lib.updateGoalUnbound, null, type, data);
+      _.each(relevantGoals, updateGoal);
+    }
     cb(err, user);
   });
 };
@@ -60,9 +62,9 @@ lib.jawboneUpdate = Promise.promisify(jawboneUpdate);
 lib.filterGoalsByType = function(goals, type){
   var clientType;
   if (type === 'sleeps'){
-    clientType = 'Sleep Goal';
+    clientType = 'Sleep';
   } else if (type === 'moves'){
-    clientType = 'Step Goal';
+    clientType = 'Step';
   } else{
     console.error('invalid type');
   }
@@ -111,4 +113,7 @@ lib.updateGoalUnbound = function(type, data, goal){
 }
 
 module.exports = lib;
+
+
+
 
