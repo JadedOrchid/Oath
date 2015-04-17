@@ -2,14 +2,18 @@
   <ion-content class="padding has-footer">
       <div ng-repeat="datum in data">
        <div><h1>{{datum.goal.goalType.title}}</h1></div>
-       <div><div style='background-color:#FF5A5E; height: 10px; width: 10px;'></div> Current {{datum.goal.goalType.unit}}</div>
-       <div><div style='background-color:#28BE9B; height: 10px; width: 10px;'></div> Time Remaining</div>
         <div class='chart-container'>
           <canvas tc-chartjs-doughnut chart-options="options" chart-data="datum.graphData" auto-legend></canvas>
 
           <div class='time-chart-container'>
             <canvas tc-chartjs-doughnut chart-options="options" chart-data="datum.timeData" auto-legend></canvas>
           </div>
+      <br>
+      <div class='legend-container'>
+        <div style='float: left; margin-right: 10px;'><div class='goal-type-legend'></div>Current {{datum.goal.goalType.unit}}</div>
+        <div><div class='time-chart-legend'></div>Time Remaining</div>
+      </div>
+      <br>
           <hr>
         </div>
       </div>
