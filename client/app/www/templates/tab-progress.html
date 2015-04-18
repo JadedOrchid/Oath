@@ -1,50 +1,27 @@
 <ion-view hide-back-button="true" view-title="Progress">
   <ion-content class="padding has-footer">
-      <div ng-repeat="goal in goals">
-       <div><h1>{{ goal.goalType.title }}</h1></div>
+    <div ng-repeat="goal in goals">
+      <h1>{{ goal.goalType.title }}</h1>
 
-       <div class='info-container'>
-         Target: {{ goal. target }} {{ goal.goalType.unit}}
-         <br>
-         Progress: {{ goal.displayProgress }}
-         <br>
-        {{ goal.timeRemaining }} remaining
-        
-        </div>
-
+      <div class="goal-container">     
         <div class='chart-container'>
           <canvas tc-chartjs-doughnut chart-options="goalOptions" chart-data="goal.graphData" auto-legend></canvas>
 
           <div class='time-chart-container'>
             <canvas tc-chartjs-doughnut chart-options="timeOptions" chart-data="goal.timeData" auto-legend></canvas>
           </div>
+        </div>
 
-      <br>
-      <!-- <div class='legend-container'>
-        <div style='float: left; margin-right: 10px;'><div class='goal-type-legend'></div>Current {{ goal.goalType.unit }}</div>
-        <div><div class='time-chart-legend'></div>Time Remaining</div>
-      </div> -->
-      <br>
+        <div class='info-container'>
+           Target: {{ goal. target }} {{ goal.goalType.unit}}
+          <br>
+           Progress: {{ goal.displayProgress }}
+          <br>
+          {{ goal.timeRemaining }} remaining
         </div>
       </div>
-
+    </div>
   </ion-content>
 </ion-view>
 
 <div navs></div>
-
-<!--   <ion-tabs class="tabs-icon-top tabs-positive">
-
-    <ion-tab title="Progress" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/progress">
-      <ion-nav-view name="tab-dash"></ion-nav-view>
-    </ion-tab>
-
-    <ion-tab title="New Goal" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/goaltype">
-      <ion-nav-view name="tab-chats"></ion-nav-view>
-    </ion-tab>
-
-    <ion-tab title="Settings" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/settings">
-      <ion-nav-view name="tab-account"></ion-nav-view>
-    </ion-tab>
-  </ion-tabs> -->
-
