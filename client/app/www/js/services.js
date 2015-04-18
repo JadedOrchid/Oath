@@ -99,37 +99,43 @@ angular.module('starter.factories', [])
         title: "Step",
         unit: "steps",
         phase: "day",
-        suggestedTarget: 10000
+        suggestedTarget: 10000,
+        iconClass: "ion-android-walk iconsize"
       },
       {
         title: "Sleep",
         unit: "hours",
         phase: "night",
-        suggestedTarget: 8
+        suggestedTarget: 8,
+        iconClass: "ion-ios-cloudy-night-outline iconsize"
       },
       {
         title: "Cycle",
         unit: "miles",
         phase: "day",
-        suggestedTarget: 10
+        suggestedTarget: 10,
+        iconClass: "ion-android-bicycle iconsize"
       },
       {
         title: "Tech",
         unit: "minutes",
         phase: "day",
-        suggestedTarget: 240
+        suggestedTarget: 240,
+        iconClass: "ion-ios-monitor iconsize"
       },
       {
         title: "Run",
         unit: "miles",
         phase: "day",
-        suggestedTarget: 5
+        suggestedTarget: 5,
+        iconClass: "ion-android-walk iconsize"
       },
       {
         title: "Focus",
         unit: "minutes",
         phase: "day",
-        suggestedTarget: 240
+        suggestedTarget: 240,
+        iconClass: "ion-android-radio-button-on iconsize"
       }
     ];
 

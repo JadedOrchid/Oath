@@ -335,7 +335,11 @@ a:active{
 }
 
 .shiftDetailDown{
-  margin-top: 28px;
+  margin-top: 8px;
+}
+
+.singleIcon{
+  display:block;
 }
 
 .goalDeetsInput{
@@ -424,4 +428,9 @@ a:active{
   margin: 0 auto;
   left: 0;
   right: 0;
+}
+
+.iphone{
+  max-width: 320px;
+  width: 100%;
 }
