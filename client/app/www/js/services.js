@@ -29,6 +29,7 @@ angular.module('starter.factories', [])
   };
   user.getOldestUncelebrated = function(goals) {
     var uncelebrated = user.getUncelebrated(goals);
+    console.log('UNCELEBRATED: ', uncelebrated)
     if (uncelebrated.length > 0){
       return uncelebrated[0];
     } else {
