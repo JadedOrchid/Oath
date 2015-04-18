@@ -472,3 +472,13 @@ a:active{
   max-width: 300px;
   width: 100%;
 }
+
+.goal-button-submit {
+  position: absolute;
+  bottom: 0px;
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
