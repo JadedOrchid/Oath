@@ -94,12 +94,14 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
   })
 
   .state('goalsuccess', {
+    cache: false,
     url: '/goalsuccess',
     templateUrl: 'templates/goalsuccess.html',
     controller: 'GoalSuccessCtrl'
   })
 
   .state('goalfailure', {
+    cache: false,
     url: '/goalfailure',
     templateUrl: 'templates/goalfailure.html',
     controller: 'GoalFailureCtrl'
