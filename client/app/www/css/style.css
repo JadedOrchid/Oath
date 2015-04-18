@@ -11,6 +11,14 @@
     width:100%;
 }
 
+.margin {
+  margin-top: 6%;
+}
+
+.pcenter {
+  text-align: center;
+}
+
 .details {
   text-align: center;
   color: #666;
