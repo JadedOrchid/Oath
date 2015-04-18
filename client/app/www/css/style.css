@@ -18,6 +18,14 @@
   margin-top: -2%;
 }
 
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
 .bottom {
   border-bottom: 1px solid #ddd !important;
 }
