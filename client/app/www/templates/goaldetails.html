@@ -3,19 +3,20 @@
    <div class="shiftDetailDown">
      <div><h2>I pledge to average</h2></div>
      <div>
-      <div style="text-align:center">
+      <div class="goalDeetsInputBox">
         <input class="goalDeetsInput" ng-model="dailyAverage" placeholder="{{goal.goalType.suggestedTarget}}">
       </div>
       <div><h2>
         {{goal.goalType.unit}} / {{goal.goalType.phase}} for
       </h2></div>
      </div>
-     <div>
+     <div class="goalDeetsInputBox">
       <select
-          ng-model="timeframe"
-          ng-options="time for time in times"
-          ng-init="timeframe=times[0]"
-          ng-change="selected(timeframe)">
+        class="goalDeetsSelectBox"
+        ng-model="timeframe"
+        ng-options="time for time in times"
+        ng-init="timeframe=times[0]"
+        ng-change="selected(timeframe)">
       </select>
      </div>
     <h2> That's a total of {{target = dailyAverage * days}} {{goal.goalType.unit}}. Wow!</h2>
