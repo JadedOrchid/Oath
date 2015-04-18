@@ -1,5 +1,6 @@
 <ion-view view-title="{{goal.goalType.title}}" ng-model="GoalStuff">
   <ion-content>
+  <div class = "card">
 
     <div class="singleIconDiv positive">
       <i class="{{goal.goalType.iconClass}} singleIcon"></i>
@@ -8,7 +9,6 @@
 <!--     <div>
       <i class="{{goal.goalType.iconClass}}"></i>
     </div> -->
-  <div class = "card">
     <div class="shiftDetailDown">
       <div><h2 class="goalDeetsColor">My goal is to average</h2></div>
       <div>
@@ -34,52 +34,9 @@
       </div>
 
       <h2 class="goalDeetsColor"> That's a total of {{target = dailyAverage * days}} {{goal.goalType.unit}}. Wow!</h2>
-      <button class="button button-block button-positive col" ng-click="updateDeets()">Submit</button>
+  <button class="button button-block button-positive col" ng-click="updateDeets()">Submit</button>
     </div>
   </div>
-
-
-
-    <!-- <h1 class="goalDeetsHeadline">I pledge to average</h1>
-    <h1 class="goalDeetsHeadline">{{goal.goalType.unit}} / {{goal.goalType.phase}} for</h1>
-    <label class="item item-input item-select" style="padding-left: 0px">
-      <div class="goalDeetsHeadline h1"></div>
-        <select
-        ng-model="timeframe"
-        ng-options="time for time in times"
-        ng-init="timeframe=times[0]"
-        ng-change="selected(timeframe)"
-        ></select>
-
-    </label>
-<br>
-    <h3> timeframe is {{timeframe}}</h3>
-    <h3> target is {{target}}</h3>
-
-
-
-
-
- -->
-
-<!--
-    <div class="list">
-    <label class="item item-input item-floating-label">
-      <span class="input-label">My goal is to reach ____________ {{goalType.unit}}</span>
-      <input ng-model="target" type="text" placeholder="My goal is to reach ____________ {{goalType.unit}}">
-    </label>
-
-    <label class="item item-input item-select">
-      <div class="input-label">
-        Deadline
-      </div>
-      <select ng-model="timeframe">
-        <option ng-repeat="time in times">{{time}}</option>
-      </select>
-    </label>
-
-    <button class="button button-block button-outline button-positive" ng-click="updateDeets()">Submit</button>
-    </div> -->
 
 
   </ion-content>
