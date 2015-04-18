@@ -329,6 +329,7 @@ a:active{
 .goalDeetsHeadline{
   font-size: 34px;
   text-align: left;
+  color: #666;
   /*float: left;*/
   /*display: inline;*/
 
@@ -338,11 +339,22 @@ a:active{
   margin-top: 8px;
 }
 
+.singleIconDiv{
+  display: block;
+  text-align: center;
+}
+
 .singleIcon{
-  display:block;
+  font-size: 100px;
+  text-align: center;
+}
+
+.goalDeetsColor{
+  color: #666;
 }
 
 .goalDeetsInput{
+  color: #666;
   font-family: roboto;
   text-align: center;
   /* float: left; */
@@ -355,6 +367,7 @@ a:active{
 }
 .goalDeetsInputBox{
   text-align: center;
+  color: #666;
 }
 
 .goalDeetsSelectBox{
@@ -363,6 +376,9 @@ a:active{
   text-align: center;
   margin-top: 5px;
   appearance: none;
+  color: #666;
+  border: 0px;
+  border-bottom: 1px #666;
   background-color: white;
   font-family: roboto;
   font-size: 30px;
