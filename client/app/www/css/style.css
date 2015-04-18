@@ -338,8 +338,14 @@ a:active{
   margin-top: 8px;
 }
 
+.singleIconDiv{
+  display: block;
+  text-align: center;
+}
+
 .singleIcon{
-  display:block;
+  font-size: 100px;
+  text-align: center;
 }
 
 .goalDeetsInput{

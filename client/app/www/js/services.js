@@ -94,7 +94,7 @@ angular.module('starter.factories', [])
 
   //DATA
   goalBuilder.returnGoals = function(){
-    var goalTypes = [
+        var goalTypes = [
       {
         title: "Step",
         unit: "steps",
@@ -138,9 +138,6 @@ angular.module('starter.factories', [])
         iconClass: "ion-ios-monitor iconsize"
       }
     ];
-
-    return goalTypes;
-  };
 
   goalBuilder.returnSucesses = function(){
     //images need to be 760px by 380px
