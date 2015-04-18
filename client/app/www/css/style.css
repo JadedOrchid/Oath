@@ -374,3 +374,7 @@ a:active{
   width: 50%;
   float: right;
 }
+
+.success-report-image {
+  width: 300px;
+}

@@ -13,8 +13,6 @@ angular.module('starter.controllers', [])
     if (user.goals.length === 0){
       $state.go('goaltype');
     } else if (uncelebratedGoal) {
-      uncelebratedGoal.celebrated = true;
-      User.putGoal(uncelebratedGoal);
       var successful = (+uncelebratedGoal.progress -
                         +uncelebratedGoal.target > 0);
       if (successful) {
@@ -145,7 +143,7 @@ angular.module('starter.controllers', [])
       legendTemplate : ''
     };
 
-    function processGoal(goal){  
+    function processGoal(goal){
       goal.goalRemaining = Math.max( + goal.target - goal.progress, 0) ;
       goal.graphData = [{
           value: goal.progress,
@@ -203,11 +201,14 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('FailureReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {
-  console.log('FAILURE')
   $scope.failed = User.getOldestUncelebrated(User.loggedIn.goals);
 }])
 
 .controller('SuccessReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {
-  console.log('SUCCESS')
-  $scope.achieved = User.getOldestUncelebrated(User.loggedIn.goals);
+  $scope.achieved = function(){
+    var uncelebrated = User.getOldestUncelebrated(User.loggedIn.goals);
+    uncelebrated.celebrated = true;
+    User.putGoal(uncelebrated);
+    return uncelebrated;
+  }();
 }])
