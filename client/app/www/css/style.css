@@ -392,10 +392,6 @@ a:active{
   left: 55px;
 }
 
-.goal-container {
-
-}
-
 .info-container {
   padding-top: 20px;
   position: absolute;
@@ -405,6 +401,10 @@ a:active{
   height: 33%;
   width: 50%;
   float: right;
+}
+
+.round-corners {
+  border-radius: 5px;
 }
 
 .success-report-image {
