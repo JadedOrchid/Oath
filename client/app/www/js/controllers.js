@@ -16,8 +16,10 @@ angular.module('starter.controllers', [])
       var successful = (+uncelebratedGoal.progress -
                         +uncelebratedGoal.target > 0);
       if (successful) {
+        User.endGoal = true;
         $state.go('successreport');
       } else {
+        User.endGoal = true;
         $state.go('failurereport');
       }
     } else {
@@ -34,17 +36,14 @@ angular.module('starter.controllers', [])
 
 .controller('TabCtrl', ['$scope', '$state', function($scope, $state){
   $scope.progressClick = function(){
-    console.log("You've clicked progress on the TabCtrl");
     $state.go('progress');
   };
 
   $scope.newGoalClick = function(){
-    console.log("You've clicked new goal on the TabCtrl");
     $state.go('goaltype');
   };
 
   $scope.settingsClick = function(){
-    console.log("You've clicked settings on the TabCtrl");
     $state.go('settings');
   };
 }])
@@ -54,17 +53,12 @@ angular.module('starter.controllers', [])
   $scope.goalClick = GoalBuilder.goalClick;
 }])
 
-.controller('GoalSuccessCtrl', ['$scope', '$state', 'GoalBuilder', function($scope, $state, GoalBuilder) {
-  $scope.successes = GoalBuilder.returnSucesses();
-  $scope.successClick = GoalBuilder.successClick;
-}])
+.controller('GoalDetailCtrl', ['$scope', '$state', 'GoalBuilder', function($scope, $state, GoalBuilder) {
+    if (!GoalBuilder.goal.goalType){
+      $state.go('login');
+      return;
+    }
 
-.controller('GoalFailureCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
-  $scope.failures = GoalBuilder.returnFailures();
-  $scope.failClick = GoalBuilder.failClick;
-}])
-
-.controller('GoalDetailCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
   $scope.goal = GoalBuilder.goal;
   $scope.days = 1; // initialize days variable so calcaulation at bottom page doesn't throw error
   $scope.target = GoalBuilder.goal.goalType.suggestedTarget;
@@ -76,11 +70,36 @@ angular.module('starter.controllers', [])
     $scope.days = GoalBuilder.getDays(selectedTimeframe);
     // console.log("And this is number of days: ", $scope.days);
   };
-
 }])
 
+.controller('GoalSuccessCtrl', ['$scope', '$state', 'GoalBuilder', function($scope, $state, GoalBuilder) {
+   if (!GoalBuilder.goal.target){
+    $state.go('login');
+    return;
+   }
+
+  $scope.successes = GoalBuilder.returnSucesses();
+  $scope.successClick = GoalBuilder.successClick;
+}])
+
+.controller('GoalFailureCtrl', ['$scope', '$state', 'GoalBuilder', function($scope, $state, GoalBuilder) {
+  if (!GoalBuilder.goal.success){
+    $state.go('login');
+    return;
+  }
+
+  $scope.failures = GoalBuilder.returnFailures();
+  $scope.failClick = GoalBuilder.failClick;
+}])
+
+
+
 .controller('PaymentCtrl', ['$scope', 'Payment', '$state', 'User', 'GoalBuilder', function($scope, Payment, $state, User, GoalBuilder) {
-  console.log("This is Payment", Payment);
+  if (!GoalBuilder.goal.period){
+    $state.go('login');
+    return;
+  }
+
   var goal = GoalBuilder.goal;
 
   $scope.goal = goal;
@@ -207,11 +226,22 @@ angular.module('starter.controllers', [])
     };
 }])
 
-.controller('FailureReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {
+.controller('FailureReportCtrl', ['$scope', '$state', 'GoalBuilder', 'User', function($scope, $state, GoalBuilder, User) {
+  if (!User.endGoal){
+    $state.go('login');
+    return;
+  }
+  User.endGoal = false;
+  
   $scope.failed = User.getOldestUncelebrated(User.loggedIn.goals);
 }])
 
-.controller('SuccessReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {
+.controller('SuccessReportCtrl', ['$scope', '$state', 'GoalBuilder', 'User', function($scope, $state, GoalBuilder, User) {
+  if (!User.endGoal) {
+    $state.go('login');
+    return;
+  }
+  User.endGoal = false;
   $scope.success = User.loggedIn.goals[0].success;
   console.log('Success OBJ: ', $scope.success);
   $scope.achieved = function(){
