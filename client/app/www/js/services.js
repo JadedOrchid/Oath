@@ -152,7 +152,7 @@ angular.module('starter.factories', [])
         price: '$5',
         stripePrice: 500,
         img: '../img/msf.jpg',
-        clickAction: 'buy a vaccine'
+        clickAction: 'Buy a vaccine'
       },
       {
         orgName: 'The Arbor Day Foundation',
@@ -161,16 +161,16 @@ angular.module('starter.factories', [])
         price: '$25',
         stripePrice: 2500,
         img: '../img/arbor.jpg',
-        clickAction: 'buy a tree'
+        clickAction: 'Buy a tree'
       },
       {
         orgName: 'TerraPass',
         headline: 'Offset a flight with TerraPass',
         description: 'helps create, implement, and operate customer-funded emissions reduction projects at facilities such as dairy farms and landfills.',
-        price: '$15',
+        price: '$35',
         stripePrice: 1500,
         img: '../img/carbonoffset.jpg',
-        clickAction: 'offset a flight'
+        clickAction: 'Offset a flight'
       }
     ];
     return successTypes;
@@ -192,13 +192,13 @@ angular.module('starter.factories', [])
         orgName: 'Tip the developers',
         description: "The money you've pledged will go to support the development of Oath. Maybe we'll donate it ourselves, or maybe we'll buy cupcakes. Or go to Vegas.",
         img: '../img/developers.jpg',
-        clickAction: 'tip the developers'
+        clickAction: 'Tip the developers'
       },
       {
         orgName: 'Consolation Cupcakes',
         description: 'You\'ll need the sugar to support you trying again tomorrow. Shipped from SF, CA.',
         img: '../img/cupcake.jpg',
-        clickAction: 'send some cupcakes'
+        clickAction: 'Send the cupcakes'
       }
     ];
     return failTypes;
