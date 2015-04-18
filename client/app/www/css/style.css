@@ -434,6 +434,9 @@ a:active{
 
 .donation-descrip {
   padding: 20px;
+  margin: 0 auto 0 auto;
+  text-align: center;
+  max-width: 300px;
 }
 
 .share-container-fb {
@@ -448,5 +451,24 @@ a:active{
 
 .iphone{
   max-width: 320px;
+  width: 100%;
+}
+.payment-button {
+  position: absolute;
+  bottom: 0px;
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+.payment-info-wrapper {
+  padding-top: 20px;
+}
+
+.payment-container {
+  margin: 0 auto;
+  max-width: 300px;
   width: 100%;
 }

@@ -1,6 +1,8 @@
 <ion-view view-title="Summary">
   <ion-content class="padding">
 
+  <div class='payment-container'>
+
     <div class="list card">
       <div class="item item-avatar">
         <img src="{{goal.success.img}}">
@@ -17,28 +19,32 @@
       </div>
     </div>
 
-    <div class="row">
-      <label class="item item-input col">
-        <input class="bottom" ng-model='card' type="text" placeholder="Card Number">
-      </label>
-    </div>
+    <div class='payment-info-wrapper'>
+      <div class="row">
+        <label class="item item-input col">
+          <input class="bottom" ng-model='card' type="text" placeholder="Card Number">
+        </label>
+      </div>
 
-    <div class="row">
-      <label class="item bottom item-input col col-33">
-        <input class=" " ng-model='cvc' type="text" placeholder="CVC">
-      </label>
-      <label class="item bottom item-input col col-33">
-        <input class=" " ng-model='month' type="text" placeholder="Month"></input>
-      </label>
-      <label class="item bottom item-input col col-33">
-        <input class="" ng-model='year' type="text" placeholder="Year"></input>
-      </label>
+      <div class="row">
+        <label class="item bottom item-input col col-33">
+          <input class=" " ng-model='cvc' type="text" placeholder="CVC">
+        </label>
+        <label class="item bottom item-input col col-33">
+          <input class=" " ng-model='month' type="text" placeholder="Month"></input>
+        </label>
+        <label class="item bottom item-input col col-33">
+          <input class="" ng-model='year' type="text" placeholder="Year"></input>
+        </label>
+      </div>
     </div>
-
-    <button class="button button-block button-calm col" ng-click='pay()'>Submit Payment</button>
 
     <p class="details">Your card will be charged immediately</p>
 
-  </ion-content>
-</ion-view>
+  </div>
 
+  </ion-content>
+    <div class='payment-button'>
+      <button class="button button-block button-calm col" ng-click='pay()'>Submit Payment</button>
+    </div>
+</ion-view>
