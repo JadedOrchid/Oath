@@ -94,50 +94,53 @@ angular.module('starter.factories', [])
 
   //DATA
   goalBuilder.returnGoals = function(){
-        var goalTypes = [
+    var goalTypes = [
       {
         title: "Step",
         unit: "steps",
         phase: "day",
         suggestedTarget: 10000,
-        iconClass: "ion-android-walk iconsize"
+        iconClass: "ion-android-walk"
       },
       {
         title: "Sleep",
         unit: "hours",
         phase: "night",
         suggestedTarget: 8,
-        iconClass: "ion-ios-cloudy-night-outline iconsize"
+        iconClass: "ion-ios-cloudy-night-outline"
       },
       {
         title: "Cycle",
         unit: "miles",
         phase: "day",
         suggestedTarget: 10,
-        iconClass: "ion-android-bicycle iconsize"
+        iconClass: "ion-android-bicycle"
       },
       {
         title: "Run",
         unit: "miles",
         phase: "day",
         suggestedTarget: 5,
-        iconClass: "ion-android-walk iconsize"
+        iconClass: "ion-android-walk"
       },
       {
         title: "Focus",
         unit: "minutes",
         phase: "day",
         suggestedTarget: 240,
-        iconClass: "ion-android-radio-button-on iconsize"
+        iconClass: "ion-android-radio-button-on"
       },
       {
         title: "Tech",
         unit: "minutes",
         phase: "day",
         suggestedTarget: 240,
-        iconClass: "ion-ios-monitor iconsize"
+        iconClass: "ion-ios-monitor"
       }
     ];
+
+    return goalTypes;
+  };
 
   goalBuilder.returnSucesses = function(){
     //images need to be 760px by 380px
