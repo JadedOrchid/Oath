@@ -327,29 +327,31 @@ a:active{
 
 
 .goalDeetsHeadline{
-  font-size: 44px;
+  font-size: 34px;
   text-align: left;
   /*float: left;*/
   /*display: inline;*/
 
 }
+
+.shiftDetailDown{
+  margin-top: 28px;
+}
+
 .goalDeetsInput{
-  font-size: 33px;
-  /*width: 50%;*/
-/*  display: inline;
-  text-align: right;
-  float:right*/
-}
+
+  font-family: roboto;
+  text-align: center;
+  /* float: left; */
+  width: 75%;
+  border: 0;
+  font-size: 30px;
+  text-align: center;
+  border-bottom: 1px solid grey;
 
 
-webkit-input-placeholder {
- font-size: 33px;
- color: #d0cdfa;
- text-transform: uppercase;
- text-transform: uppercase;
- text-align: center;
- font-weight: bold;
 }
+
 
 .chart-container {
   margin-left: 2%;

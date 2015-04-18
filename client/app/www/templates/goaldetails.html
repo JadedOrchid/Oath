@@ -1,12 +1,34 @@
 <ion-view view-title="{{goal.goalType.title}}" ng-model="GoalStuff">
-  <ion-content class="padding background">
-    <h1 class="goalDeetsHeadline">I pledge to average</h1>
-      <label class="item item-input">
-        <input ng-model="target" class="bottom" type="number" placeholder="{{goal.goalType.suggestedGoal}}">
-      </label>
-    <h1 class="goalDeetsHeadline">{{goal.goalType.unit}} per {{goal.goalType.phase}} </h1>
+  <ion-content>
+   <div class="shiftDetailDown">
+     <div><h2>I pledge to average</h2></div>
+     <div>
+      <div style="text-align:center">
+        <input class="goalDeetsInput" ng-model="dailyAverage" placeholder="{{goal.goalType.suggestedGoal}}">
+      </div>
+      <div><h2>
+        {{goal.goalType.unit}} / {{goal.goalType.phase}} for
+      </h2></div>
+     </div>
+     <div>
+      <select
+          ng-model="timeframe"
+          ng-options="time for time in times"
+          ng-init="timeframe=times[0]"
+          ng-change="selected(timeframe)">
+      </select>
+     </div>
+    <h2> That's a total of {{target = dailyAverage * days}} {{goal.goalType.unit}}. Wow!</h2>
+    <button class="button button-block button-outline button-positive" ng-click="updateDeets()">Submit</button>
+  </div>
+
+
+
+
+    <!-- <h1 class="goalDeetsHeadline">I pledge to average</h1>
+    <h1 class="goalDeetsHeadline">{{goal.goalType.unit}} / {{goal.goalType.phase}} for</h1>
     <label class="item item-input item-select" style="padding-left: 0px">
-      <div class="goalDeetsHeadline h1">for</div>
+      <div class="goalDeetsHeadline h1"></div>
         <select
         ng-model="timeframe"
         ng-options="time for time in times"
@@ -16,16 +38,14 @@
 
     </label>
 <br>
-
-    <h3> That's a total of {{target * days}} {{goal.goalType.unit}}. Wow!</h3>
     <h3> timeframe is {{timeframe}}</h3>
-    <button class="button button-block button-outline button-positive" ng-click="updateDeets()">Submit</button>
+    <h3> target is {{target}}</h3>
 
 
 
 
 
-
+ -->
 
 <!--
     <div class="list">
