@@ -327,15 +327,31 @@ a:active{
 
 
 .goalDeetsHeadline{
-  font-size: 44px;
+  font-size: 34px;
   text-align: left;
-  display: inline-block;
+  /*float: left;*/
+  /*display: inline;*/
 
 }
-.goalDeetsInput{
-  width: 50%;
-  display: inline-block;
+
+.shiftDetailDown{
+  margin-top: 28px;
 }
+
+.goalDeetsInput{
+
+  font-family: roboto;
+  text-align: center;
+  /* float: left; */
+  width: 75%;
+  border: 0;
+  font-size: 30px;
+  text-align: center;
+  border-bottom: 1px solid grey;
+
+
+}
+
 
 .chart-container {
   margin-left: 2%;

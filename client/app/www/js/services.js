@@ -98,32 +98,38 @@ angular.module('starter.factories', [])
       {
         title: "Step",
         unit: "steps",
-        phase: "day"
+        phase: "day",
+        suggestedGoal: 10000
       },
       {
         title: "Sleep",
         unit: "hours",
-        phase: "night"
+        phase: "night",
+        suggestedGoal: 8
       },
       {
         title: "Cycle",
         unit: "miles",
-        phase: "day"
+        phase: "day",
+        suggestedGoal: 10
       },
       {
         title: "Tech",
         unit: "minutes",
-        phase: "day"
+        phase: "day",
+        suggestedGoal: 240
       },
       {
         title: "Run",
         unit: "miles",
-        phase: "day"
+        phase: "day",
+        suggestedGoal: 5
       },
       {
         title: "Focus",
         unit: "minutes",
-        phase: "day"
+        phase: "day",
+        suggestedGoal: 240
       }
     ];
 
@@ -206,6 +212,17 @@ angular.module('starter.factories', [])
     goalBuilder.goal.success = success;
     $state.go('goalfailure');
   };
+
+  goalBuilder.getDays = function(timeframe){
+    var timeframes = {
+      "One Day": 1,
+      "One Week": 7,
+      "One Month": 30,
+      "One Year": 365
+    };
+    return timeframes[timeframe];
+
+  }
 
   goalBuilder.failClick = function(fail){
     var goal = goalBuilder.goal;
