@@ -5,7 +5,7 @@
       <div class="item item-avatar">
         <img src="{{goal.success.img}}">
         <h2 style="text-align:left">Successful: </h2>
-        <p>{{goal.success.price}} to {{goal.success.clickAction}}</p>
+        <p>Your {{goal.success.price}} will {{goal.success.clickAction}}!</p>
       </div>
     </div>
 
@@ -13,7 +13,7 @@
       <div class="item item-avatar">
         <img src="{{goal.fail.img}}">
         <h2 style="text-align:left">Unsuccessful: </h2>
-        <p>{{goal.success.price}} to {{goal.fail.clickAction}}</p>
+        <p>Your {{goal.success.price}} will {{goal.fail.clickAction}}!</p>
       </div>
     </div>
 
@@ -22,7 +22,7 @@
         <input class="bottom" ng-model='card' type="text" placeholder="Card Number">
       </label>
     </div>
-    
+
     <div class="row">
       <label class="item bottom item-input col col-33">
         <input class=" " ng-model='cvc' type="text" placeholder="CVC">
