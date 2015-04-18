@@ -79,6 +79,10 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
     url: '/signup',
     templateUrl: 'templates/signup.html'
   })
+  .state('comingsoon', {
+    url: '/comingsoon',
+    templateUrl: 'templates/comingsoon.html'
+  })
 
   .state('deviceAuth', {
     url: '/deviceauth',
