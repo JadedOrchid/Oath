@@ -65,10 +65,19 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('GoalDetailCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
-  $scope.goalType = GoalBuilder.goal.goalType;
-  console.log("This is $scope.goalType contains title, unit, phase ", $scope.goalType);
+  $scope.goal = GoalBuilder.goal;
+  $scope.days = 1;
+  $scope.target = GoalBuilder.goal.goalType.suggestedGoal;
+  // console.log("This is $scope.days: " $scope.days);
+  console.log("This is GoalBuilder.goal", GoalBuilder.goal);
   $scope.times = GoalBuilder.returnTimes(); //contains the available goal timeframes
+  console.log("This is timeframe", $scope.timeframe);
   $scope.updateDeets = GoalBuilder.updateDeets; //update the details
+  $scope.selected = function(selectedTimeframe){
+    console.log("This is your selected timeframe!", selectedTimeframe);
+    $scope.days = GoalBuilder.getDays(selectedTimeframe);
+    // console.log("And this is number of days: ", $scope.days);
+  };
 
 }])
 

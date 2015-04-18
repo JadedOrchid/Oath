@@ -213,6 +213,17 @@ angular.module('starter.factories', [])
     $state.go('goalfailure');
   };
 
+  goalBuilder.getDays = function(timeframe){
+    var timeframes = {
+      "One Day": 1,
+      "One Week": 7,
+      "One Month": 30,
+      "One Year": 365
+    };
+    return timeframes[timeframe];
+
+  }
+
   goalBuilder.failClick = function(fail){
     var goal = goalBuilder.goal;
     goal.fail = fail;

@@ -327,10 +327,10 @@ a:active{
 
 
 .goalDeetsHeadline{
-  font-size: 54px;
+  font-size: 44px;
   text-align: left;
-  float: left;
-  display: inline;
+  /*float: left;*/
+  /*display: inline;*/
 
 }
 .goalDeetsInput{
@@ -340,6 +340,7 @@ a:active{
   text-align: right;
   float:right*/
 }
+
 
 webkit-input-placeholder {
  font-size: 33px;
