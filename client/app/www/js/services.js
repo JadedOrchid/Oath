@@ -98,32 +98,38 @@ angular.module('starter.factories', [])
       {
         title: "Step",
         unit: "steps",
-        phase: "day"
+        phase: "day",
+        suggestedGoal: 10000
       },
       {
         title: "Sleep",
         unit: "hours",
-        phase: "night"
+        phase: "night",
+        suggestedGoal: 8
       },
       {
         title: "Cycle",
         unit: "miles",
-        phase: "day"
+        phase: "day",
+        suggestedGoal: 10
       },
       {
         title: "Tech",
         unit: "minutes",
-        phase: "day"
+        phase: "day",
+        suggestedGoal: 240
       },
       {
         title: "Run",
         unit: "miles",
-        phase: "day"
+        phase: "day",
+        suggestedGoal: 5
       },
       {
         title: "Focus",
         unit: "minutes",
-        phase: "day"
+        phase: "day",
+        suggestedGoal: 240
       }
     ];
 

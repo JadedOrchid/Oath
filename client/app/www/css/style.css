@@ -327,14 +327,27 @@ a:active{
 
 
 .goalDeetsHeadline{
-  font-size: 44px;
+  font-size: 54px;
   text-align: left;
-  display: inline-block;
+  float: left;
+  display: inline;
 
 }
 .goalDeetsInput{
-  width: 50%;
-  display: inline-block;
+  font-size: 33px;
+  /*width: 50%;*/
+/*  display: inline;
+  text-align: right;
+  float:right*/
+}
+
+webkit-input-placeholder {
+ font-size: 33px;
+ color: #d0cdfa;
+ text-transform: uppercase;
+ text-transform: uppercase;
+ text-align: center;
+ font-weight: bold;
 }
 
 .chart-container {

@@ -1,16 +1,18 @@
 <ion-view view-title="{{goalType.title}}" ng-model="GoalStuff">
   <ion-content class="padding background">
-<!--     <h1 class="goalDeetsHeadline">My goal is to average</h1>
-      <label class="item item-input goalDeetsInput" >
-        <input type="number" placeholder="10000">
+    <h1 class="goalDeetsHeadline">My goal is to average</h1>
+      <label class="item item-input">
+        <input  class="bottom" type="number" placeholder="{{goalType.suggestedGoal}}">
       </label>
- -->
+    <h1 class="goalDeetsHeadline">{{goalType.unit}} per {{goalType.phase}}</h1>
 
 
 
 
 
 
+
+<!--
     <div class="list">
     <label class="item item-input item-floating-label">
       <span class="input-label">My goal is to reach ____________ {{goalType.unit}}</span>
@@ -27,7 +29,7 @@
     </label>
 
     <button class="button button-block button-outline button-positive" ng-click="updateDeets()">Submit</button>
-    </div>
+    </div> -->
 
 
   </ion-content>
