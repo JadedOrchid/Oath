@@ -310,10 +310,11 @@ a:active{
 
 .profile-image {
   float: left;
+  z-index: -100000000;
 }
 
 .team-row {
-  width: 100vw;
+  width: 100%;
   height: 116px;
   margin-left: 15px;
 }
@@ -489,4 +490,20 @@ a:active{
   margin: 0 auto;
   left: 0;
   right: 0;
+}
+
+.or-placement {
+  margin: 0 auto;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.team-container {
+  margin: 0 auto;
+  max-width: 300px
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  /*text-align: center;*/
+  font-size: 20px;
 }
