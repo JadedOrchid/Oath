@@ -1,17 +1,20 @@
 <ion-view hide-back-button="true" view-title="Success !">
-      <div class='share-container-fb'>
-        <button class="button button-block fb"><i padding="10px" class="icon ion-social-facebook"></i>
-             Share to Facebook
-        </button>
-      </div>
   <ion-content class="padding has-footer">
 
       <div class='donation-descrip'><h2>Congratulations! You achieved your {{achieved.goalType.title}} goal!</h2></div>
 
       <img class='success-report-image' src="../{{success.img}}">
+      <br>
 
-      <div class='donation-descrip'>Your donation of {{success.price}} went to the {{success.orgName}}!</div>
+      <div class='donation-descrip'>
+        Your donation of {{success.price}} went to the {{success.orgName}}!
+      </div>
 
   </ion-content>
+    <div class='share-container-fb'>
+      <button class="button button-block fb"><i padding="10px" class="icon ion-social-facebook"></i>
+           Share to Facebook
+      </button>
+    </div>
   <div navs></div>
 </ion-view>
