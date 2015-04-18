@@ -66,12 +66,10 @@ angular.module('starter.controllers', [])
 
 .controller('GoalDetailCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
   $scope.goal = GoalBuilder.goal;
-  $scope.days = 1; // initialize days variable
-  $scope.target = GoalBuilder.goal.goalType.suggestedGoal;
+  $scope.days = 1; // initialize days variable so calcaulation at bottom page doesn't throw error
+  $scope.target = GoalBuilder.goal.goalType.suggestedTarget;
   $scope.dailyAverage = $scope.target;
-  console.log("This is GoalBuilder.goal", GoalBuilder.goal);
   $scope.times = GoalBuilder.returnTimes(); //contains the available goal timeframes
-  console.log("This is timeframe", $scope.timeframe);
   $scope.updateDeets = GoalBuilder.updateDeets; //update the details
   $scope.selected = function(selectedTimeframe){
     console.log("This is your selected timeframe!", selectedTimeframe);
