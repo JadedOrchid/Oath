@@ -206,11 +206,16 @@ angular.module('starter.factories', [])
 
   //CLICK THROUGH GOAL SETUP
   goalBuilder.goalClick = function(goal){
-    goalBuilder.goal.goalType = goal;
-    if (User.checkJawbone(User.loggedIn)){
-      $state.go('goaldetails');
+    if(goal.title !== 'Step' || goal.title !== 'Sleep') {
+      console.log('comig soon');
+      $state.go('comingsoon');
     } else {
-      $state.go('deviceAuth');
+      goalBuilder.goal.goalType = goal;
+      if (User.checkJawbone(User.loggedIn)){
+        $state.go('goaldetails');
+      } else {
+        $state.go('deviceAuth');
+      }
     }
   };
 

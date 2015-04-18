@@ -54,7 +54,7 @@ angular.module('starter.controllers', [])
   $scope.goalClick = GoalBuilder.goalClick;
 }])
 
-.controller('GoalSuccessCtrl', ['$scope', 'GoalBuilder', function($scope, GoalBuilder) {
+.controller('GoalSuccessCtrl', ['$scope', '$state', 'GoalBuilder', function($scope, $state, GoalBuilder) {
   $scope.successes = GoalBuilder.returnSucesses();
   $scope.successClick = GoalBuilder.successClick;
 }])
