@@ -205,10 +205,13 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('SuccessReportCtrl', ['$scope', 'GoalBuilder', 'User', function($scope, GoalBuilder, User) {
+  $scope.success = User.loggedIn.goals[0].success;
+  console.log('Success OBJ: ', $scope.success);
   $scope.achieved = function(){
     var uncelebrated = User.getOldestUncelebrated(User.loggedIn.goals);
     uncelebrated.celebrated = true;
     User.putGoal(uncelebrated);
+    console.log(uncelebrated)
     return uncelebrated;
   }();
 }])
