@@ -190,13 +190,13 @@ angular.module('starter.factories', [])
     var failTypes = [
       {
         orgName: 'Tip the developers',
-        description: "The money you've pledged will go to support the development of Oath. Maybe we'll donate it ourselves, or maybe we'll buy cupcakes. Or go to Vegas.",
+        description: "to support the development of Oath. Maybe we'll donate it ourselves, or maybe we'll buy cupcakes. Or go to Vegas.",
         img: '../img/developers.jpg',
         clickAction: 'Tip the developers'
       },
       {
         orgName: 'Consolation Cupcakes',
-        description: 'You\'ll need the sugar to support you trying again tomorrow. Shipped from SF, CA.',
+        description: 'will provide the nessecary sugar to support your next attempt. Shipped from SF, CA.',
         img: '../img/cupcake.jpg',
         clickAction: 'Send the cupcakes'
       }
