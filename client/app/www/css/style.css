@@ -261,14 +261,11 @@ a:active{
 }
 .login-div {
   width: 100vw;
-  height: 100vh;
+  /*height: 100vh;*/
 }
 .main {
   background-color: #00AA8F;
 
-}
-.mission {
-  background-color: #ffffff;
 }
 .team {
   background-color: #00AA8F;
@@ -398,14 +395,26 @@ a:active{
   font-size: 30px;
 }
 
+.imageDiv{
+  /*background-image: url("../img/concrete_seamless.png");*/
+}
 .homepageH1{
   font-size: 44px;
   font-family: roboto;
+  color: #666;
 }
-
+.mission {
+  background-color: #ffffff;
+  background-position: right;
+}
+.missionCard{
+  background-color: transparent;
+}
 .homepageP{
   font-family: roboto;
+  color: #666;
   margin: 6px;
+  padding-bottom: 12px;
 }
 
 .chart-container {
