@@ -206,8 +206,7 @@ angular.module('starter.factories', [])
 
   //CLICK THROUGH GOAL SETUP
   goalBuilder.goalClick = function(goal){
-    if(goal.title !== 'Step' || goal.title !== 'Sleep') {
-      console.log('comig soon');
+    if( !(goal.title === 'Step' || goal.title === 'Sleep') ) {
       $state.go('comingsoon');
     } else {
       goalBuilder.goal.goalType = goal;
