@@ -53,7 +53,6 @@ angular.module('starter.controllers', [])
   $scope.goalClick = GoalBuilder.goalClick;
 }])
 
-
 .controller('GoalDetailCtrl', ['$scope', '$state', 'GoalBuilder', function($scope, $state, GoalBuilder) {
     if (!GoalBuilder.goal.goalType){
       $state.go('login');
@@ -76,6 +75,7 @@ angular.module('starter.controllers', [])
 .controller('GoalSuccessCtrl', ['$scope', '$state', 'GoalBuilder', function($scope, $state, GoalBuilder) {
    if (!GoalBuilder.goal.target){
     $state.go('login');
+    return;
    }
 
   $scope.successes = GoalBuilder.returnSucesses();
@@ -83,8 +83,10 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('GoalFailureCtrl', ['$scope', '$state', 'GoalBuilder', function($scope, $state, GoalBuilder) {
-  if (!GoalBuilder.goal.success)
+  if (!GoalBuilder.goal.success){
     $state.go('login');
+    return;
+  }
 
   $scope.failures = GoalBuilder.returnFailures();
   $scope.failClick = GoalBuilder.failClick;
@@ -93,8 +95,10 @@ angular.module('starter.controllers', [])
 
 
 .controller('PaymentCtrl', ['$scope', 'Payment', '$state', 'User', 'GoalBuilder', function($scope, Payment, $state, User, GoalBuilder) {
-  if (!GoalBuilder.goal.period)
+  if (!GoalBuilder.goal.period){
     $state.go('login');
+    return;
+  }
 
   var goal = GoalBuilder.goal;
 
@@ -223,16 +227,20 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('FailureReportCtrl', ['$scope', '$state', 'GoalBuilder', 'User', function($scope, $state, GoalBuilder, User) {
-  if (!User.endGoal)
+  if (!User.endGoal){
     $state.go('login');
+    return;
+  }
   User.endGoal = false;
   
   $scope.failed = User.getOldestUncelebrated(User.loggedIn.goals);
 }])
 
 .controller('SuccessReportCtrl', ['$scope', '$state', 'GoalBuilder', 'User', function($scope, $state, GoalBuilder, User) {
-  if (!User.endGoal)
+  if (!User.endGoal) {
     $state.go('login');
+    return;
+  }
   User.endGoal = false;
   $scope.success = User.loggedIn.goals[0].success;
   console.log('Success OBJ: ', $scope.success);
