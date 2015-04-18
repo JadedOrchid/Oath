@@ -368,10 +368,13 @@ a:active{
   text-align: center;
   /* float: left; */
   width: 75%;
-  border: 0;
+  border-bottom: 1px solid grey;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
   font-size: 30px;
   text-align: center;
-  border-bottom: 1px solid grey;
+
   margin-bottom: 8px;
 }
 .goalDeetsInputBox{
@@ -383,16 +386,27 @@ a:active{
   -webkit-appearance: none;
   -moz-appearance: none;
   text-align: center;
+  text: center;
   margin-top: 5px;
   appearance: none;
   color: #666;
   border: 0px;
-  border-bottom: 1px #666;
   background-color: white;
-  font-family: roboto;
+  border-bottom: 1px #666 solid;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
   font-size: 30px;
 }
 
+.homepageH1{
+  font-size: 44px;
+  font-family: roboto;
+}
+
+.homepageP{
+  font-family: roboto;
+  margin: 6px;
+}
 
 .chart-container {
   margin-left: 2%;
