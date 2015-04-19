@@ -261,14 +261,11 @@ a:active{
 }
 .login-div {
   width: 100vw;
-  height: 100vh;
+  /*height: 100vh;*/
 }
 .main {
   background-color: #00AA8F;
 
-}
-.mission {
-  background-color: #ffffff;
 }
 .team {
   background-color: #00AA8F;
@@ -368,10 +365,13 @@ a:active{
   text-align: center;
   /* float: left; */
   width: 75%;
-  border: 0;
+  border-bottom: 1px solid grey;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
   font-size: 30px;
   text-align: center;
-  border-bottom: 1px solid grey;
+
   margin-bottom: 8px;
 }
 .goalDeetsInputBox{
@@ -383,16 +383,39 @@ a:active{
   -webkit-appearance: none;
   -moz-appearance: none;
   text-align: center;
+  text: center;
   margin-top: 5px;
   appearance: none;
   color: #666;
   border: 0px;
-  border-bottom: 1px #666;
   background-color: white;
-  font-family: roboto;
+  border-bottom: 1px #666 solid;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
   font-size: 30px;
 }
 
+.imageDiv{
+  /*background-image: url("../img/concrete_seamless.png");*/
+}
+.homepageH1{
+  font-size: 44px;
+  font-family: roboto;
+  color: #666;
+}
+.mission {
+  background-color: #ffffff;
+  background-position: right;
+}
+.missionCard{
+  background-color: transparent;
+}
+.homepageP{
+  font-family: roboto;
+  color: #666;
+  margin: 6px;
+  padding-bottom: 12px;
+}
 
 .chart-container {
   margin-left: 2%;
