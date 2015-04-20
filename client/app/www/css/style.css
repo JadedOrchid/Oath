@@ -312,7 +312,7 @@ a:active{
 }
 
 .team-row {
-  width: 100%;
+  width: 90%;
   height: 116px;
   margin-left: 15px;
 }
@@ -320,7 +320,7 @@ a:active{
 .profile-info {
   position: relative;
   left: 16px;
-  top: 31px;
+  top: 39px;
 }
 
 .oathTabs{
