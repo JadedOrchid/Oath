@@ -1,8 +1,6 @@
 <ion-view view-title="Summary">
   <ion-content class="padding">
-
-  <div class='payment-container'>
-
+    <div class=" boxIt">
     <div class="list card">
       <div class="item item-avatar">
         <img src="{{goal.success.img}}">
@@ -37,14 +35,14 @@
           <input class="" ng-model='year' type="text" placeholder="Year"></input>
         </label>
       </div>
-    </div>
-
+    <br>
     <p class="details">Your card will be charged immediately</p>
 
-  </div>
-
-  </ion-content>
-    <div class='payment-button'>
-      <button class="button button-block button-calm col" ng-click='pay()'>Submit Payment</button>
+      <div class=''>
+        <button class="button button-block button-calm col" ng-click='pay()'>Submit Payment</button>
+      </div>
     </div>
+  </div>
+  </ion-content>
+
 </ion-view>
