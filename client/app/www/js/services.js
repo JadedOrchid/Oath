@@ -28,14 +28,9 @@ angular.module('starter.factories', [])
       }
     });
   };
-<<<<<<< HEAD
   User.getOldestUncelebrated = function(goals) {
     goals || (goals = User.loggedIn.goals);
     var uncelebrated = User.getUncelebrated(goals);
-=======
-  user.getOldestUncelebrated = function(goals) {
-    var uncelebrated = user.getUncelebrated(goals);
->>>>>>> (cleanup) Remove console logs
     if (uncelebrated.length > 0){
       return uncelebrated[0];
     } else {
