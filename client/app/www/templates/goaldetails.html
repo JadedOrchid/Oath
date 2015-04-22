@@ -1,37 +1,38 @@
 <ion-view view-title="{{goal.goalType.title}}" ng-model="GoalStuff">
   <ion-content>
-    <div class = "card">
+    <div class="boxIt">
+      <div class = "card">
 
-      <div class="singleIconDiv positive">
-        <i class="{{goal.goalType.iconClass}} singleIcon"></i>
-      </div>
+        <div class="singleIconDiv positive">
+          <i class="{{goal.goalType.iconClass}} singleIcon"></i>
+        </div>
 
-      <div class="shiftDetailDown">
-        <div><h2 class="goalDeetsColor">My goal is to average</h2></div>
-        <div>
-          <div class="goalDeetsInputBox">
-            <input class="goalDeetsInput" ng-model="dailyAverage" placeholder="{{goal.goalType.suggestedTarget}}">
-          </div>
+        <div class="shiftDetailDown">
+          <div><h2 class="goalDeetsColor">My goal is to average</h2></div>
           <div>
-            <h2 class="goalDeetsColor"> {{goal.goalType.unit}} / {{goal.goalType.phase}} for</h2>
+            <div class="goalDeetsInputBox">
+              <input class="goalDeetsInput" ng-model="dailyAverage" placeholder="{{goal.goalType.suggestedTarget}}">
+            </div>
+            <div>
+              <h2 class="goalDeetsColor"> {{goal.goalType.unit}} / {{goal.goalType.phase}} for</h2>
+            </div>
           </div>
-        </div>
 
-        <div class="goalDeetsInputBox">
-          <select
-          class="goalDeetsSelectBox"
-          ng-model="timeframe"
-          ng-options="time for time in times"
-          ng-init="timeframe=times[0]"
-          ng-change="selected(timeframe)">
-          </select>
-        </div>
+          <div class="goalDeetsInputBox">
+            <select
+            class="goalDeetsSelectBox"
+            ng-model="timeframe"
+            ng-options="time for time in times"
+            ng-init="timeframe=times[0]"
+            ng-change="selected(timeframe)">
+            </select>
+          </div>
 
-        <h2 class="goalDeetsColor"> That's a total of {{target = dailyAverage * days}} {{goal.goalType.unit}}. Wow!</h2>
-        <button class="button button-block button-positive col" ng-click="updateDeets()">Submit</button>
+          <h2 class="goalDeetsColor"> That's a total of {{target = dailyAverage * days}} {{goal.goalType.unit}}. Wow!</h2>
+          <button class="button button-block button-positive col" ng-click="updateDeets()">Submit</button>
+        </div>
       </div>
     </div>
-
   </div>
   </ion-content>
 </ion-view>
