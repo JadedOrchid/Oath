@@ -89,7 +89,8 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
   .state('payment', {
     url: '/payment',
     templateUrl: 'templates/payment.html',
-    controller: 'PaymentCtrl'
+    controller: 'PaymentCtrl',
+    cache: false
   })
 
   .state('progress', {
