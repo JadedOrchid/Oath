@@ -417,6 +417,10 @@ a:active{
   padding-bottom: 12px;
 }
 
+.outer {
+  position: relative;
+}
+
 .chart-container {
   margin-left: 2%;
   margin-right: auto;
@@ -441,13 +445,9 @@ a:active{
 }
 
 .info-container {
-  padding-top: 20px;
-  position: absolute;
-  margin-left: 61%;
-  margin-top: 7%;
-  left: -10px;
-  height: 33%;
-  width: 50%;
+  position:absolute;
+  left: 180px;
+  top: 80px;
   float: right;
 }
 
