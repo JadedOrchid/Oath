@@ -2,26 +2,26 @@
   <ion-content class="padding has-footer">
     <div class="iphone">
       <div ng-repeat="goal in goals">
-        <div class="card">
+        <div class="card outer">
           <h1>{{ goal.goalType.title }}</h1>
 
           <div class="goal-container">
             <div class='chart-container'>
               <canvas tc-chartjs-doughnut chart-options="goalOptions" chart-data="goal.graphData" auto-legend></canvas>
 
-              <div class='time-chart-container'>
-                <canvas tc-chartjs-doughnut chart-options="timeOptions" chart-data="goal.timeData" auto-legend></canvas>
-              </div>
-            </div>
-
-            <div class='info-container'>
-               Target: {{ goal. target }} {{ goal.goalType.unit}}
-              <br>
-               Progress: {{ goal.displayProgress }}
-              <br>
-              {{ goal.timeRemaining }} remaining
+            <div class='time-chart-container'>
+              <canvas tc-chartjs-doughnut chart-options="timeOptions" chart-data="goal.timeData" auto-legend></canvas>
             </div>
           </div>
+
+          <div class='info-container'>
+             Target: {{ goal. target }} {{ goal.goalType.unit}}
+            <br>
+             Progress: {{ goal.displayProgress }}
+            <br>
+            {{ goal.timeRemaining }} remaining
+          </div>
+        </div>
 
         </div>
       </div>

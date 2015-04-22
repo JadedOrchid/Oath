@@ -17,19 +17,20 @@ angular.module('starter.factories', [])
 }])
 
 .factory('User', ['$http', function($http) {
-  var user = {};
-  user.loggedIn = null;
+  var User = {};
+  User.loggedIn = null;
 
-  user.getUncelebrated = function(goals) {
+  User.getUncelebrated = function(goals) {
+    goals || (goals = User.loggedIn.goals);
     return goals.filter(function(goal){
       if(goal.completed && !goal.celebrated) {
         return goal;
       }
     });
   };
-  user.getOldestUncelebrated = function(goals) {
-    var uncelebrated = user.getUncelebrated(goals);
-    console.log('UNCELEBRATED: ', uncelebrated)
+  User.getOldestUncelebrated = function(goals) {
+    goals || (goals = User.loggedIn.goals);
+    var uncelebrated = User.getUncelebrated(goals);
     if (uncelebrated.length > 0){
       return uncelebrated[0];
     } else {
@@ -37,7 +38,7 @@ angular.module('starter.factories', [])
     }
   };
 
-  user.putGoal = function(goal) {
+  User.putGoal = function(goal) {
     $http.put('/api/goals/' + goal.startTime, goal)
       .success(function(data, status, headers, config) {
         console.log('Load was performed.', data);
@@ -47,13 +48,13 @@ angular.module('starter.factories', [])
       });
   };
 
-  user.getUser = function(){
+  User.getUser = function(){
     return $http.get('/api/user').then(function(res){
       return res.data;
     });
   };
 
-  user.checkJawbone = function(user){
+  User.checkJawbone = function(user){
     if (user.jawbone === undefined){
       return false;
     } else {
@@ -61,7 +62,7 @@ angular.module('starter.factories', [])
     }
   };
 
-  return user;
+  return User;
 }])
 
 .factory('Auth', ['User', '$state', '$http', function(User, $state, $http){
@@ -279,6 +280,7 @@ angular.module('starter.factories', [])
   };
 
   goalBuilder.updateDeets = function() {
+    console.log(this);
     goalBuilder.goal.period = {
       human: this.timeframe,
       seconds: goalBuilder.convertTime(this.timeframe)

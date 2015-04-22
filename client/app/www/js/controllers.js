@@ -9,7 +9,7 @@ angular.module('starter.controllers', [])
   });
 
   function redirect (user){
-    var uncelebratedGoal = User.getOldestUncelebrated(user.goals);
+    var uncelebratedGoal = User.getOldestUncelebrated();
     if (user.goals.length === 0){
       $state.go('goaltype');
     } else if (uncelebratedGoal) {
@@ -73,7 +73,7 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('GoalSuccessCtrl', ['$scope', '$state', 'GoalBuilder', function($scope, $state, GoalBuilder) {
-   if (!GoalBuilder.goal.target){
+   if (!GoalBuilder.goal.target === undefined){
     $state.go('login');
     return;
    }
@@ -139,7 +139,10 @@ angular.module('starter.controllers', [])
 .controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', 'Auth', function($scope, User, GoalBuilder, Auth) {
   $scope.logout = Auth.logout;
 
-  var goals = User.loggedIn.goals.slice().reverse();
+  var goals = User.loggedIn.goals.filter(function(goal){
+    return !goal.celebrated;
+  }).reverse();
+  
   $scope.goals = goals.map(processGoal);
 
     // Chart.js Options
@@ -227,13 +230,15 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('FailureReportCtrl', ['$scope', '$state', 'GoalBuilder', 'User', function($scope, $state, GoalBuilder, User) {
+  // make sure user didn't visit this page from browser
   if (!User.endGoal){
     $state.go('login');
     return;
   }
   User.endGoal = false;
-  
-  $scope.failed = User.getOldestUncelebrated(User.loggedIn.goals);
+  $scope.achieved = User.getOldestUncelebrated();
+  $scope.achieved.celebrated = true;
+  User.putGoal( $scope.achieved );
 }])
 
 .controller('SuccessReportCtrl', ['$scope', '$state', 'GoalBuilder', 'User', function($scope, $state, GoalBuilder, User) {
@@ -242,13 +247,7 @@ angular.module('starter.controllers', [])
     return;
   }
   User.endGoal = false;
-  $scope.success = User.loggedIn.goals[0].success;
-  console.log('Success OBJ: ', $scope.success);
-  $scope.achieved = function(){
-    var uncelebrated = User.getOldestUncelebrated(User.loggedIn.goals);
-    uncelebrated.celebrated = true;
-    User.putGoal(uncelebrated);
-    console.log(uncelebrated)
-    return uncelebrated;
-  }();
-}])
+  $scope.achieved = User.getOldestUncelebrated();
+  $scope.achieved.celebrated = true;
+  User.putGoal( $scope.achieved );
+}]);
