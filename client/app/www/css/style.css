@@ -260,7 +260,7 @@ a:active{
   height: 1704px;
 }
 .login-div {
-  width: 100vw;
+  /*width: 100vw;*/
   /*height: 100vh;*/
 }
 .main {
@@ -272,7 +272,8 @@ a:active{
 }
 
 .logo {
-  width: 70vw;
+  /*width: 70vw;*/
+  width: 224px;
   margin-top: 80px;
 }
 .signin-container {
@@ -311,7 +312,7 @@ a:active{
 }
 
 .team-row {
-  width: 100%;
+  width: 90%;
   height: 116px;
   margin-left: 15px;
 }
@@ -319,7 +320,7 @@ a:active{
 .profile-info {
   position: relative;
   left: 16px;
-  top: 31px;
+  top: 39px;
 }
 
 .oathTabs{
@@ -523,4 +524,12 @@ a:active{
   padding-right: 10px;
   /*text-align: center;*/
   font-size: 20px;
+}
+
+.boxIt{
+  max-width: 320px;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

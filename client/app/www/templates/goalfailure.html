@@ -1,6 +1,7 @@
 <ion-view view-title="And if you miss your goal?">
 
   <ion-content class="padding">
+  <div class="boxIt">
     <div class="list card" ng-repeat="failure in failures">
       <div class="item item-body">
         <img class="full-image round-corners" src={{failure.img}}>
@@ -9,8 +10,9 @@
         </p>
         <button class="button button-block button-positive center" ng-click="failClick(failure)">
             {{failure.clickAction}}
-       </button>
-        </div>
+        </button>
       </div>
+    </div>
+  </div>
   </ion-content>
 </ion-view>
