@@ -6,6 +6,7 @@ angular.module('oath.paymentCtrl', [])
   }
 
   var goal = GoalBuilder.goal;
+  console.log(goal);
 
   $scope.goal = goal;
   $scope.goalDuration = goal.period.human.toLowerCase();
@@ -23,7 +24,6 @@ angular.module('oath.paymentCtrl', [])
     }
 
     var stripeResponseHandler = function (status, response) {
-
       if (response.error) {
         // Show the errors on the form
         console.log("There was some sort of error, yo");
@@ -36,7 +36,6 @@ angular.module('oath.paymentCtrl', [])
     //Use the Stripe module to get a token for this user
     //if successful, call our response handler, which defers to server to charge customer
     Stripe.card.createToken(cardholder, stripeResponseHandler);
-
     $state.go('progress');
   }
 }]);

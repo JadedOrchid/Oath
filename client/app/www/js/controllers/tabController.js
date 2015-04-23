@@ -17,6 +17,6 @@ angular.module('oath.tabCtrl', [])
 
 .directive('navs', function(){
   return {
-    templateUrl: '../templates/tabs2.html'
+    templateUrl: '../templates/tabs.html'
   };
 });

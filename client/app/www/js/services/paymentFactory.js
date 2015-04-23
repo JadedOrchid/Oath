@@ -6,10 +6,10 @@ angular.module('oath.paymentFactory', [])
   payment.sendToken = function(token){
     $http.post('/payments/stripe', {JSONtoken: token, choices: payment.stripeInfo})
       .success(function(data, status, headers, config) {
-        console.log('You were able to send payment token to server!!');
+        console.log('payment success');
       })
       .error(function(data, status, headers, config) {
-        console.log('Your token was not added to server');
+        console.error('payment error');
       });
   };
   return payment;

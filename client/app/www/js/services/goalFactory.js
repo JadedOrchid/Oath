@@ -1,15 +1,15 @@
 angular.module('oath.goalFactory', [])
-.factory('GoalBuilder', ['$state', 'User', '$http', 'Payment', function($state, User, $http, Payment) {
-  var goalBuilder = {};
+.factory('GoalBuilder', ['User', '$http', function(User, $http) {
+  var GoalBuilder = {};
 
   //THE GOAL
-  goalBuilder.goal = {
+  GoalBuilder.goal = {
     completed: false,
     celebrated: false
   };
 
   //DATA
-  goalBuilder.returnGoals = function(){
+  GoalBuilder.returnGoals = function(){
     var goalTypes = [
       {
         title: "Step",
@@ -58,7 +58,7 @@ angular.module('oath.goalFactory', [])
     return goalTypes;
   };
 
-  goalBuilder.returnSucesses = function(){
+  GoalBuilder.returnSucesses = function(){
     //images need to be 760px by 380px
     var successTypes = [
       {
@@ -92,7 +92,7 @@ angular.module('oath.goalFactory', [])
     return successTypes;
   };
 
-  goalBuilder.returnTimes = function(){
+  GoalBuilder.returnTimes = function(){
     var times = [
       "One Day",
       "One Week",
@@ -102,7 +102,7 @@ angular.module('oath.goalFactory', [])
     return times;
   };
 
-  goalBuilder.returnFailures = function(){
+  GoalBuilder.returnFailures = function(){
     var failTypes = [
       {
         orgName: 'Tip the developers',
@@ -120,26 +120,7 @@ angular.module('oath.goalFactory', [])
     return failTypes;
   };
 
-  //CLICK THROUGH GOAL SETUP
-  goalBuilder.goalClick = function(goal){
-    if( !(goal.title === 'Step' || goal.title === 'Sleep') ) {
-      $state.go('comingsoon');
-    } else {
-      goalBuilder.goal.goalType = goal;
-      if (User.checkJawbone(User.loggedIn)){
-        $state.go('goaldetails');
-      } else {
-        $state.go('deviceAuth');
-      }
-    }
-  };
-
-  goalBuilder.successClick = function(success){
-    goalBuilder.goal.success = success;
-    $state.go('goalfailure');
-  };
-
-  goalBuilder.getDays = function(timeframe){
+  GoalBuilder.getDays = function(timeframe){
     var timeframes = {
       "One Day": 1,
       "One Week": 7,
@@ -147,34 +128,15 @@ angular.module('oath.goalFactory', [])
       "One Year": 365
     };
     return timeframes[timeframe];
-
-  }
-
-  goalBuilder.failClick = function(fail){
-    var goal = goalBuilder.goal;
-    goal.fail = fail;
-    goal.startTime = Math.floor( Date.now() / 1000 );
-    goal.completed = false;
-    goal.celebrated = false;
-
-    // goalBuilder.saveGoal(goal);
-    // goalBuilder.sendGoal(goal);
-
-    if(User.loggedIn.hasPayment){
-      $state.go('progress');
-    } else {
-      $state.go('payment');
-    }
   };
 
-  //UTILS
-  goalBuilder.saveGoal = function(goal) {
+  GoalBuilder.saveGoal = function(goal) {
     var copy = angular.copy(goal);
     //prepend a copy to local goals array
     User.loggedIn.goals.push(copy);
   };
 
-  goalBuilder.sendGoal = function(goal){
+  GoalBuilder.sendGoal = function(goal){
     $http.post('/api/goals', goal)
       .success(function(data, status, headers, config) {
         console.log('YAY!!');
@@ -184,7 +146,7 @@ angular.module('oath.goalFactory', [])
       });
   };
 
-  goalBuilder.convertTime = function(timeframe) {
+  GoalBuilder.convertTime = function(timeframe) {
     var seconds = {
       'One Day': 86400,
       'One Week': 604800,
@@ -194,16 +156,5 @@ angular.module('oath.goalFactory', [])
     return seconds[timeframe];
   };
 
-  goalBuilder.updateDeets = function() {
-    console.log(this);
-    goalBuilder.goal.period = {
-      human: this.timeframe,
-      seconds: goalBuilder.convertTime(this.timeframe)
-    }
-    goalBuilder.goal.target = this.target;
-    goalBuilder.goal.progress = 0;
-    $state.go('goalsuccess');
-  };
-
-  return goalBuilder;
+  return GoalBuilder;
 }]);
