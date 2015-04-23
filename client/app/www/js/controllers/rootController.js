@@ -1,5 +1,5 @@
 angular.module('oath.rootCtrl', [])
-.controller('RootCtrl', ['$scope', 'Auth', '$state', 'User', function($scope, Auth, $state, User) {
+.controller('RootCtrl', ['$scope', '$state', 'User', function($scope, $state, User) {
   User.getUser().then(function(user){
     User.loggedIn = user;
     redirect(user);

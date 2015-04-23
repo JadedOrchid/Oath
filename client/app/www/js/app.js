@@ -1,11 +1,15 @@
 angular.module('starter', 
   ['ionic', 
-  'starter.controllers', 
   'oath.progressCtrl',
   'oath.rootCtrl',
   'oath.paymentCtrl',
+  'oath.endConditionCtrls',
   'oath.reportCtrls',
-  'starter.factories',
+  'oath.goalCtrls',
+  'oath.tabCtrl',
+  'oath.userFactory',
+  'oath.goalFactory',
+  'oath.paymentFactory',
   'chart.js',
   'tc.chartjs' 
   ])

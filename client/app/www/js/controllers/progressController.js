@@ -1,7 +1,5 @@
 angular.module('oath.progressCtrl', [])
-.controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder', 'Auth', function($scope, User, GoalBuilder, Auth) {
-  $scope.logout = Auth.logout;
-
+.controller('ProgressCtrl', ['$scope', 'User', 'GoalBuilder',  function($scope, User, GoalBuilder) {
   var goals = User.loggedIn.goals.filter(function(goal){
     return !goal.celebrated;
   }).reverse();
