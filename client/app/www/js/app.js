@@ -1,11 +1,18 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter.factories', 'chart.js'])
+angular.module('oath', 
+  ['ionic', 
+  'oath.progressCtrl',
+  'oath.rootCtrl',
+  'oath.paymentCtrl',
+  'oath.endConditionCtrls',
+  'oath.reportCtrls',
+  'oath.goalCtrls',
+  'oath.tabCtrl',
+  'oath.userFactory',
+  'oath.goalFactory',
+  'oath.paymentFactory',
+  'chart.js',
+  'tc.chartjs' 
+  ])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,35 +29,12 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
-
-  // setup an abstract state for the tabs directive
-  // .state('tab', {
-  //   url: "/tab",
-  //   abstract: true,
-  //   templateUrl: "templates/tabs.html"
-  // })
-
-  // // Each tab has its own nav history stack:
-  // .state('tab.progress', {
-  //   url: '/progress',
-  //   views: {
-  //     'tab-progress': {
-  //       templateUrl: 'templates/tab-progress.html',
-  //       controller: 'ProgressCtrl'
-  //     }
-  //   }
-  // })
-
-  .state('/', {
+  .state('root', {
     url: '/',
     cache: false,
-    controller: 'SessionCtrl'
+    controller: 'RootCtrl',
+    templateUrl: 'templates/loading.html'
   })
 
   .state('login', {
@@ -69,6 +53,7 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
   })
 
   .state('goaltype', {
+    cache: false,
     url: '/goaltype',
     templateUrl: 'templates/goaltype.html',
     controller: 'GoalCtrl',
@@ -77,6 +62,10 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
   .state('signup', {
     url: '/signup',
     templateUrl: 'templates/signup.html'
+  })
+  .state('comingsoon', {
+    url: '/comingsoon',
+    templateUrl: 'templates/comingsoon.html'
   })
 
   .state('deviceAuth', {
@@ -93,12 +82,14 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
   })
 
   .state('goalsuccess', {
+    cache: false,
     url: '/goalsuccess',
     templateUrl: 'templates/goalsuccess.html',
     controller: 'GoalSuccessCtrl'
   })
 
   .state('goalfailure', {
+    cache: false,
     url: '/goalfailure',
     templateUrl: 'templates/goalfailure.html',
     controller: 'GoalFailureCtrl'
@@ -107,33 +98,33 @@ angular.module('starter', ['ionic', 'ngCookies', 'starter.controllers', 'starter
   .state('payment', {
     url: '/payment',
     templateUrl: 'templates/payment.html',
-    controller: 'PaymentCtrl'
+    controller: 'PaymentCtrl',
+    cache: false
   })
 
   .state('progress', {
+    cache: false,
     url: '/progress',
-    templateUrl: 'templates/tab-progress.html',
+    templateUrl: 'templates/progress.html',
     controller: 'ProgressCtrl'
   })
 
   .state('successreport', {
     url: '/successreport',
-    templateUrl: 'templates/tab-success.html',
+    templateUrl: 'templates/success.html',
     controller: 'SuccessReportCtrl'
   })
 
   .state('failurereport', {
     url: '/failurereport',
-    templateUrl: 'templates/tab-failure.html',
+    templateUrl: 'templates/failure.html',
     controller: 'FailureReportCtrl'
   })
 
   .state('settings', {
     url: '/settings',
-    templateUrl: 'templates/tab-settings.html'
+    templateUrl: 'templates/settings.html'
   });
 
-  // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
-
 });

@@ -1,0 +1,44 @@
+<ion-view hide-back-button="true" view-title="Progress">
+  <ion-content class="padding has-footer">
+    <div class="iphone boxIt">
+      <div ng-repeat="goal in goals">
+        <div class="card outer">
+          <h1>{{ goal.goalType.title }}</h1>
+
+          <div class="goal-container">
+            <div class='chart-container'>
+              <canvas tc-chartjs-doughnut chart-options="goalOptions" chart-data="goal.graphData" auto-legend></canvas>
+
+            <div class='time-chart-container'>
+              <canvas tc-chartjs-doughnut chart-options="timeOptions" chart-data="goal.timeData" auto-legend></canvas>
+            </div>
+          </div>
+<!--           <div class="image-container">
+          <img src="{{goal.success.img}}">
+          </div> -->
+ <!--          <br>
+          <div class="list card">
+            <div class="item item-avatar">
+              <img src="{{goal.success.img}}">
+              <h2 style="text-align:left">Successful: </h2>
+              <p>Your {{goal.success.price}} will {{goal.success.clickAction.toLowerCase()}}!</p>
+            </div>
+          </div> -->
+
+          <div class='info-container'>
+             Target: {{ goal. target }} {{ goal.goalType.unit}}
+            <br>
+             Progress: {{ goal.displayProgress }}
+            <br>
+            {{ goal.timeRemaining }} remaining
+            <br>
+            <em>Your {{goal.success.price}} will {{goal.success.clickAction.toLowerCase()}}!</em>
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+<div navs></div>

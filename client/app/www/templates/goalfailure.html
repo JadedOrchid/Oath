@@ -1,16 +1,18 @@
 <ion-view view-title="And if you miss your goal?">
 
   <ion-content class="padding">
+  <div class="boxIt">
     <div class="list card" ng-repeat="failure in failures">
       <div class="item item-body">
-        <img class="full-image" src={{failure.img}}>
+        <img class="full-image round-corners" src={{failure.img}}>
         <p>
           <b>{{failure.orgName}}</b> {{failure.description}}
         </p>
-        <button class="button button-outline button-positive center" ng-click="failClick(failure)">
-            Should I miss my goal, {{failure.clickAction}}
-       </button>
-        </div>
+        <button class="button button-block button-positive center" ng-click="failClick(failure)">
+            {{failure.clickAction}}
+        </button>
       </div>
+    </div>
+  </div>
   </ion-content>
 </ion-view>

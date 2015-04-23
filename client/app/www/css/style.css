@@ -11,10 +11,49 @@
     width:100%;
 }
 
+.margin {
+  margin-top: 6%;
+}
+
+.pcenter {
+  text-align: center;
+}
+
+.details {
+  text-align: center;
+  color: #666;
+  font-size: 0.8em;
+  margin-top: -2%;
+}
+
+em {
+  font-style: italic;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.bottom {
+  border-bottom: 1px solid #ddd !important;
+}
+
+label.item.bottom.item-input.col.col-33 {
+  border-bottom: 1px solid #ddd !important;
+}
+
+.right {
+  border-right: 1px solid #ddd !important;
+}
+
 h1, .h1 {
     color : #5B554F;
-    /*font-size: 100px;*/
-    font-family: 'Roboto', sans-serif;
+    /*font-size: 500px;*/
+    font-family: 'Lato', sans-serif;
     text-align: center;
     font-weight: 700;
     font-size: 1.2em;
@@ -39,11 +78,11 @@ h2, h4 {
 a {
   text-decoration: none;
 }
-a:visited, a:link{
-  color: #387ef5;
-}
 a:hover{
-  color: #11c1f3;
+  color: #3F5C9A;
+}
+/*a:visited, a:link{
+  color: #387ef5;
 }
 a:focus{
   color: #ffc900;
@@ -51,7 +90,7 @@ a:focus{
 a:active{
   color: #886aea;
 }
-
+*/
 .soft {
   margin-top: -10px;
   color: #CCCCCC;
@@ -90,8 +129,8 @@ a:active{
 
 .goaldimensions {
   margin: 5px;
-  width: 200px;
-  height: 200px;
+  width: 145px;
+  height: 155px;
 }
 
 .progress-chart {
@@ -107,7 +146,12 @@ a:active{
 
 .iconsize {
   font-size: 100px;
-  color: #28BE9B;
+  color: #26B099;
+  position: absolute;
+  top: -60px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .icon-text-wrapper {
@@ -124,8 +168,7 @@ a:active{
 
 .goal-text {
   margin: auto;
-  height: 125px;
-  top: 255px;
+  top: 127px;
   bottom: 0;
   left: 0px;
   right: 0;
@@ -135,7 +178,8 @@ a:active{
 
 .goal-type-container {
   margin: auto;
-  width: 430px;
+  width: 300px;
+  /*height: 500px;*/
   top: 0px;
   bottom: 0;
   left: 0;
@@ -157,7 +201,7 @@ a:active{
 }
 
 .successHeadline {
-  color: #0a9ec7;
+  color: #444;
   font-size: 100px;
   text-decoration: bold;
   text-align: center;
@@ -166,4 +210,330 @@ a:active{
 .noPadding {
   padding-top: 0px;
   margin-top: 0px;
+}
+
+.spinner svg {
+  display:block;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  height: 15%;
+  width:  15%;
+  transform: translateY(100%);
+}
+
+.fb {
+  background-color: #3F5C9A;
+  color: #fff;
+  border: 0;
+  box-shadow: rgba(0,0,0, 0.298039) 0px 2px 2px 0px;
+}
+
+
+.goal-type-legend {
+  background-color: #FF5A5E;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  float: left;
+  margin-right: 5px;
+}
+
+.time-chart-legend {
+  background-color: #28BE9B;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  float: left;
+  margin-right: 5px;
+}
+
+.legend-container {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.item {
+  border-width: 0 !important;
+}
+.logo-container {
+  text-align: center;
+}
+.login-container {
+  width: 328px;
+  height: 1704px;
+}
+.login-div {
+  /*width: 100vw;*/
+  /*height: 100vh;*/
+}
+.main {
+  background-color: #00AA8F;
+
+}
+.team {
+  background-color: #00AA8F;
+}
+
+.logo {
+  /*width: 70vw;*/
+  width: 224px;
+  margin-top: 80px;
+}
+.signin-container {
+  width: 265px;
+  margin: 0 auto;
+  margin-top: 55px;
+}
+.signin-button {
+  background-color: #006756;
+  color: #FFFFFF;
+  border: 0;
+  box-shadow: rgba(0,0,0, 0.298039) 0px 2px 2px 0px;
+}
+.login-text {
+  color: #FFFFFF;
+  text-align: center;
+}
+.down-arrow {
+
+}
+.down-arrow-container {
+  text-align: center;
+  margin-top: 0px;
+}
+.wtext {
+  color: #FFFFFF;
+}
+.headtext {
+  font-size: 2.6em;
+  padding-top: 25px;
+}
+
+.profile-image {
+  float: left;
+  z-index: -100000000;
+}
+
+.team-row {
+  width: 90%;
+  height: 116px;
+  margin-left: 15px;
+}
+
+.profile-info {
+  position: relative;
+  left: 16px;
+  top: 39px;
+}
+
+.oathTabs{
+  background-color: white;
+}
+
+
+.body{
+  font-family: '', sans-serif;
+}
+
+
+.goalDeetsHeadline{
+  font-size: 34px;
+  text-align: left;
+  color: #666;
+  /*float: left;*/
+  /*display: inline;*/
+
+}
+
+.shiftDetailDown{
+  margin-top: 8px;
+}
+
+.singleIconDiv{
+  display: block;
+  text-align: center;
+}
+
+.singleIcon{
+  font-size: 100px;
+  text-align: center;
+}
+
+.goalDeetsColor{
+  color: #666;
+}
+
+.goalDeetsInput{
+  color: #666;
+  font-family: roboto;
+  text-align: center;
+  /* float: left; */
+  width: 75%;
+  border-bottom: 1px solid grey;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  font-size: 30px;
+  text-align: center;
+
+  margin-bottom: 8px;
+}
+.goalDeetsInputBox{
+  text-align: center;
+  color: #666;
+}
+
+.goalDeetsSelectBox{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-align: center;
+  text: center;
+  margin-top: 5px;
+  appearance: none;
+  color: #666;
+  border: 0px;
+  background-color: white;
+  border-bottom: 1px #666 solid;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  font-size: 30px;
+}
+
+.imageDiv{
+  /*background-image: url("../img/concrete_seamless.png");*/
+}
+.homepageH1{
+  font-size: 44px;
+  font-family: roboto;
+  color: #666;
+}
+.mission {
+  background-color: #ffffff;
+  background-position: right;
+}
+.missionCard{
+  background-color: transparent;
+}
+.homepageP{
+  font-family: roboto;
+  color: #666;
+  margin: 6px;
+  padding-bottom: 12px;
+}
+
+.outer {
+  position: relative;
+}
+
+.chart-container {
+  margin-left: 2%;
+  margin-right: auto;
+  position: relative;
+  width: 300px !important;
+  float: left;
+  top: 0;
+  left: -75px;
+  right: 0;
+  bottom: 0;
+
+}
+
+.time-chart-container {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 191px !important;
+  height: 59px !important;
+  position: absolute;
+  top: 27px;
+  left: 55px;
+}
+
+.info-container {
+  position:absolute;
+  left: 180px;
+  top: 60px;
+  float: right;
+}
+
+.round-corners {
+  border-radius: 5px;
+}
+
+.success-report-image {
+  width: 300px;
+  border-radius: 5px;
+  margin-right: auto;
+  margin-left: auto;
+  align-content: center;
+  display: block;
+}
+
+.donation-descrip {
+  padding: 20px;
+  margin: 0 auto 0 auto;
+  text-align: center;
+  max-width: 300px;
+}
+
+.share-container-fb {
+  position: absolute;
+  bottom: 49px;
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+.iphone{
+  max-width: 320px;
+  width: 100%;
+}
+.payment-button {
+  position: absolute;
+  bottom: 0px;
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+.payment-info-wrapper {
+  padding-top: 20px;
+}
+
+.payment-container {
+  margin: 0 auto;
+  max-width: 300px;
+  width: 100%;
+}
+
+.goal-button-submit {
+  margin: 2%;
+}
+
+.or-placement {
+  margin: 0 auto;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.team-container {
+  margin: 0 auto;
+  max-width: 300px
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  /*text-align: center;*/
+  font-size: 20px;
+}
+
+.boxIt{
+  max-width: 320px;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -1,41 +1,114 @@
-<ion-view view-title="Welcome to Sympact!">
-  <ion-content class="padding">
-    <div>
-      <h2>Log in to Sympact with</h2>
 
+<ion-view hide-nav-bar="true" animation="no-animation" hide-back-button="true">
+  <ion-content>
+
+  <div class="login-div main">
+    <div class="logo-container boxIt"><img class ="logo" src="img/logo300.png"></div>
+    <div class="signin-container">
+      <form action="/auth/login" method="post">
+      <div class="list">
+        <label class="item item-input">
+          <input type="email" name="email" placeholder="Email address">
+        </label>
+        <label class="item item-input">
+          <input type="password" name="password" placeholder="Password">
+        </label>
+        <button class="button signin-button button-block" >
+          Sign In
+        </button>
+        <h6 class="mid" >
+          <a class="wtext" href = "#/signup">Forgot password?</a> |
+          <a class="wtext" href = "#/signup">Create a new account </a>
+        </h6>
+      </div>
+      </form>
+      <div class='or-placement'>or</div>
       <form action="/auth/facebook" method="get">
-        <button class="button login button-block button-positive"><i padding="10px" class="icon ion-social-facebook"></i>
-         Facebook
+        <button class="button button-block fb"><i padding="10px" class="icon ion-social-facebook"></i>
+          Facebook
         </button>
       </form>
-
-      <p class="mid soft"> We'll never post without your permission. </p>
-
-      <div class="horizontal-separator">
-        <span class="separator-text">or</span>
-      </div>
-      <h4>Log in to your Sympact account</h4>
-
-      <form action="/auth/login" method="post">
-        <div class="list">
-          <label class="item item-input">
-            <input type="email" name="email" placeholder="Email address">
-          </label>
-          <label class="item item-input">
-            <input type="password" name="password" placeholder="Password">
-          </label>
-          <br>
-          <button class="button login button-outline button-block button-positive" >
-            Sign In
-          </button>
-        </div>
-      </form>
-
-      <h6 class="mid" >
-        <a href = "#/signup">Forgot password?</a> |
-        <a href = "#/signup">Create a new account </a>
-      </h6>
-
+      <br>
     </div>
+    <div class="down-arrow-container"><img src="img/down-arrow.png" class="down-arrow"/></div>
+  </div>
+
+
+
+  <!-- Pane 2 -->
+
+  <div class="login-div mission">
+    <div class="imageDiv">
+      <div class="card missionCard boxIt" >
+        <h1 class="homepageH1">How it works</h1>
+        <p class="homepageP">Great thinkers throughout the ages claim that to change the world you must first change yourself. Oath helps us do both at once.</p>
+
+        <p class="homepageP">First, using a quantified self device, set a personal goal, such as a step or sleep goal.</p>
+
+        <p class="homepageP">Then, to help you hit your goal, up the ante by paying for a social benefit from our menu, such as having a tree planted or a vaccine sponsored.</p>
+
+        <p class="homepageP">Track your progress from the Oath dashboard. If you suceed in achieving your goal, your donation goes through.</p>
+
+        <p class="homepageP">Oath makes explicit the notion that our personal change also changes the world. It helps us achieve the goals we set out to accomplish.</p>
+
+        <p class="homepageP">Improve yourself. Improve the world.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-div team wtext">
+    <div class="boxIt">
+      <h1 class="headtext wtext">Meet Our Team</h1>
+
+      <div class='team-container'>
+        <div class="team-row">
+          <div class="profile-image">
+            <img src="img/bh-profile.png"/>
+          </div>
+          <div class="profile-info">
+            <ul>
+              <li><a href="https://www.linkedin.com/in/bbheinz"> Bradley Heinz</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="team-row">
+          <div class="profile-image">
+            <img src="img/dh-profile.png"/>
+          </div>
+          <div class="profile-info">
+            <ul>
+              <li><a href="https://www.linkedin.com/in/dhammer126">David Hammer</a></li>
+            <!--  <li>Phrase: Dude</li> -->
+            </ul>
+          </div>
+        </div>
+        <div class="team-row">
+          <div class="profile-image">
+            <img src="img/jl-profile.png"/>
+          </div>
+          <div class="profile-info">
+            <ul>
+              <li><a href="https://www.linkedin.com/in/jasonstringify">Jason Ly</a></li>
+            <!--    <li>Phrase: Oh What?</li> -->
+            </ul>
+          </div>
+        </div>
+        <div class="team-row">
+          <div class="profile-image">
+            <img src="img/tt-profile.png"/>
+          </div>
+          <div class="profile-info">
+            <ul>
+              <li><a href="https://www.linkedin.com/in/ttreffry">Thomas Treffry</a></li>
+            <!-- <li>Phrase: what?</li> -->
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   </ion-content>
 </ion-view>
+

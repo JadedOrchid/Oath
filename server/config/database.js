@@ -1,3 +1,3 @@
 module.exports = {
-    'url' : process.env.MONGOLAB_URI || 'mongodb://localhost/sympact'
+    'url' : process.env.MONGOLAB_URI || 'mongodb://localhost/oath'
 };

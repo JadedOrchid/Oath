@@ -1,28 +1,38 @@
-<ion-view view-title="What kind of goal?" ng-model="GoalStuff">
-  <ion-content class="padding background">
-    <h1>{{goalType.title}} Details</h1>
+<ion-view view-title="{{goal.goalType.title}}" ng-model="GoalStuff">
+  <ion-content>
+    <div class="boxIt">
+      <div class = "card">
 
-    <!-- set goal  -->
-    <div class="list">
-    <label class="item item-input item-floating-label">
-      <span class="input-label">My goal is to reach ____________ {{goalType.unit}}</span>
-      <input ng-model="target" type="text" placeholder="My goal is to reach ____________ {{goalType.unit}}">
-    </label>
+        <div class="singleIconDiv positive">
+          <i class="{{goal.goalType.iconClass}} singleIcon"></i>
+        </div>
 
-    <!-- dropdown -->
-    <label class="item item-input item-select">
-      <div class="input-label">
-        Deadline
+        <div class="shiftDetailDown">
+          <div><h2 class="goalDeetsColor">My goal is to average</h2></div>
+          <div>
+            <div class="goalDeetsInputBox">
+              <input class="goalDeetsInput" ng-model="dailyAverage" placeholder="{{goal.goalType.suggestedTarget}}">
+            </div>
+            <div>
+              <h2 class="goalDeetsColor"> {{goal.goalType.unit}} / {{goal.goalType.phase}} for</h2>
+            </div>
+          </div>
+
+          <div class="goalDeetsInputBox">
+            <select
+            class="goalDeetsSelectBox"
+            ng-model="timeframe"
+            ng-options="time for time in times"
+            ng-init="timeframe=times[0]"
+            ng-change="selected(timeframe)">
+            </select>
+          </div>
+
+          <h2 class="goalDeetsColor"> That's a total of {{target = dailyAverage * days}} {{goal.goalType.unit}}.</h2>
+          <button class="button button-block button-positive col" ng-click="updateDeets()">Submit</button>
+        </div>
       </div>
-      <select ng-model="timeframe">
-        <option ng-repeat="time in times">{{time}}</option>
-      </select>
-    </label>
-
-    <!-- Submit button -->
-    <button class="button button-block button-outline button-positive" ng-click="updateDeets()">Submit</button>
     </div>
+  </div>
   </ion-content>
 </ion-view>
-
-<!-- Note: forms will need to be validated at some point -->

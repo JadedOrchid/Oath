@@ -1,26 +1,27 @@
-<ion-view view-title="Authorize your tracking device">
+<ion-view view-title="Authorize your device">
   <ion-content class="padding">
+
    <div class="card">
-     <div class="item item-text-wrap">
-       It looks as though you do not have a device associated with this goal type registered with Sympact.
-     </div>
+   <form action="/auth/jawbone" method="get">
+     <button class="button button-clear deviceAuth">
+        <img class="deviceAuthIcon" src="../img/jawbone.jpg">
+        Jawbone
+     </button>
+   </form>
    </div>
 
+   <div class="card">
    <form action="/auth/jawbone" method="get">
-     <button class="button button-clear button-calm deviceAuth">
-        <img class="deviceAuthIcon" src="../img/jawbone.jpg">
-        Authorize your Jawbone account
-     </button>
-   </form>
-
-   <form action="/auth/jawbone" method="get">
-     <button class="button button-clear button-calm deviceAuth">
+     <button class="button button-clear deviceAuth">
         <img class="deviceAuthIcon" src="../img/fitbit.png">
-        Authorize your Fitbit account
+        Fitbit
      </button>
    </form>
+   </div>
 
-     <form action="/auth/jawbone" method="get">
+     <!-- Coming soon -->
+
+     <!-- <form action="/auth/jawbone" method="get">
        <button class="button button-clear button-calm deviceAuth">
          <img class="deviceAuthIcon" src="../img/strava.png">
          Authorize your Strava account
@@ -32,7 +33,7 @@
          <img class="deviceAuthIcon" src="../img/spire.jpg">
          Authorize your Spire account
        </button>
-     </form>
+     </form> -->
 
    </form>
   </ion-content>
