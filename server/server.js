@@ -7,7 +7,7 @@ var app = express();
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
 
-require ('./config/middleware.js')(app,express);
+require('./config/middleware.js')(app,express);
 
 // required by index.js
 module.exports = app;

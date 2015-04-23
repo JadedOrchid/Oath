@@ -3,7 +3,6 @@
 
 # Client Dependencies
 client/app/node_modules/
-client/app/www/lib/
 client/app/platforms/
 client/app/plugins/
 resources/
