@@ -13,6 +13,17 @@
               <canvas tc-chartjs-doughnut chart-options="timeOptions" chart-data="goal.timeData" auto-legend></canvas>
             </div>
           </div>
+<!--           <div class="image-container">
+          <img src="{{goal.success.img}}">
+          </div> -->
+ <!--          <br>
+          <div class="list card">
+            <div class="item item-avatar">
+              <img src="{{goal.success.img}}">
+              <h2 style="text-align:left">Successful: </h2>
+              <p>Your {{goal.success.price}} will {{goal.success.clickAction.toLowerCase()}}!</p>
+            </div>
+          </div> -->
 
           <div class='info-container'>
              Target: {{ goal. target }} {{ goal.goalType.unit}}
@@ -20,6 +31,8 @@
              Progress: {{ goal.displayProgress }}
             <br>
             {{ goal.timeRemaining }} remaining
+            <br>
+            <em>Your {{goal.success.price}} will {{goal.success.clickAction.toLowerCase()}}!</em>
           </div>
         </div>
 

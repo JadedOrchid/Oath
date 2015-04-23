@@ -39,6 +39,7 @@ angular.module('oath.userFactory', [])
   };
 
   User.checkJawbone = function(user){
+    user || (user = User.loggedIn);
     if (user.jawbone === undefined){
       return false;
     } else {

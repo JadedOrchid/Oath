@@ -1,4 +1,4 @@
-angular.module('starter', 
+angular.module('oath', 
   ['ionic', 
   'oath.progressCtrl',
   'oath.rootCtrl',
@@ -105,7 +105,7 @@ angular.module('starter',
   .state('progress', {
     cache: false,
     url: '/progress',
-    templateUrl: 'templates/tab-progress.html',
+    templateUrl: 'templates/progress.html',
     controller: 'ProgressCtrl'
   })
 
@@ -117,15 +117,14 @@ angular.module('starter',
 
   .state('failurereport', {
     url: '/failurereport',
-    templateUrl: 'templates/tab-failure.html',
+    templateUrl: 'templates/failure.html',
     controller: 'FailureReportCtrl'
   })
 
   .state('settings', {
     url: '/settings',
-    templateUrl: 'templates/tab-settings.html'
+    templateUrl: 'templates/settings.html'
   });
 
   $urlRouterProvider.otherwise('/');
-
 });
