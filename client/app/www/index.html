@@ -16,7 +16,6 @@
 
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript">
-
       Stripe.setPublishableKey('pk_test_hqeWPNzSFbV5rUb48KRhaqtz');
     </script>
     <script src="lib/angular-cookies/angular-cookies.js"></script>
@@ -26,8 +25,18 @@
     <script src="lib/tc-angular-chartjs/dist/tc-angular-chartjs.min.js"></script>
 
     <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>
+    
+    <script src="js/controllers/rootController.js"></script>
+    <script src="js/controllers/goalControllers.js"></script>
+    <script src="js/controllers/tabController.js"></script>
+    <script src="js/controllers/progressController.js"></script>
+    <script src="js/controllers/paymentController.js"></script>
+    <script src="js/controllers/reportControllers.js"></script>
+    <script src="js/controllers/endConditionControllers.js"></script>
+
+    <script src="js/services/userFactory.js"></script>
+    <script src="js/services/goalFactory.js"></script>
+    <script src="js/services/paymentFactory.js"></script>
   </head>
   <body ng-app="starter">
 
