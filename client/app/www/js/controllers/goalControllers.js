@@ -3,15 +3,31 @@ angular.module('oath.goalCtrls', [])
 .controller('GoalCtrl', ['$scope', '$state', 'GoalBuilder', 'User', function($scope, $state, GoalBuilder, User) {
   $scope.goalTypes = GoalBuilder.returnGoals();
   $scope.goalClick = function(type){
-    if( !(type.title === 'Step' || type.title === 'Sleep') ) {
-      $state.go('comingsoon');
-    } else {
+    var status;
+    if (type.title === 'Step' || type.title === 'Sleep'){
       GoalBuilder.goal.goalType = type;
-      if (User.checkJawbone()){
-        $state.go('goaldetails');
-      } else {
-        $state.go('deviceAuth');
-      }
+      status = User.checkDevice('jawbone');
+    } else if (type.title === 'Cycle' || type.title === 'Run') {
+      GoalBuilder.goal.goalType = type;
+      status = User.checkDevice('strava');
+    } else {
+      $state.go('comingsoon');
+    }
+
+    // if( !(type.title === 'Step' || type.title === 'Sleep') ) {
+    //   $state.go('comingsoon');
+    // } else {
+    //   GoalBuilder.goal.goalType = type;
+    //   if (User.checkDevice('jawbone')){
+    //     $state.go('goaldetails');
+    //   } else {
+    //     $state.go('deviceAuth');
+    //   }
+    // }
+    if (status){
+      $state.go('goaldetails');
+    } else {
+      $state.go('deviceAuth');
     }
   };
 }])
@@ -26,7 +42,7 @@ angular.module('oath.goalCtrls', [])
   $scope.target = GoalBuilder.goal.goalType.suggestedTarget;
   $scope.dailyAverage = $scope.target;
   $scope.times = GoalBuilder.returnTimes(); //contains the available goal timeframes
-  
+
   $scope.updateDeets = function(){
     GoalBuilder.goal.period = {
       human: this.timeframe,
@@ -35,7 +51,7 @@ angular.module('oath.goalCtrls', [])
     GoalBuilder.goal.target = $scope.target;
     GoalBuilder.goal.progress = 0;
     $state.go('goalsuccess');
-  }; 
+  };
 
   $scope.selected = function(selectedTimeframe){
     $scope.days = GoalBuilder.getDays(selectedTimeframe);

@@ -38,9 +38,9 @@ angular.module('oath.userFactory', [])
     });
   };
 
-  User.checkJawbone = function(user){
+  User.checkDevice = function(device, user){
     user || (user = User.loggedIn);
-    if (user.jawbone === undefined){
+    if (user[device] === undefined){
       return false;
     } else {
       return true;
