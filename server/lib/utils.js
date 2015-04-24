@@ -113,7 +113,3 @@ lib.updateGoalUnbound = function(type, data, goal){
 }
 
 module.exports = lib;
-
-
-
-
