@@ -1,15 +1,15 @@
 // load all the things we need
-var LocalStrategy  = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
-var JawboneStrategy  = require('passport-oauth').OAuth2Strategy;
-var StravaStrategy   = require('passport-strava').Strategy;
-var User     = require('../models/user');
+var JawboneStrategy = require('passport-oauth').OAuth2Strategy;
+var StravaStrategy = require('passport-strava').Strategy;
+var User = require('../models/user');
 var configAuth = require('./auth'); 
 
 module.exports = function(passport) {
-  // =========================================================================
-  // passport session setup ==================================================
-  // =========================================================================
+  ////////////////////////////
+  // PASSPORT SESSION SETUP //
+  ////////////////////////////
   // required for persistent login sessions
   // passport needs ability to serialize and unserialize users out of session
 
@@ -21,9 +21,9 @@ module.exports = function(passport) {
       done(err, user);
     });
   });
-  // =========================================================================
-  // LOCAL LOGIN =============================================================
-  // =========================================================================
+  ///////////////////////
+  // LOCAL LOGIN       //
+  ///////////////////////
   passport.use('local-login', new LocalStrategy({
     // by default, local strategy uses username and password, we will override with email
     usernameField : 'email',
@@ -47,10 +47,10 @@ module.exports = function(passport) {
           return done(null, user);
       });
     });
-  }));
-  // =========================================================================
-  // LOCAL SIGNUP ============================================================
-  // =========================================================================
+    }));
+  ///////////////////////
+  // LOCAL SIGNUP      //
+  ///////////////////////
   passport.use('local-signup', new LocalStrategy({
     // by default, local strategy uses username and password, we will override with email
     usernameField : 'email',
@@ -74,7 +74,7 @@ module.exports = function(passport) {
 
         //  If we're logged in, we're connecting a new local account.
         if(req.user) {
-          var user      = req.user;
+          var user = req.user;
           user.local.email  = email;
           user.local.password = user.generateHash(password);
           user.save(function(err) {
@@ -86,7 +86,7 @@ module.exports = function(passport) {
         //  We're not logged in, so we're creating a brand new user.
         else {
           // create the user
-          var newUser      = new User();
+          var newUser = new User();
           newUser.local.email  = email;
           newUser.local.password = newUser.generateHash(password);
           newUser.save(function(err) {
@@ -99,9 +99,9 @@ module.exports = function(passport) {
       });
     });
   }));
-///////////////////////
-// FACEBOOK STRATEGY //
-///////////////////////
+  ///////////////////////
+  // FACEBOOK STRATEGY //
+  ///////////////////////
   passport.use(new FacebookStrategy({
     clientID    : configAuth.facebookAuth.clientID,
     clientSecret  : configAuth.facebookAuth.clientSecret,
@@ -132,7 +132,7 @@ module.exports = function(passport) {
             return done(null, user); // user found, return that user
           } else {
             // if there is no user, create them
-            var newUser      = new User();
+            var newUser = new User();
 
             newUser.facebook.id  = profile.id;
             newUser.facebook.token = token;
@@ -147,7 +147,7 @@ module.exports = function(passport) {
         });
       } else {
         // user already exists and is logged in, we have to link accounts
-        var user      = req.user; // pull the user out of the session
+        var user = req.user; // pull the user out of the session
         user.facebook.id  = profile.id;
         user.facebook.token = token;
         user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
