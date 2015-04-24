@@ -22,17 +22,11 @@ module.exports = function(app, passport) {
     res.redirect('/#/');
   });
 
-  // app.post('/jawbone/pubsub', function(req,res){
-  //   var info = req.body;
-    
-  //   var pubSub = new PubSub();
-  //   pubSub.data = req.body;
-  //   pubSub.save(function(err) {
-  //             if (err)
-  //                 throw err;
-  //             });
-  //   res.send('success');
-  // });
+  // connect strava
+  app.get('/strava', passport.authorize('strava'));
+  app.get('/strava/callback', passport.authorize('strava'), function(req, res){
+    res.redirect('/#/');
+  });
 
   app.get('/logout', function(req, res) {
     req.logout();

@@ -22,6 +22,11 @@ module.exports = {
        'tokenURL'         : 'https://jawbone.com/auth/oauth2/token',
        'callbackURL'      : nconf.get('jawboneCallback')
     },
+    'stravaAuth' : {
+      'clientID'         :  nconf.get('stravaKey'),
+      'clientSecret'     :  nconf.get('stravaSecret'),
+      'callbackURL'      : nconf.get('stravaCallback')
+    },
     'stripeAuth' : {
       'testSecretKey'     :  nconf.get('stripeTestSecretKey')
     }
