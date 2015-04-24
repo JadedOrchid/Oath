@@ -1,4 +1,4 @@
-// var authController = require('./authController.js');
+var controller = require('./authController.js');
 
 module.exports = function(app, passport) {
   //authenticate with facebook
@@ -17,13 +17,15 @@ module.exports = function(app, passport) {
       });
 
   //connect jawbone
-  app.get('/jawbone', passport.authorize('jawbone', { scope : ['basic_read','extended_read','friends_read','move_read','sleep_read','meal_read'] }));
+  app.get('/jawbone', controller.isLoggedIn, 
+    passport.authorize('jawbone', { scope : ['basic_read','extended_read','friends_read','move_read','sleep_read','meal_read'] }));
+  
   app.get('/jawbone/callback', passport.authorize('jawbone'), function(req, res){
     res.redirect('/#/');
   });
 
   // connect strava
-  app.get('/strava', passport.authorize('strava'));
+  app.get('/strava', controller.isLoggedIn, passport.authorize('strava'));
   app.get('/strava/callback', passport.authorize('strava'), function(req, res){
     res.redirect('/#/');
   });
