@@ -132,14 +132,13 @@ angular.module('oath.goalFactory', [])
 
   GoalBuilder.saveGoal = function(goal) {
     var copy = angular.copy(goal);
-    //prepend a copy to local goals array
     User.loggedIn.goals.push(copy);
   };
 
   GoalBuilder.sendGoal = function(goal){
     $http.post('/api/goals', goal)
       .success(function(data, status, headers, config) {
-        console.log('YAY!!');
+        console.log('Goal saved');
       })
       .error(function(data, status, headers, config) {
         console.log('Your goal could not be added');
