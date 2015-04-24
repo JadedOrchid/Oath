@@ -10,9 +10,17 @@ angular.module('oath.rootCtrl', [])
   function redirect (user){
     var authorizedGoal = localStorage.getItem('goalType');
     if(authorizedGoal) {
-      GoalBuilder.goal.goalType = authorizedGoal;
-      //if on the user object, device === true, then go to goal details
-      $state.go('goaldetails');
+      GoalBuilder.goal.goalType = JSON.parse(authorizedGoal);
+      localStorage.removeItem('goalType');
+      var status = User.hasValidDevice(GoalBuilder.goal.goalType.title);
+      if (status){
+        $state.go('goaldetails');
+        return;
+      } else {
+        $state.go('deviceAuth');
+        return;
+      }
+
     }
     var uncelebratedGoal = User.getOldestUncelebrated();
     if (user.goals.length === 0){
