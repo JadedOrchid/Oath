@@ -3,40 +3,28 @@ angular.module('oath.goalCtrls', [])
 .controller('GoalCtrl', ['$scope', '$state', 'GoalBuilder', 'User', function($scope, $state, GoalBuilder, User) {
   $scope.goalTypes = GoalBuilder.returnGoals();
   $scope.goalClick = function(type){
-    var status;
-    if (type.title === 'Step' || type.title === 'Sleep'){
-      GoalBuilder.goal.goalType = type;
-      status = User.checkDevice('jawbone');
-    } else if (type.title === 'Cycle' || type.title === 'Run') {
-      GoalBuilder.goal.goalType = type;
-      status = User.checkDevice('strava');
-    } else {
+    var status = User.hasValidDevice(type.title);
+    if(status === null) {
       $state.go('comingsoon');
-    }
-
-    // if( !(type.title === 'Step' || type.title === 'Sleep') ) {
-    //   $state.go('comingsoon');
-    // } else {
-    //   GoalBuilder.goal.goalType = type;
-    //   if (User.checkDevice('jawbone')){
-    //     $state.go('goaldetails');
-    //   } else {
-    //     $state.go('deviceAuth');
-    //   }
-    // }
-    if (status){
+    } else if (status){
+      GoalBuilder.goal.goalType = type;
       $state.go('goaldetails');
     } else {
+      GoalBuilder.goal.goalType = type;
       $state.go('deviceAuth');
     }
+  };
+  $scope.localSave = function() {
+    localStorage.setItem('goalType', JSON.stringify(GoalBuilder.goal.goalType));
   };
 }])
 
 .controller('GoalDetailCtrl', ['$scope', '$state', 'GoalBuilder', function($scope, $state, GoalBuilder) {
-    if (!GoalBuilder.goal.goalType){
-      $state.go('login');
-      return;
-    }
+  if (!GoalBuilder.goal.goalType){
+    $state.go('login');
+    return;
+  }
+
   $scope.goal = GoalBuilder.goal;
   $scope.days = 1; // initialize days variable so calcaulation at bottom page doesn't throw error
   $scope.target = GoalBuilder.goal.goalType.suggestedTarget;

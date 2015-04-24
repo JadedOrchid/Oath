@@ -3,13 +3,10 @@ angular.module('oath.progressCtrl', [])
   if (!User.loggedIn){
     $state.go('login');
   }
-
   var goals = User.loggedIn.goals.filter(function(goal){
     return !goal.celebrated;
   }).reverse();
   $scope.goals = goals.map(processGoal);
-  console.log($scope.goals);
-
     // Chart.js Options
    $scope.goalOptions =  {
       responsive: true,

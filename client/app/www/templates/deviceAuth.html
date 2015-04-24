@@ -1,34 +1,32 @@
 <ion-view view-title="Authorize your device">
   <ion-content class="padding">
     <div class="boxIt">
-     <div class="card">
-     <form action="/auth/jawbone" method="get">
-       <button class="button button-clear deviceAuth">
-          <img class="deviceAuthIcon" src="../img/jawbone.jpg">
-          Jawbone
-       </button>
-     </form>
-     </div>
+      <div class="card">
+      <form action="/auth/jawbone" method="get">
+        <button ng-click="localSave()" class="button button-clear deviceAuth">
+           <img class="deviceAuthIcon" src="../img/jawbone.jpg">
+           Jawbone
+        </button>
+      </form>
+      </div>
 
-     <div class="card">
-     <form action="/auth/jawbone" method="get">
-       <button class="button button-clear deviceAuth">
-          <img class="deviceAuthIcon" src="../img/fitbit.png">
-          Fitbit
-       </button>
-     </form>
-     </div>
+      <div class="card">
+      <form action="/auth/jawbone" method="get">
+        <button ng-click="localSave()" class="button button-clear deviceAuth">
+           <img class="deviceAuthIcon" src="../img/fitbit.png">
+           Fitbit
+        </button>
+      </form>
+      </div>
 
-     <div class="card">
-     <form action="/auth/strava" method="get">
-       <button class="button button-clear deviceAuth">
-          <img class="deviceAuthIcon" src="../img/strava.png">
-          Strava
-       </button>
-     </form>
-     </div>
-
-
+      <div class="card">
+      <form action="/auth/strava" method="get">
+        <button ng-click="localSave()" class="button button-clear deviceAuth">
+           <img class="deviceAuthIcon" src="../img/strava.png">
+           Strava
+        </button>
+      </form>
+      </div>
     </div>
 
      <!-- Coming soon -->

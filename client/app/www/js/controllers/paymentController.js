@@ -4,9 +4,7 @@ angular.module('oath.paymentCtrl', [])
     $state.go('login');
     return;
   }
-
   var goal = GoalBuilder.goal;
-  console.log(goal);
 
   $scope.goal = goal;
   $scope.goalDuration = goal.period.human.toLowerCase();
