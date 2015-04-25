@@ -1,5 +1,5 @@
-angular.module('oath', 
-  ['ionic', 
+angular.module('oath',
+  ['ionic',
   'oath.progressCtrl',
   'oath.rootCtrl',
   'oath.paymentCtrl',
@@ -11,7 +11,7 @@ angular.module('oath',
   'oath.goalFactory',
   'oath.paymentFactory',
   'chart.js',
-  'tc.chartjs' 
+  'tc.chartjs'
   ])
 
 .run(function($ionicPlatform) {
@@ -20,6 +20,7 @@ angular.module('oath',
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(true); //we added this to try to stop auto-scroll on payment page. this likely might not do the trick and we might need to remove it
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required

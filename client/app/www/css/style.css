@@ -510,3 +510,14 @@ a:hover{
   margin-left: auto;
   margin-right: auto;
 }
+
+
+.timeRemainSpan{
+  text-decoration: none;
+  border-bottom: 3px solid #26B099;
+}
+
+.progressRemainSpan{
+  text-decoration: none;
+  border-bottom: 3px solid #FFC125;
+}

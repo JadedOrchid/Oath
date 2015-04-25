@@ -55,7 +55,7 @@ angular.module('oath.progressCtrl', [])
 
       goal.timeData = [{
           value: goal.timeElapsed,
-          color:'#ececec',
+          color:'#fff',
           // highlight: '#28BE9B',
           label: ''
         },

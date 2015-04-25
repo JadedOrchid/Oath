@@ -28,12 +28,12 @@
           <div class='info-container'>
              Target: {{ goal. target }} {{ goal.goalType.unit}}
             <br>
-             Progress: {{ goal.displayProgress }}
+            <span class="progressRemainSpan"> Progress: {{ goal.displayProgress }} </span>
             <br>
-            {{ goal.timeRemaining }} remaining
+            <span class="timeRemainSpan"> {{ goal.timeRemaining }} remaining</span>
             <br>
-            <em>Your {{goal.success.price}} will {{goal.success.clickAction.toLowerCase()}}!</em>
           </div>
+            <em>Your {{goal.success.price}} will {{goal.success.clickAction.toLowerCase()}}!</em>
         </div>
 
         </div>
