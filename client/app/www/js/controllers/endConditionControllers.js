@@ -18,7 +18,6 @@ angular.module('oath.endConditionCtrls', [])
   $scope.failures = GoalBuilder.returnFailures();
   $scope.failClick = function(fail){
     var goal = GoalBuilder.goal;
-    console.log(goal);
     goal.fail = fail;
     goal.startTime = Math.floor( Date.now() / 1000 );
     goal.completed = false;

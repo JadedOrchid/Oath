@@ -3,7 +3,6 @@ var bcrypt   = require('bcrypt');
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
-
     goals: [],
     local            : {
         email        : String,
@@ -15,19 +14,18 @@ var userSchema = mongoose.Schema({
         email        : String,
         name         : String
     },
-    twitter          : {
-        id           : String,
-        token        : String,
-        displayName  : String,
-        username     : String
-    },
     jawbone          : {
         id           : String,
         token        : String,
         email        : String,
         name         : String
-    }
-     
+    },
+    strava           : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
+    }  
 });
 // methods ======================
 // generating a hash

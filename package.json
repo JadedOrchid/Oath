@@ -38,6 +38,7 @@
     "passport-facebook": "^2.0.0",
     "passport-local": "^1.0.0",
     "passport-oauth": "^1.0.0",
+    "passport-strava": "^0.1.0",
     "stripe": "^3.3.4",
     "underscore": "^1.8.3"
   },
