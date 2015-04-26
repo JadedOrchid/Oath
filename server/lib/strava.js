@@ -13,7 +13,13 @@ strava.get = function(type, userToken, cb) {
            body += d;
          });
          response.on('end', function() {
-           cb(null, body);
+          var parsed;
+          try {
+            parsed = JSON.parse(body);
+          } catch (e) {
+            cb(e, null);
+          }
+           cb(null, parsed);
          });
    });
 };
