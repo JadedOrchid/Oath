@@ -1,6 +1,12 @@
 angular.module('oath.goalCtrls', [])
 
 .controller('GoalCtrl', ['$scope', '$state', 'GoalBuilder', 'User', function($scope, $state, GoalBuilder, User) {
+  //clears localStorage
+  localStorage.removeItem('goalType');
+  if (!User.loggedIn){
+    $state.go('root');
+  }
+
   $scope.goalTypes = GoalBuilder.returnGoals();
   $scope.goalClick = function(type){
     var status = User.hasValidDevice(type.title);
