@@ -36,7 +36,7 @@ angular.module('oath.goalCtrls', [])
       human: this.timeframe,
       seconds: GoalBuilder.convertTime(this.timeframe)
     };
-    GoalBuilder.goal.target = $scope.target;
+    GoalBuilder.goal.target = $scope.dailyAverage * $scope.days;
     GoalBuilder.goal.progress = 0;
     $state.go('goalsuccess');
   };

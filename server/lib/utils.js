@@ -7,18 +7,29 @@ var strava = require('./strava');
 
 // currently supported goals
 var GOALS = ['Sleep', 'Step', 'Cycle'];
-
 //maps goals to currently supported third-party service
 var PROVIDER = {
   'Sleep' : 'jawbone',
   'Step'  : 'jawbone',
   'Cycle' : 'strava'
 };
-//maps our naming convention to Provider's naming convention
+//maps our names to third-parties' names
 var NAME = {
   'Sleep' : 'sleeps',
   'Step'  : 'moves',
   'Cycle' : 'Ride'
+};
+// maps providers to a method to parse their API responses
+var PARSE = {
+  jawbone : function(response, type) {
+    return response.data.items;
+  },
+  strava : function(response, type) {
+    var name = NAME[type];
+    return _.filter(response, function(datum){
+      return datum.type === name;
+    });
+  }
 };
 
 //constants
@@ -29,23 +40,23 @@ var lib = {};
 
 // Update all goals for all users.
 // This function executes every N minutes, for some small-ish N
-lib.updateAllUserGoals = function(){
+lib.updateAllUsers = function(){
   User.find(function(err, users){
     users.forEach(function(user){
-      lib.updateUserGoals(user);
+      lib.updateUser(user);
     });
   });
 };
 
 // updates all goals for given user.
 // and passes user to an optional callback after saving to DB
-lib.updateUserGoals = function(user, cb){
-  lib.update(GOALS[0], user)
+lib.updateUser = function(user, callback){
+  lib.updateGoalsOfType(GOALS[0], user)
   .then(function(user){
-    return lib.update(GOALS[1], user);
+    return lib.updateGoalsOfType(GOALS[1], user);
   })
   .then(function(user){
-    return lib.update(GOALS[2], user);
+    return lib.updateGoalsOfType(GOALS[2], user);
   })
   .then(function(user){
     user.markModified('goals');
@@ -53,101 +64,52 @@ lib.updateUserGoals = function(user, cb){
     })
   .then(function(user){
     console.log('saved user');
-    if (cb) cb(null, user);
+    if (callback) callback(null, user);
   })
   .catch(function(error){
     console.error(error);
   })
 };
 
-var update = function(type, user, cb) {
+var updateGoalsOfType = function(type, user, done) {
   var goals = user.goals;
-  var relevantGoals = lib.filterGoalsByType(goals, type);
+  var relevantGoals = lib.filterGoalsByType(type, goals);
   if (relevantGoals.length === 0){
-    return cb(null, user); 
+    return done(null, user); 
   }
   var provider = PROVIDER[type];
   var name = NAME[type];
   if(!user[provider]) {
-    cb(null, user); // user hasn't associated 3rd-party profile
+    done(null, user); // user hasn't associated 3rd-party profile
   }
   if (provider === 'jawbone') {
-    jawbone.get(name, user.jawbone.token, function(err, resp){
-      if (resp) {
-        var data = resp.data.items;
-        var updateGoal = _.bind(lib.updateGoalUnbound, null, type, data);
-        _.each(relevantGoals, updateGoal);
-      }
-      cb(err, user);
-    });
+    jawbone.get(name, user.jawbone.token, callback);
   } else if (provider === 'strava') {
-    strava.get('activities', user.strava.token, function(err,resp){
-     if (resp){
-       var data = _.filter(resp, function(datum){
-         return datum.type === name;
-       });
-       var updateGoal = _.bind(lib.updateGoalUnbound, null, type, data);
-       _.each(relevantGoals, updateGoal);
-     }
-     cb(err, user);
-    });
+    strava.get('activities', user.strava.token, callback);
+  } else {
+    console.error('provider not currently supported');
   }
-};
-
-var jawboneUpdate = function(type, user, cb){
-  if (!user.jawbone){
-    cb(null,user);
-  }
-  var goals = user.goals;
-  var relevantGoals = lib.filterGoalsByType(goals, type);
-  if (relevantGoals.length === 0){
-    return cb(null, user); 
-  }
-  jawbone.get(type, user.jawbone.token, function(err, resp){
+  function callback(err, resp){
     if (resp) {
-      var data = resp.data.items;
+      var data = PARSE[provider](resp,type)
       var updateGoal = _.bind(lib.updateGoalUnbound, null, type, data);
       _.each(relevantGoals, updateGoal);
     }
-    cb(err, user);
-  });
+    done(err, user);
+  }
 };
-
-var stravaUpdate = function(type,user,cb){
-   if (!user.strava){
-    cb(null,user);
-   }
-   var goals = user.goals;
-   var relevantGoals = lib.filterGoalsByType(goals, type);
-   if (relevantGoals.length === 0){
-     return cb(null, user); 
-   }
-   strava.get('activities', user.strava.token, function(err,resp){
-    if (resp){
-      var data = _.filter(resp, function(datum){
-        return datum.type === type;
-      });
-      console.log(data);
-      var updateGoal = _.bind(lib.updateGoalUnbound, null, type, data);
-      _.each(relevantGoals, updateGoal);
-    }
-    cb(err, user);
-   })
-}
 
 // export promisified version of jawbone / strava update
-lib.jawboneUpdate = Promise.promisify(jawboneUpdate);
-lib.stravaUpdate  = Promise.promisify(stravaUpdate);
-lib.update = Promise.promisify(update);
+lib.updateGoalsOfType = Promise.promisify(updateGoalsOfType);
 
 // entire goals array -> filtered goals array
 // valid types: 'Sleep', 'Step', 'Cycle'
-lib.filterGoalsByType = function(goals, type){
+lib.filterGoalsByType = function(type, goals){
   // return uncompleted goals of type clientType
   return _.filter(goals, function(goal){
     return (!goal.completed && goal.goalType.title === type);
   });
-}
+};
 
 // entire data array -> filtered data array
 lib.filterDataByTime = function(provider, data, startTime, endTime){
@@ -165,7 +127,7 @@ lib.filterDataByTime = function(provider, data, startTime, endTime){
         var timeCompleted = pluckTime(datum);
         return timeCompleted > startTime && timeCompleted < endTime ;
        });
-}
+};
 
 lib.calculateProgress = function(relevantData, type){
   return _.reduce(relevantData, function(memo, datum){
@@ -177,14 +139,14 @@ lib.calculateProgress = function(relevantData, type){
         return memo + (datum.distance * METERS_TO_MILES);
       }
     },0);
-}
+};
 
 lib.isCompleted = function (endTime, currentTime){
   if (endTime < currentTime){
     return true;
   }
   return false;
-}
+};
 
 //side effect: mutates goal object
 lib.updateGoalUnbound = function(type, data, goal){
@@ -195,6 +157,6 @@ lib.updateGoalUnbound = function(type, data, goal){
 
   goal.progress = lib.calculateProgress(relevantData, type);
   goal.completed = lib.isCompleted(endTime, currentTime);
-}
+};
 
 module.exports = lib;
