@@ -1,5 +1,3 @@
-// don't we really care about AVERAGE sleep time / day over 1 week, not TOTAL ?
-// sleep goal currently: target: 100 hours
 var User = require('../models/user.js');
 var jawbone = require('./jawbone');
 var _ = require('underscore');
@@ -58,14 +56,16 @@ var jawboneUpdate = function(type, user, cb){
 lib.jawboneUpdate = Promise.promisify(jawboneUpdate);
 
 // entire goals array -> filtered goals array
-// valid types: 'sleep', 'moves'
+// valid types: 'sleep', 'moves', 'cycle'
 lib.filterGoalsByType = function(goals, type){
   var clientType;
   if (type === 'sleeps'){
     clientType = 'Sleep';
   } else if (type === 'moves'){
     clientType = 'Step';
-  } else{
+  } else if (type === 'cycle'){
+    clientType = 'Cycle';
+  }else{
     console.error('invalid type');
   }
   // return uncompleted goals of type clientType

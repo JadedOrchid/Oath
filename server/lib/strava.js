@@ -4,9 +4,9 @@ var strava = {};
 
 strava.get = function(type, userToken, cb) {
   return https.get({
-       host: 'www.strava.com',
-       path: '/api/v3/' + type,
-       headers: { 'Authorization' : 'Bearer ' +  userToken }
+      host: 'www.strava.com',
+      path: '/api/v3/' + type,
+      headers: { 'Authorization' : 'Bearer ' +  userToken }
    }, function(response) {
          var body = '';
          response.on('data', function(d) {
