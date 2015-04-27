@@ -32,8 +32,9 @@ var PARSE = {
   }
 };
 
-//constants
+//coefficients
 var METERS_TO_MILES = 0.000621371;
+var SECONDS_TO_HOURS = 0.00027777777;
 
 //namespace
 var lib = {};
@@ -132,7 +133,7 @@ lib.filterDataByTime = function(provider, data, startTime, endTime){
 lib.calculateProgress = function(relevantData, type){
   return _.reduce(relevantData, function(memo, datum){
       if (type === 'Sleep') {
-        return memo + datum.details.light + datum.details.sound;
+        return memo + ((datum.details.light + datum.details.sound) * SECONDS_TO_HOURS);
       } else if (type === 'Step'){
         return memo + datum.details.steps;
       } else if (type === 'Cycle'){
@@ -155,7 +156,7 @@ lib.updateGoalUnbound = function(type, data, goal){
   var endTime = goal.startTime + goal.period.seconds;
   var relevantData = lib.filterDataByTime(PROVIDER[type], data, startTime, endTime);
 
-  goal.progress = lib.calculateProgress(relevantData, type);
+  goal.progress = Math.floor( lib.calculateProgress(relevantData, type) );
   goal.completed = lib.isCompleted(endTime, currentTime);
 };
 
