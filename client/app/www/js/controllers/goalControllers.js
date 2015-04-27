@@ -8,6 +8,11 @@ angular.module('oath.goalCtrls', [])
   }
 
   $scope.goalTypes = GoalBuilder.returnGoals();
+
+  $scope.comingSoon = function(){
+    $state.go('comingsoon');
+  };
+
   $scope.goalClick = function(type){
     var status = User.hasValidDevice(type.title);
     if(status === null) {
