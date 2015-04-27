@@ -154,7 +154,6 @@ lib.updateGoal = function(type, data, goal){
   var startTime = goal.startTime;
   var endTime = goal.startTime + goal.period.seconds;
   var relevantData = lib.filterDataByTime(PROVIDER[type], data, startTime, endTime);
-
   goal.progress = Math.floor( lib.calculateProgress(relevantData, type) );
   goal.completed = lib.isCompleted(endTime, currentTime);
 };
