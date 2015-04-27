@@ -1,11 +1,10 @@
 var https = require('https');
+var _ = require('underscore');
 
-var strava = {};
-
-strava.get = function(type, userToken, cb) {
+module.exports = function(type, userToken, cb) {
   return https.get({
       host: 'www.strava.com',
-      path: '/api/v3/' + type,
+      path: '/api/v3/activities',
       headers: { 'Authorization' : 'Bearer ' +  userToken }
    }, function(response) {
          var body = '';
@@ -19,9 +18,13 @@ strava.get = function(type, userToken, cb) {
           } catch (e) {
             cb(e, null);
           }
-           cb(null, parsed);
+          cb(null, filter(type, parsed));
          });
    });
 };
 
-module.exports = strava;
+function filter (type, array){
+  return _.filter(array, function(elem){
+    return elem.type === type;
+  });
+}
