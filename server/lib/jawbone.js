@@ -1,7 +1,6 @@
 var auth = require('../config/auth.js');
 
-var jawbone = {};
-jawbone.get = function(type, userToken, cb) {
+module.exports = function(type, userToken, cb) {
   var options = {
     'client_id' : auth.jawboneAuth.clientID,
     'client_secret' : auth.jawboneAuth.clientSecret,
@@ -17,8 +16,10 @@ jawbone.get = function(type, userToken, cb) {
       cb(e, null);
     }
 
-    cb(err, body);
+    cb(err, pluck(body));
   });
 };
 
-module.exports = jawbone;
+function pluck (body){
+  return body.data.items;
+}

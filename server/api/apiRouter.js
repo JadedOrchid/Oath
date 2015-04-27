@@ -14,19 +14,19 @@ module.exports = function(router, passport) {
 
   // the following endpoints are for the purpose of testing API calls //
   router.get('/getSleeps', controller.isLoggedIn, function(req,res){
-    jawbone.get('sleeps', req.user.jawbone.token, function(err, body){
+    jawbone('sleeps', req.user.jawbone.token, function(err, body){
       res.send(body);
     })
   });
 
   router.get('/getMoves', controller.isLoggedIn, function(req,res){
-    jawbone.get('moves', req.user.jawbone.token, function(err, body){
+    jawbone('moves', req.user.jawbone.token, function(err, body){
       res.send(body);
     })
   });
 
   router.get('/getStrava', controller.isLoggedIn, function(req,res){
-    strava.get('activities', req.user.strava.token, function(err, body){
+    strava('activities', req.user.strava.token, function(err, body){
       res.send(body);
     })
   })
