@@ -26,7 +26,7 @@ module.exports = function(router, passport) {
   });
 
   router.get('/getStrava', controller.isLoggedIn, function(req,res){
-    strava('activities', req.user.strava.token, function(err, body){
+    strava('Run', req.user.strava.token, function(err, body){
       res.send(body);
     })
   })

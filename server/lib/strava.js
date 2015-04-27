@@ -24,7 +24,7 @@ module.exports = function(type, userToken, cb) {
 };
 
 function filter (type, array){
-  _.filter(array, function(elem){
+  return _.filter(array, function(elem){
     return elem.type === type;
   });
 }
