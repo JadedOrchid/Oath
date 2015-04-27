@@ -1,4 +1,4 @@
-<ion-view view-title="Welcome to Oath!">
+<!-- <ion-view view-title="Welcome to Oath!">
   <ion-content class="padding">
     <div class="list">
       <h2>Sign up for an account!</h2>
@@ -11,3 +11,25 @@
     </div>
   </ion-content>
 </ion-view>
+ -->
+
+<div class="login-div main">
+  <div class="logo-container boxIt">
+    <img class ="logo" src="img/logo300.png">
+  </div>
+  <div class="signin-container">
+    <form action="/auth/signup" method="post">
+      <div class="list">
+        <label class="item item-input">
+          <input type="email" name="email" placeholder="Email address">
+        </label>
+        <label class="item item-input">
+          <input type="password" name="password" placeholder="Password">
+        </label>
+        <button class="button signin-button button-block" >
+          Create new account
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
