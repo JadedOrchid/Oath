@@ -1,5 +1,7 @@
 var controller = require('./apiController');
 var jawbone = require('../lib/jawbone');
+var strava = require('../lib/strava');
+
 module.exports = function(router, passport) {
   router.get('/user', controller.isLoggedIn, controller.handleUserGet);
 
@@ -10,6 +12,7 @@ module.exports = function(router, passport) {
 
   router.post('/goals', controller.isLoggedIn, controller.handleGoalsPost);
 
+  // the following endpoints are for the purpose of testing API calls //
   router.get('/getSleeps', controller.isLoggedIn, function(req,res){
     jawbone.get('sleeps', req.user.jawbone.token, function(err, body){
       res.send(body);
@@ -21,5 +24,11 @@ module.exports = function(router, passport) {
       res.send(body);
     })
   });
+
+  router.get('/getStrava', controller.isLoggedIn, function(req,res){
+    strava.get('activities', req.user.strava.token, function(err, body){
+      res.send(body);
+    })
+  })
 
 };

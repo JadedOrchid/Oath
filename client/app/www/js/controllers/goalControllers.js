@@ -1,6 +1,12 @@
 angular.module('oath.goalCtrls', [])
 
 .controller('GoalCtrl', ['$scope', '$state', 'GoalBuilder', 'User', function($scope, $state, GoalBuilder, User) {
+  //clears localStorage
+  localStorage.removeItem('goalType');
+  if (!User.loggedIn){
+    $state.go('root');
+  }
+
   $scope.goalTypes = GoalBuilder.returnGoals();
   $scope.goalClick = function(type){
     var status = User.hasValidDevice(type.title);
@@ -36,7 +42,7 @@ angular.module('oath.goalCtrls', [])
       human: this.timeframe,
       seconds: GoalBuilder.convertTime(this.timeframe)
     };
-    GoalBuilder.goal.target = $scope.target;
+    GoalBuilder.goal.target = $scope.dailyAverage * $scope.days;
     GoalBuilder.goal.progress = 0;
     $state.go('goalsuccess');
   };

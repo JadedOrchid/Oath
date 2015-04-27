@@ -1,29 +1,63 @@
-// don't we really care about AVERAGE sleep time / day over 1 week, not TOTAL ?
-// sleep goal currently: target: 100 hours
-var User = require('../models/user.js');
-var jawbone = require('./jawbone');
 var _ = require('underscore');
 var Promise = require('bluebird');
+
+var User = require('../models/user.js');
+var jawbone = require('./jawbone');
+var strava = require('./strava');
+
+// currently supported goals
+var GOALS = ['Sleep', 'Step', 'Cycle'];
+//maps goals to currently supported third-party service
+var PROVIDER = {
+  'Sleep' : 'jawbone',
+  'Step'  : 'jawbone',
+  'Cycle' : 'strava'
+};
+//maps our names to third-parties' names
+var NAME = {
+  'Sleep' : 'sleeps',
+  'Step'  : 'moves',
+  'Cycle' : 'Ride'
+};
+// maps providers to a method to parse their API responses
+var PARSE = {
+  jawbone : function(response, type) {
+    return response.data.items;
+  },
+  strava : function(response, type) {
+    var name = NAME[type];
+    return _.filter(response, function(datum){
+      return datum.type === name;
+    });
+  }
+};
+
+//coefficients
+var METERS_TO_MILES = 0.000621371;
+var SECONDS_TO_HOURS = 0.00027777777;
 
 //namespace
 var lib = {};
 
-lib.updateAllUserGoals = function(){
+// Update all goals for all users.
+// This function executes every N minutes, for some small-ish N
+lib.updateAllUsers = function(){
   User.find(function(err, users){
-    for (var i = 0; i < users.length; i++){
-      var user = users[i];
-      if (user.jawbone){
-        lib.updateUserGoals(user);
-      }
-    }
+    users.forEach(function(user){
+      lib.updateUser(user);
+    });
   });
 };
-// updates move and sleep goals for given user.
+
+// updates all goals for given user.
 // and passes user to an optional callback after saving to DB
-lib.updateUserGoals = function(user, cb){
-  lib.jawboneUpdate('sleeps', user)
+lib.updateUser = function(user, callback){
+  lib.updateGoalsOfType(GOALS[0], user)
   .then(function(user){
-    return lib.jawboneUpdate('moves', user);
+    return lib.updateGoalsOfType(GOALS[1], user);
+  })
+  .then(function(user){
+    return lib.updateGoalsOfType(GOALS[2], user);
   })
   .then(function(user){
     user.markModified('goals');
@@ -31,89 +65,99 @@ lib.updateUserGoals = function(user, cb){
     })
   .then(function(user){
     console.log('saved user');
-    if (cb) cb(null, user);
+    if (callback) callback(null, user);
   })
   .catch(function(error){
     console.error(error);
   })
 };
 
-var jawboneUpdate = function(type, user, cb){
+var updateGoalsOfType = function(type, user, done) {
   var goals = user.goals;
-  var relevantGoals = lib.filterGoalsByType(goals, type);
+  var relevantGoals = lib.filterGoalsByType(type, goals);
   if (relevantGoals.length === 0){
-    return cb(null, user); 
+    return done(null, user); 
   }
-  jawbone.get(type, user.jawbone.token, function(err, resp){
+  var provider = PROVIDER[type];
+  var name = NAME[type];
+  if(!user[provider]) {
+    done(null, user); // user hasn't associated 3rd-party profile
+  }
+  if (provider === 'jawbone') {
+    jawbone.get(name, user.jawbone.token, callback);
+  } else if (provider === 'strava') {
+    strava.get('activities', user.strava.token, callback);
+  } else {
+    console.error('provider not currently supported');
+  }
+  function callback(err, resp){
     if (resp) {
-      var data = resp.data.items;
+      var data = PARSE[provider](resp,type)
       var updateGoal = _.bind(lib.updateGoalUnbound, null, type, data);
       _.each(relevantGoals, updateGoal);
     }
-    cb(err, user);
+    done(err, user);
+  }
+};
+
+// export promisified version of jawbone / strava update
+lib.updateGoalsOfType = Promise.promisify(updateGoalsOfType);
+
+// entire goals array -> filtered goals array
+// valid types: 'Sleep', 'Step', 'Cycle'
+lib.filterGoalsByType = function(type, goals){
+  // return uncompleted goals of type clientType
+  return _.filter(goals, function(goal){
+    return (!goal.completed && goal.goalType.title === type);
   });
 };
 
-// export promisified version of jawbone update
-lib.jawboneUpdate = Promise.promisify(jawboneUpdate);
-
-// entire goals array -> filtered goals array
-// valid types: 'sleep', 'moves'
-lib.filterGoalsByType = function(goals, type){
-  var clientType;
-  if (type === 'sleeps'){
-    clientType = 'Sleep';
-  } else if (type === 'moves'){
-    clientType = 'Step';
-  } else{
-    console.error('invalid type');
-  }
-  // return uncompleted goals of type clientType
-  return _.filter(goals, function(goal){
-    return (!goal.completed && goal.goalType.title === clientType);
-  });
-}
-
 // entire data array -> filtered data array
-lib.filterJawboneDataByTime = function(data, startTime, endTime){
+lib.filterDataByTime = function(provider, data, startTime, endTime){
+  var pluckTime = function(datum) {
+    if (provider === 'jawbone'){
+      return datum.time_completed;
+    } else if (provider === 'strava'){
+      return Date.parse(datum.start_date) / 1000;
+    } else {
+      console.error('provider not supported');
+      return 0;
+    }
+  };
   return _.filter(data, function(datum){
-        //return data where time completed is between start and endtime
-         return datum.time_completed > startTime && datum.time_completed < endTime ;
+        var timeCompleted = pluckTime(datum);
+        return timeCompleted > startTime && timeCompleted < endTime ;
        });
-}
+};
 
 lib.calculateProgress = function(relevantData, type){
   return _.reduce(relevantData, function(memo, datum){
-      if (type === 'sleeps') {
-        return memo + datum.details.light + datum.details.sound;
-      } else if (type === 'moves'){
+      if (type === 'Sleep') {
+        return memo + ((datum.details.light + datum.details.sound) * SECONDS_TO_HOURS);
+      } else if (type === 'Step'){
         return memo + datum.details.steps;
+      } else if (type === 'Cycle'){
+        return memo + (datum.distance * METERS_TO_MILES);
       }
     },0);
-}
+};
 
 lib.isCompleted = function (endTime, currentTime){
-  //Maybe allow goal to end early if target is met, handled here
-  if (currentTime > endTime){
+  if (endTime < currentTime){
     return true;
-  } else {
-    return false;
   }
-}
+  return false;
+};
 
 //side effect: mutates goal object
 lib.updateGoalUnbound = function(type, data, goal){
   var currentTime = Date.now() / 1000;
   var startTime = goal.startTime;
   var endTime = goal.startTime + goal.period.seconds;
-  var relevantData = lib.filterJawboneDataByTime(data, startTime, endTime);
+  var relevantData = lib.filterDataByTime(PROVIDER[type], data, startTime, endTime);
 
-  goal.progress = lib.calculateProgress(relevantData, type);
+  goal.progress = Math.floor( lib.calculateProgress(relevantData, type) );
   goal.completed = lib.isCompleted(endTime, currentTime);
-}
+};
 
 module.exports = lib;
-
-
-
-
