@@ -50,7 +50,7 @@ angular.module('oath',
 
   .state('localSigup', {
     url: '/localsignup',
-    templateUrl: 'templates/localSignup.html'
+    templateUrl: 'templates/localsignup.html'
   })
 
   .state('goaltype', {
