@@ -7,6 +7,9 @@
   - __Product Owner__: Bradley Heinz, Jason Ly
   - __Scrum Master__: David Hammer, Thomas Treffry
 
+## Contributor
+  - Dennis C. Yang
+
 ## Table of Contents
 
 1. [Usage](#Usage)
