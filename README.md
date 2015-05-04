@@ -1,6 +1,16 @@
-# Project Name
+# Oath
 
-> Pithy project description
+  Great thinkers throughout the ages claim that to change the world you must first change yourself. Oath helps us do   both at once.
+  
+  First, using a quantified self device, set a personal goal, such as a step or sleep goal.
+  
+  Then, to help you hit your goal, up the ante by paying for a social benefit from our menu, such as having a tree     planted or a vaccine sponsored.
+  
+  Track your progress from the Oath dashboard. If you suceed in achieving your goal, your donation goes through.
+  
+  Oath makes explicit the notion that our personal change also changes the world. It helps us achieve the goals we     set out to accomplish.
+  
+  Improve yourself. Improve the world.
 
 ## Team
 
@@ -41,6 +51,8 @@ From within the root directory:
 
 ```sh
 sudo npm install -g bower
+npm install
+cd client/app
 npm install
 bower install
 ```
